@@ -81,12 +81,12 @@ export class ApplicationShell extends PolymerElement {
 
   _pageChanged(page) {
     // Load page import on demand. Show 404 page if fails
-    var resolvedPageUrl = this.resolveUrl(page + '.html');
-    Polymer.importHref(
-        resolvedPageUrl,
-        null,
-        this._showPage404.bind(this),
-        true);
+    //var resolvedPageUrl = this.resolveUrl(page + '.js');
+    //Polymer.importHref(
+    //    resolvedPageUrl,
+    //    null,
+    //    this._showPage404.bind(this),
+    //    true);
   }
 
   _showPage404() {
@@ -109,26 +109,31 @@ export class ApplicationShell extends PolymerElement {
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
         --app-drawer-width: 200px;
+        --app-drawer-content-container:{
+          background-color: #3c8c30;
+        }
         display: block;
       }
 
       h1 {
-        -webkit-flex: 1; /* Safari 6.1+ */
-        -ms-flex: 1; /* IE 10 */ 
-        flex:1;
+        //-webkit-flex: 1; /* Safari 6.1+ */
+        // -ms-flex: 1; /* IE 10 */ 
+        // flex:1;
         text-align: center;
       }
 
       app-drawer {
         color: black;
         overflow: auto;
-        .contentContainer :{
-          background-color: #e8e8e8;
-        }
       }
 
       app-drawer-layout:not([narrow]) [drawer-toggle] {
         display: none;
+      }
+
+      app-header {
+        background-color:#303030;
+        color:white;"
       }
     
     </style>
@@ -152,15 +157,18 @@ export class ApplicationShell extends PolymerElement {
       id="drawer"
       align="end"
       fullbleed>
+
       <!-- ROOFING MENU -->
       <div style=" background: white; /* #1ABC9C */ border-radius: 10px; margin: 5px; color: #0061ba; height: 80px;">
         <img src="../../images/Roofing Contract.jpg" height="60" width="200">
       </div>
+
       <iron-list items="[[boxes]]" as="item">
         <template>
             <menu-topic page="[[item.y]]" icon="">[[item.x]]</menu-topic>
         </template>
       </iron-list>
+
     </app-drawer>
 
     <!-- APP HEADER LAYOUT -->
@@ -169,7 +177,6 @@ export class ApplicationShell extends PolymerElement {
 
       <!-- APP HEADER -->
       <app-header
-        style="background-color:#393939; color:white;"
         slot="header"
         fixed>
 

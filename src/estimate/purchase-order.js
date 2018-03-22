@@ -1,7 +1,3 @@
-/**
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-**/
-
 import { Element as PolymerElement } from '../../node_modules/@polymer/polymer/polymer-element.js';
 
 export class PurchaseOrder extends PolymerElement {
@@ -17,7 +13,6 @@ export class PurchaseOrder extends PolymerElement {
 
   constructor() {
     super();
-    this.rootPattern = (new URL(this.rootPath)).pathname;
     //console.log('P.O. Constructor!');
   }
 

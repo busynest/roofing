@@ -1,7 +1,3 @@
-/**
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-**/
-
 import {Element as PolymerElement} from "../../node_modules/@polymer/polymer/polymer-element.js"
 
 export class ResultItem extends PolymerElement {
@@ -12,19 +8,23 @@ export class ResultItem extends PolymerElement {
     return {
 
       name: {
-      string: ''
+        string: ''
       },
 
       product: {
-      string: ''
+        string: ''
       },
 
       identity: {
-      string: ''
+        string: ''
       },
 
       unit: {
-      string: ''
+        string: ''
+      },
+
+      homework:{
+        string:''
       }
 
     };
@@ -53,20 +53,27 @@ export class ResultItem extends PolymerElement {
 
   static get template() {
     return `
-  
-      <style>
 
-      </style>
-
-      <div
-        id="{{name}}"
-        style="display: flex;">
-
-        <div>{{product}}</div>
-        <div><strong id="{{identity}}"></strong></div>
-        <div>{{unit}}<slot></slot></div>
-        <iron-icon hidden icon="icons:highlight-off" onclick="remove(this.parentNode)"></iron-icon>
-
+    <style>
+      .home {
+        text-align: right;
+      }
+      .work {
+        text-align: right;
+      }
+      .unit {
+        font-size: 14px;
+        text-align: left;
+      }
+      .product {
+        font-size: 14px;
+      }
+    </style>
+    
+      <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 1fr 2em 4em">
+        <div class="product">{{product}}</div>
+        <div class="work"><strong><slot>{{homework}}</slot></strong></div>
+        <div class="unit">{{unit}}</div>
       </div>
     `
       }
@@ -74,3 +81,5 @@ export class ResultItem extends PolymerElement {
     }
 
   customElements.define('result-item', ResultItem);
+  
+  //<iron-icon hidden icon="icons:highlight-off" onclick="remove(this.parentNode)"></iron-icon>

@@ -96,7 +96,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: Roboto, sans-serif;
         /*  font-weight: 800; */
         /*  text-shadow: 3px 2px black; */
-        background-color: white; /* #536d79 */
+        background-color: orange; /* #536d79 */
         margin: 0px;
       }
 
@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script type="module" src="../node_modules/@polymer/app-route/app-route.js" async></script>
     <script type="module" src="../node_modules/@polymer/app-route/app-location.js" async></script>
     <script type="module" src="../node_modules/@polymer/font-roboto/roboto.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.js" async></script>
+    <!--<script type="module" src="../node_modules/@polymer/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.js" async></script>-->
     <!-- PAPER ELEMENTS -->
     <script type="module" src="../node_modules/@polymer/paper-card/paper-card.js" async></script>
     <script type="module" src="../node_modules/@polymer/paper-progress/paper-progress.js" async></script>
@@ -168,27 +168,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script type="module" src="src/residential-roofing.js" async></script>
     <script type="module" src="src/primary-contract.js" async></script>
     <script type="module" src="src/send-feedback.js" async></script>
+    <!--
+    <script>
+    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+    makeError();
+    function makeError() {
+      const obj = {};
+      console.log(obj.foo.bar);
+      console.log(error.stack);
+      //PROMISE .catch(error => console.error(error));
+    }
+    </script>
+  -->
   </body>
 </html>
-
-<!--
-
-      <script type="module" src="src/proposal-contract.js" async></script>
-
-    <script type="module" src="src/sub-contract.js" async></script>
-    <script type="module" src="src/employment-contract.js" async></script>
-    <script type="module" src="src/warranty-contract.js" async></script>
-    <script type="module" src="src/piece-work.js" async></script>
-    <!-- ESTIMATE ELEMENTS 
-    <script type="module" src="src/estimate/purchase-order.js" async></script>
-    <!-- ROOFING ELEMENTS 
-    <script type="module" src="src/metal-roofing.js" async></script>
-    <script type="module" src="src/cedar-roofing.js" async></script>
-    <script type="module" src="src/slate-roofing.js" async></script>
-    <script type="module" src="src/clay-roofing.js" async></script>
-    <!-- SOCAIL 
-    <script type="module" src="src/roofing-community.js" async></script>
-    <script type="module" src="src/compose-mail.js" async></script>
-
-
-  -->
