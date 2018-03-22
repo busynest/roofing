@@ -1,16 +1,14 @@
 'use strict';
 
-const {resolve, join} = require('path');
+const path = require('path');
 const webpack = require('webpack');
-const pkg = require('./package.json');
 
 const config = {
 
   mode: 'production',
-
-  output: {
-    filename: 'roofers.js'
-  },
+  entry: './index.html',
+  resolve:{modules:[path.reolve(__dirname, '@node_modules') ] },
+  output: { path: path.resolve(__dirname, 'dist'), filename: 'roofers.js' },
 
   module: {
     rules: [
@@ -25,15 +23,22 @@ const config = {
         use: ['babel-loader']
       }
 
-    ]
+    ],
+
+    include: [ path.reolve(__dirname, './src/menu') ],
+
   },
 
 
 };
 
-module.exports = (env = {}) => merge(env.BROWSERS === 'module' ? moduleConf() : nomoduleConf(), shared(env));
+module.exports = config;
 
 /**
+ * 
+ * const pkg = require('./package.json');
+ * 
+ * env = {}) => merge(env.BROWSERS === 'module' ? moduleConf() : nomoduleConf(), shared(env)
   const outputPath = resolve('dist');
   const HtmlWebpackPlugin = require('html-webpack-plugin');
   const CleanWebpackPlugin = require('clean-webpack-plugin');
