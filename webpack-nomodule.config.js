@@ -1,6 +1,10 @@
 'use strict';
 
-const BROWSERS = ['> 1%', 'last 2 versions', 'Firefox ESR', 'not ie <= 11'];
+const {resolve} = require('path');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const outputPath = resolve('dist');
+const IS_DEV_SERVER = process.argv.find(arg => arg.includes('webpack-dev-server'));
 
 module.exports = () => {
   return {
@@ -16,7 +20,7 @@ module.exports = () => {
               presets: [[
                 'env',
                 {
-                  targets: {browsers: BROWSERS},
+                  targets: {browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'not ie <= 11'] },
                   debug: true
                 }
               ]],
@@ -25,6 +29,9 @@ module.exports = () => {
           }
         }
       ]
-    }
+    },
+    plugins: IS_DEV_SERVER ? [] : [
+      new CleanWebpackPlugin([outputPath], {verbose: true})
+    ]
   };
 };

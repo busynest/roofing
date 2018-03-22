@@ -50,11 +50,43 @@ const copyStatics = {
     context: resolve('./src'),
     to: OUTPUT_PATH
   }, {
-    from: resolve('./src/index.html'),
+    from: resolve('./index.html'),
     to: OUTPUT_PATH,
     flatten: true
   }, {
-    from: resolve('./src/manifest.json'),
+    from: resolve('./manifest.json'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/application-shell.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/roofing-styles.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/send-feedback.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/residential-roofing.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/menu/menu-topic.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/menu/result-item.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/roofing-menu.js'),
+    to: OUTPUT_PATH,
+    flatten: true
+  }, {
+    from: resolve('./src/estimate/roofing-administration.js'),
     to: OUTPUT_PATH,
     flatten: true
   }]
