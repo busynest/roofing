@@ -1,4 +1,4 @@
-import { Element as PolymerElement } from '../../node_modules/@polymer/polymer/polymer-element.js';
+import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
 
 export class RoofingAdministration extends PolymerElement {
 
@@ -13,18 +13,16 @@ export class RoofingAdministration extends PolymerElement {
 
   constructor() {
     super();
-    //console.log('Administration Constructor!');
   }
 
   connectedCallback() {
-    super.connectedCallback();
-    //console.log('Administration Connected!');
+      
   }
 
   ready() {
     //this.addEventListener('keypress', e => this.handlePress(e));
     super.ready();
-    console.log('Administration Ready!');
+    console.log('Administration is Ready!');
   }
 
   static get template() {

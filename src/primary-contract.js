@@ -11,25 +11,17 @@ export class PrimaryContract extends PolymerElement {
     };
   }
 
-  //static get observers() {
-  //    return [ 'thingCountChanged' ];
-  //}
-
   constructor() {
     super();
-    //console.log('Primary Constructor!');
   }
 
   connectedCallback() {
     super.connectedCallback();
-    //console.log('Primary Connected!');
   }
 
   ready() {
     super.ready();
-    //this.addEventListener('keypress', e => this.handlePress(e));
-    //var sq = new OneSquare();
-    console.log('Primary Contract Ready!');
+    console.log('Primary Contract is Ready!');
   }
 
   static get template() {

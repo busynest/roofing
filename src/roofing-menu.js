@@ -1,11 +1,5 @@
-/**
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
-<link rel="import" href="../../bower_components/paper-card/paper-card.html">
-<link rel="import" href="menu-topic.html">
-**/
 
-import {Element as PolymerElement} from "../../node_modules/@polymer/polymer/polymer-element.js"
+import {Element as PolymerElement} from "../node_modules/@polymer/polymer/polymer-element.js"
 
 export class RoofingMenu extends PolymerElement {
 

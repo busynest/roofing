@@ -28,6 +28,7 @@
     "@polymer/paper-toggle-button": "^3.0.0-pre.10",
     "@polymer/polymer": "^3.0.0-pre.10",
     "@webcomponents/webcomponentsjs": "^1.1.0",
+    "babel-loader": "^7.1.4",
     "yarn": "^1.5.1"
   },
   "resolutions": {

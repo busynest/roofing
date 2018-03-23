@@ -4,7 +4,7 @@
 <link rel="import" href="../../bower_components/paper-item/paper-item.html">
 **/
 
-import {Element as PolymerElement} from "../../node_modules/@polymer/polymer/polymer-element.js"
+import {Element as PolymerElement} from "../node_modules/@polymer/polymer/polymer-element.js"
 
 export class MenuTopic extends PolymerElement {
 

@@ -1,8 +1,6 @@
 
 import { Element as PolymerElement } from '/node_modules/@polymer/polymer/polymer-element.js';
-import '/node_modules/@polymer/polymer/lib/elements/dom-repeat.js';
 import '/node_modules/@polymer/polymer/lib/utils/gestures.js';
-import '/node_modules/@polymer/polymer/lib/utils/array-splice.js';
 
 export class ResidentialRoofing extends PolymerElement {
 
@@ -31,40 +29,23 @@ export class ResidentialRoofing extends PolymerElement {
         noftify: true
       },
 
-      /* AREA */
-
-      square: {
-        type: Number,
-        value: 21,
-        noftify: true
-      },
+      /* AREA INPUT */
 
       squarefeet: {
         type: Number,
         value: 10,
         noftify: true
       },
-/*
-      plywood: {
+
+      /* AREA OUTPUT */
+
+      square: {
         type: Number,
-        value: 32,
-        noftify: true
-      },
-*/
-      /* MAIN */
-/*
-      shingles3: {
-        type: Number,
-        value: 3,
-        noftify: true
+        value: 21,
+        noftify: true,
+        observer: '_asphaltRoof'
       },
 
-      shingles4: {
-        type: Number,
-        value: 4,
-        noftify: true
-      },
-*/
       layers: {
         type: Number,
         value: 2,
@@ -76,19 +57,7 @@ export class ResidentialRoofing extends PolymerElement {
         value: 10,
         noftify: true
       },
-/*
-      felt15: {
-        type: Number,
-        value: 400,
-        notify: true
-      },
-
-      felt30: {
-        type: Number,
-        value: 200,
-        notify: true
-      },
-*/
+      
       /* INPUT */
 
       starters: {
@@ -106,7 +75,8 @@ export class ResidentialRoofing extends PolymerElement {
       valley: {
         type: Number,
         value: 24,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       fascia: {
@@ -179,27 +149,32 @@ export class ResidentialRoofing extends PolymerElement {
 
       plywoodResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_roofType'
       },
 
       shingles3Result: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_asphaltRoof'
       },
 
       shingles4Result: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_asphaltRoof'
       },
 
       felt15Result: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_asphaltRoof'
       },
 
       felt30Result: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_asphaltRoof'
       },
 
       roofNailResult: {
@@ -216,49 +191,58 @@ export class ResidentialRoofing extends PolymerElement {
 
       skylightsResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       headFlashing: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       backFlashing: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       gableFlashing: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       stepFlashing: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       valleyResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_flashing'
       },
 
       /* MISC */
 
       bVentResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_stacks'
       },
 
       pStackResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_stacks'
       },
 
       gooseneckResult: {
         type: Number,
-        noftify: true
+        noftify: true,
+        observer: '_stacks'
       },
 
       ridgeVentResult: {
@@ -281,12 +265,10 @@ export class ResidentialRoofing extends PolymerElement {
 
   constructor() {
     super();
-    //console.log('Asphalt Constructor!');
   }
 
   connectedCallback() {
-    super.connectedCallback();
-    //console.log('Asphalt Connected!');
+    super.connectedCallback();Y
   }
 
   ready() {
@@ -295,9 +277,10 @@ export class ResidentialRoofing extends PolymerElement {
   }
 
   _areaChange(event) {
-    //this._reRoof(event);
+    this._flashing(event);
     this._roofType(event);
     this._asphaltRoof(event);
+    this._stacks(event);
   }
 
   _roofType(conversion, plywoodResult, squarefeet) {
@@ -314,7 +297,10 @@ export class ResidentialRoofing extends PolymerElement {
   }
 
   _ventType(ventilation, bVentResult, ) {
-    if    (this.ventilation == false);
+    if    (this.ventilation == false){
+      var x = window.document.querySelector('#f15');
+      x.parentElement.removeChild(x);
+    };
     if    (this.ventilation == true);
   }
 
@@ -326,6 +312,25 @@ export class ResidentialRoofing extends PolymerElement {
     this.felt15Result     = this.square / 400 * 100;
     this.felt30Result     = this.square / 200 * 100;
     this.roofNailResult   = this.square * 2.5;
+  }
+
+  _endo(starters, ridge, box) {
+
+  }
+
+  _flashing(valley, gable, head, back, step, chimney, skylights, valleyResult, gableFlashing, headFlashing, backFlashing, stepFlashing) {
+
+  }
+
+  _stacks(bVent, pStack, gooseneck, bVentResult, pStackResult, gooseneckResult) {
+    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+    this.bVentResult      = this.bVent ;
+    this.pStackResult     = this.pStack ;
+    this.gooseneckResult  = this.gooseneck ;
+  }
+
+  _details(layers, garbage, fascia) {
+
   }
 
   static get template() {
@@ -400,7 +405,7 @@ export class ResidentialRoofing extends PolymerElement {
 
         <result-item name="" product="Area:"              homework="{{square}}"             unit="Square" ></result-item>
         <result-item name="" product="Plywood:"           homework="{{plywoodResult}}"      unit="Sheets" ></result-item>
-        <result-item name="f15" product="15 Pound Felt:"  homework="{{felt15Result}}"       unit="Rolls" ></result-item>
+        <result-item id="f15" name="f15" product="15 Pound Felt:"  homework="{{felt15Result}}"       unit="Rolls" ></result-item>
         <result-item name="f30" product="30 Pound Felt:"  homework="{{felt30Result}}"       unit="Rolls" ></result-item>
         <result-item name="" product="Shingles 3\'s:"     homework="{{shingles3Result}}"    unit="Bundles" ></result-item>
         <result-item name="" product="Shingles 4\'s:"     homework="{{shingles4Result}}"    unit="Bundles" ></result-item>
@@ -428,6 +433,8 @@ export class ResidentialRoofing extends PolymerElement {
         <h3>Calculate Building Area</h3>
         <div style="display: grid; grid-gap: 20px; grid-template-columns: 1fr 1fr;">
 
+
+
         <!-- CONVERSION -->
         <div>Cedar to Asphalt Conversion</div>
         <paper-toggle-button checked="{{conversion}}" on-click="_roofType"></paper-toggle-button>
@@ -444,73 +451,79 @@ export class ResidentialRoofing extends PolymerElement {
 
         <!-- TOTAL AREA -->
         <div>Area Squared:</div>
-        <paper-slider id="roofArea" value="{{squarefeet}}" max="40" editable on-change="_areaChange"></paper-slider>
+        <paper-slider id="roofArea" value="{{squarefeet}}" max="40" on-change="_areaChange" editable></paper-slider>
 
 
 
         <!-- STARTERS -->
         <div>Starter Rows:</div>
-        <paper-slider id="ss" value="{{starters}}" max="100" editable></paper-slider>
+        <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
 
         <!-- CAPPING -->
         <div>Capping:</div>
-        <paper-slider id="ridge" value="{{ridge}}" max="100" editable></paper-slider>
-
-        <!-- VALLEY -->
-        <div>Valley:</div>
-        <paper-slider id="valley" value="{{valley}}" max="100" editable></paper-slider>
-
-        <!-- FASCIA -->
-        <div>Fascia:</div>
-        <paper-slider id="fascia" value="{{fascia}}" max="100" editable></paper-slider>
-
-        <!-- DECK -->
-        <div>Deck Flashing:</div>
-        <paper-slider id="gableFlash" value="{{gable}}" max="150" editable></paper-slider>
-
-        <!-- HEAD FLASHING -->
-        <div>Head Flashing:</div>
-        <paper-slider id="headFlash" value="{{head}}" max="100" editable></paper-slider>
-
-        <!-- BACK FLASHING -->
-        <div>Back Flashing:</div>
-        <paper-slider id="backFlash" value="{{back}}" max="100" editable></paper-slider>
-
-        <!-- STEP FLASHING -->
-        <div>Step Flashing:</div>
-        <paper-slider id="stepFlash" value="{{step}}" max="100" editable></paper-slider>
-
-        <!-- B VENT -->
-        <div>B-Vent:</div>
-        <paper-slider id="bv" value="{{bVent}}" max="100" editable></paper-slider>
-
-        <!--  STACK-->
-        <div>Plumbing Stack:</div>
-        <paper-slider id="ps" value="{{pStack}}" max="100" editable></paper-slider>
-
-        <!-- GOOSENECK -->
-        <div>Gooseneck:</div>
-        <paper-slider id="gn" value="{{gooseneck}}" max="100" editable></paper-slider>
-
-        <!-- CHIMNEY -->
-        <div>Chimney:</div>
-        <paper-slider id="chimney" value="{{chimney}}" max="10" editable></paper-slider>
-
-        <!-- SKYLIGHT -->
-        <div>Skylights:</div>
-        <paper-slider id="skylight" value="{{skylights}}" max="20" editable></paper-slider>
+        <paper-slider id="ridge" value="{{ridge}}" max="100" on-change="_areaChange" editable></paper-slider>
 
         <!-- BOX VENTS -->
         <div>Box Ventilation:</div>
-        <paper-slider id="bxv" value="{{box}}" max="100" editable></paper-slider>
+        <paper-slider id="bxv" value="{{box}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+
+
+        <!-- VALLEY -->
+        <div>Valley:</div>
+        <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!-- DECK -->
+        <div>Deck Flashing:</div>
+        <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
+
+        <!-- HEAD FLASHING -->
+        <div>Head Flashing:</div>
+        <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!-- BACK FLASHING -->
+        <div>Back Flashing:</div>
+        <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!-- STEP FLASHING -->
+        <div>Step Flashing:</div>
+        <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!-- CHIMNEY -->
+        <div>Chimney:</div>
+        <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
+
+        <!-- SKYLIGHT -->
+        <div>Skylights:</div>
+        <paper-slider id="skylight" value="{{skylights}}" max="20" on-change="_areaChange" editable></paper-slider>
+
+
+
+        <!-- B VENT -->
+        <div>B-Vent:</div>
+        <paper-slider id="bv" value="{{bVent}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!--  STACK-->
+        <div>Plumbing Stack:</div>
+        <paper-slider id="ps" value="{{pStack}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+        <!-- GOOSENECK -->
+        <div>Gooseneck:</div>
+        <paper-slider id="gn" value="{{gooseneck}}" max="100" on-change="_areaChange" editable></paper-slider>
+
+
 
         <!-- LAYERS -->
         <div>Remove Existing Layers of Shingles</div>
-        <paper-slider value="{{layers}}" max="5" editable></paper-slider>
+        <paper-slider value="{{layers}}" max="5" on-change="_areaChange" editable></paper-slider>
 
         <!-- GARBAGE -->
         <div>Add Waste</div>
-        <paper-slider value="{{garbage}}" max="20" editable></paper-slider>
+        <paper-slider value="{{garbage}}" max="20" on-change="_areaChange" editable></paper-slider>
+
+        <!-- FASCIA -->
+        <div>Fascia:</div>
+        <paper-slider id="fascia" value="{{fascia}}" max="100" on-change="_areaChange" editable></paper-slider>
 
         </div>
       </div>

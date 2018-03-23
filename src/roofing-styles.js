@@ -5,33 +5,6 @@ export class RoofingStyles extends PolymerElement {
 
   static get is() { return 'roofing-styles'; }
 
-  static get properties() {
-    return {
-     
-    };
-  }
-
-  //static get observers() {
-  //    return [ 'thingCountChanged' ];
-  //}
-
-  constructor() {
-    super();
-    //console.log('Style Constructor!');
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    //console.log('Style Connected!');
-  }
-
-  ready() {
-    super.ready();
-    //this.addEventListener('keypress', e => this.handlePress(e));
-    //var sq = new OneSquare();
-    console.log('Style Ready!');
-  }
-
   static get template() {
     return `
 
