@@ -1,5 +1,5 @@
 
-import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 export class SendFeedback extends PolymerElement {
 
@@ -33,7 +33,7 @@ export class SendFeedback extends PolymerElement {
   }
 
   static get template() {
-    return `
+    return html`
 
     <style>
     </style>

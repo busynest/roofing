@@ -1,5 +1,35 @@
 
-import { Element as PolymerElement } from "../node_modules/@polymer/polymer/polymer-element.js";
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+
+import '@polymer/app-layout/app-header-layout/app-header-layout.js';
+import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
+import '@polymer/app-layout/app-header/app-header.js';
+import '@polymer/app-layout/app-drawer/app-drawer.js';
+import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import '@polymer/app-route/app-route.js';
+import '@polymer/app-route/app-location.js';
+import '@polymer/font-roboto/roboto.js';
+import '@polymer/paper-card/paper-card.js';
+import '@polymer/paper-progress/paper-progress.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/paper-toggle-button/paper-toggle-button.js';
+import '@polymer/paper-item/paper-item.js';
+import '@polymer/paper-slider/paper-slider.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
+import '@polymer/paper-button/paper-button.js';
+import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/iron-list/iron-list.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/iron-collapse/iron-collapse.js';
+import './menu-topic.js';
+import './result-item.js';
+import './roofing-administration.js';
+import './residential-roofing.js';
+import './primary-contract.js';
+import './send-feedback.js';
+import './404.js';
 
 export class ApplicationShell extends PolymerElement {
 
@@ -27,17 +57,22 @@ export class ApplicationShell extends PolymerElement {
         reflectToAttribute: true,
         observer: '_pageChanged',
       },
-        rootPattern: String,
-        routeData: Object,
-        subroute: String,
-        boxes: {
-          type: Array,
-          value: [
-            {x:"Roofing", y:"send-feedback"},
-            {x:"Purchase Order", y:"residential-roofing"},
-            {x:"Residential Contract", y:"primary-contract"}
-          ]
-        }
+
+      rootPattern: String,
+
+      routeData: Object,
+
+      subroute: String,
+
+      boxes: {
+        type: Array,
+        value: [
+          {x:"Roofing", y:"send-feedback"},
+          {x:"Purchase Order", y:"residential-roofing"},
+          {x:"Residential Contract", y:"primary-contract"}
+        ]
+      }
+
     };
       
   }
@@ -51,12 +86,10 @@ export class ApplicationShell extends PolymerElement {
   constructor() {
     super();
     this.rootPattern = (new URL(this.rootPath)).pathname;
-    //console.log('Shell Constructor!');
   }
 
   connectedCallback() {
     super.connectedCallback();
-    //console.log('Shell Connected!');
   }
 
   ready() {
@@ -66,14 +99,7 @@ export class ApplicationShell extends PolymerElement {
   }
 
   _routePageChanged(page) {
-    // Polymer 2.0 will call with `undefined` on initialization.
-    // Ignore until we are properly called with a string.
-    if (page === undefined) {
-      return;
-    }
-    // If no page was found in the route data, page will be an empty string.
     this.page = page || 'residential-roofing';
-    // Close a non-persistent drawer when the page & route are changed.
     if (!this.$.drawer.persistent) {
       this.$.drawer.close();
     }
@@ -102,15 +128,16 @@ export class ApplicationShell extends PolymerElement {
   }
 
   static get template() {
-    return `
+    return html`
 
     <style>
     :host {
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
         --app-drawer-width: 200px;
+        --paper-progress-container-color: #80001a;
         --app-drawer-content-container:{
-          background-color: #3c8c30;
+          background-color: #303030 ; /* #3c8c30 */
         }
         display: block;
       }
@@ -120,6 +147,11 @@ export class ApplicationShell extends PolymerElement {
         // -ms-flex: 1; /* IE 10 */ 
         // flex:1;
         text-align: center;
+      }
+
+      app-toolbar {
+        margin: 5px;
+        height: 48px;
       }
 
       app-drawer {
@@ -132,8 +164,24 @@ export class ApplicationShell extends PolymerElement {
       }
 
       app-header {
-        background-color:#303030;
-        color:white;"
+        background-color: #303030;
+        color: white;"
+      }
+
+      paper-progress {
+        width: 100%;
+      }
+
+      iron-pages {
+        width: 100%; height: 100%;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      main {
+        margin: 5px;
       }
     
     </style>
@@ -181,36 +229,21 @@ export class ApplicationShell extends PolymerElement {
         fixed>
 
         <!-- APP-TOOLBAR #1 -->
-        <app-toolbar
-          style="/* #1ABC9C */ margin: 5px; height: 48px;">
+        <app-toolbar>
 
           <!-- PAPER-PROGRESS -->
           <paper-progress 
-            style="--paper-progress-container-color:#80001a; /* #1ABC9C */ width: 100%;"
             bottom-item></paper-progress> 
 
           <!-- BUSINESS LOGO -->
           <div>
             <h1
-              class="appTitle information"
-              style="font-size: 22px"
+              class="appTitle"
               main-title>Roofing Contract</h1>
           </div>
 
           <!-- SPAN DIVIDER -->
           <span class="flex" style="flex:1;"></span>
-
-          <!-- BOOKMARK -->
-          <paper-icon-button 
-            icon="star"
-            onclick="bookmarker()">Bookmark</paper-icon-button >
-
-          <!-- PRINT -->
-          <paper-icon-button 
-            class="colored"
-            role="button"
-            onclick="window.print()"
-            icon="print"></paper-icon-button>
 
           <!-- SEARCH -->
           <paper-icon-button 
@@ -221,6 +254,13 @@ export class ApplicationShell extends PolymerElement {
             aria-expanded$="[[opened]]"
             aria-controls="collapse">[[_getText(opened)]]
           </paper-icon-button>
+
+          <!-- PRINT -->
+          <paper-icon-button 
+            class="colored"
+            role="button"
+            onclick="window.print()"
+            icon="print"></paper-icon-button>
 
           <!-- DRAWER TOGGLE -->
           <paper-icon-button
@@ -234,8 +274,7 @@ export class ApplicationShell extends PolymerElement {
       </app-header>
 
       <!-- BODY -->
-      <main
-        style="margin: 5px;">
+      <main>
 
         <!-- SEARCH CARD -->
         <iron-collapse
@@ -255,8 +294,7 @@ export class ApplicationShell extends PolymerElement {
           role="main"
           selected="[[page]]"
           attr-for-selected="name"
-          fallback-selection="page-404"
-          style="width: 100%; height: 100%;">
+          fallback-selection="page-404">
 
           <!-- BUSINESS INTRODUCTION -->
           <send-feedback
@@ -270,14 +308,6 @@ export class ApplicationShell extends PolymerElement {
           <primary-contract
             name="primary-contract"></primary-contract>
 
-          <!-- SIGN UP -->
-          <sign-up
-            name="sign-up"></sign-up>
-
-          <!-- LOG IN -->
-          <log-in
-            name="log-in"></log-in>
-
         </iron-pages>
       </main>
     </app-drawer-layout>
@@ -289,108 +319,8 @@ export class ApplicationShell extends PolymerElement {
 
 customElements.define('application-shell', ApplicationShell);
 
-
-
-            /**
-            {x:"Subcontract", y:"sub-contract"},
-            {x:"Employment", y:"employment-contract"},
-            {x:"Warranty", y:"warranty-contract"},
-            {x:"Piece Work", y:"piece-work"},
-            {x:"Proposal", y:"proposal-contract"},
-            {x:"Change Order", y:"change-order"},
-            {x:"Safety Plan", y:"safety-plan"},
-            {x:"Asphalt", y:"asphalt-roofing"},
-            {x:"Cedar", y:"cedar-roofing"},
-            {x:"Metal", y:"metal-roofing"},
-            {x:"Clay", y:"clay-roofing"},
-            {x:"Slate", y:"slate-roofing"}
-            **/
-
-
-
 /**
 
 <iron-selector class="magicTabsOne" role="navigation" selected="[[page]]" attr-for-selected="name"></iron-selector>
 
-<!--
-    <a href="https://stackexchange.com/users/9755651/jack-markiewicz"><img src="https://stackexchange.com/users/flair/9755651.png" width="208" height="58" alt="profile for Jack Markiewicz on Stack Exchange, a network of free, community-driven Q&amp;A sites" title="profile for Jack Markiewicz on Stack Exchange, a network of free, community-driven Q&amp;A sites"/></a>
--->
-
-        <!-- TOPICS & FEATURES -->
-        <paper-item><h1>Members</h1></paper-item>
-        <!-- LOG-IN -->
-        <menu-topic page="roofing-community" icon="face">Log-in</menu-topic>
-        <!-- SIGN-UP -->
-        <menu-topic page="roofing-community" icon="face">Sign-up</menu-topic>
-        <!-- MAIL 
-        <menu-topic page="compose-mail" icon="mail">Compose Mail</menu-topic>-->
-        <!-- FEEDBACK -->
-        <menu-topic page="send-feedback" icon="info">About</menu-topic>
-        
-        <!-- TITLE: CONTRACT -->
-        <paper-item disabled><h1>Contract</h1></paper-item>
-        <!-- PRIMARY -->
-        <menu-topic page="primary-contract" icon="assignment">Primary</menu-topic>
-        <!-- SUBCONTRACT -->
-        <menu-topic page="sub-contract" icon="assignment">Subcontract</menu-topic>
-        <!-- EMPLOYMENT -->
-        <menu-topic page="employment-contract" icon="assignment">Employment</menu-topic>
-        <!-- WARRANTY -->
-        <menu-topic page="warranty-contract" icon="assignment">Warranty</menu-topic>
-        <!-- PIECE WORK -->
-        <menu-topic page="piece-work" icon="assignment">Piece Work</menu-topic>
-        <!-- PROPOSAL -->
-        <menu-topic page="proposal-contract" icon="assignment">Proposal</menu-topic>
-        <!-- Change Order -->
-        <menu-topic page="" icon="">Change Order</menu-topic>
-        <!-- Safety Plan -->
-        <menu-topic page="" icon="">Safety Plan</menu-topic>
-
-        <!-- TITLE: ESTIMATE -->
-        <paper-item disabled><h1>Estimate</h1></paper-item>
-        <!-- ASPHALT -->
-        <menu-topic page="asphalt-roofing" icon="assignment">Asphalt</menu-topic>
-        <!-- CEDAR -->
-        <menu-topic page="cedar-roofing" icon="assignment">Cedar</menu-topic>
-        <!-- METAL -->
-        <menu-topic page="metal-roofing" icon="assignment">Metal</menu-topic>
-        <!-- CLAY -->
-        <menu-topic page="clay-roofing" icon="assignment">Clay</menu-topic>
-        <!-- SLATE -->
-        <menu-topic page="slate-roofing" icon="assignment">Slate</menu-topic>
-
-
-                  <!-- PIECE WORK -->
-          <piece-work
-            name="piece-work"></piece-work>
-
-          <!-- CEDAR -->
-          <cedar-roofing
-            name="cedar-roofing"></cedar-roofing>
-
-          <!-- METAL -->
-          <metal-roofing
-            name="metal-roofing"></metal-roofing>
-
-          <!-- CLAY -->
-          <clay-roofing
-            name="clay-roofing"></clay-roofing>
-
-          <!-- SLATE -->
-          <slate-roofing
-            name="slate-roofing"></slate-roofing>
-
-          <!-- COMMUNITY -->
-          <roofing-community
-            name="roofing-community"></roofing-community>
-
-          <!-- PROPOSAL -->
-          <proposal-contract
-            name="proposal-contract"></proposal-contract>
-
-          <!-- SUBCONTRACT -->
-          <sub-contract
-            name="sub-contract"></sub-contract>
-
-
-**/
+*/

@@ -1,0 +1,42 @@
+{
+    "entrypoint": "index.html",
+    "shell": "src/application-shell.js",
+    "npm": true,
+    "moduleResolution": "node",
+    "fragments": [
+      "src/404.js",
+      "src/roofing/asphalt-roofing.js",
+      "src/employment-contract.js",
+      "src/primary-contract.js",
+      "src/roofing-styles.js",
+      "src/send-feedback.js",
+      "src/warranty-contract.js",
+      "src/purchase-order.js",
+      "src/roofing-administration.js",
+      "src/menu-topic.js",
+      "src/result-item.js"
+    ],
+  
+    "sources": [
+      "src/**",
+      "images/**"
+    ],
+  
+    "extraDependencies": [
+      "manifest.json",
+      "bower_components/webcomponentsjs/*.js"
+    ],
+  
+    "lint": {
+      "rules": ["polymer-2"]
+    },
+  
+    "builds": [{
+      "bundle": true,
+      "js": {"compile": true, "minify": true},
+      "css": {"minify": true},
+      "html": {"minify": true},
+      "addServiceWorker": true
+    }]
+  }
+  

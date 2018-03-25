@@ -68,13 +68,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4285f4">
     <meta name="msapplication-tap-highlight" content="no">
-    <!--TWITTER -->
+    <!--TWITTER 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@veggieburgerguy">
     <meta name="twitter:creator" content="@veggieburgerguy">
     <meta name="twitter:title" content="Roofing Contract">
     <meta name="twitter:description" content="Free Roofing Contract, Primary, Subcontract, Employment Contract, Warranty, Proposal, or also calculate an estimate.">
     <meta name="twitter:image" content="https://pixabay.com/p-158268/?no_redirect">
+    -->
 
     <!-- LOAD FIREBASE 
     <script type="module" src="../node_modules/@polymer/polymerfire/polymerfire.js"></script>
@@ -96,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: Roboto, sans-serif;
         /*  font-weight: 800; */
         /*  text-shadow: 3px 2px black; */
-        background-color: orange; /* #536d79 */
+        background-color: #303030; /* #536d79 */
         margin: 0px;
       }
 
@@ -129,45 +130,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <gcse:search></gcse:search>
     </application-shell>
     <!-- Webcomponents-loader / check and load any polyfills your browser needs -->
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" async></script>
-    <script type="module" src="../node_modules/@polymer/polymer/polymer.js" async></script>
-    <!-- POLYMER LIBRARY -->
-    <script type="module" src="../node_modules/@polymer/app-layout/app-header-layout/app-header-layout.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-drawer-layout/app-drawer-layout.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-header/app-header.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-drawer/app-drawer.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-toolbar/app-toolbar.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-route/app-route.js" async></script>
-    <script type="module" src="../node_modules/@polymer/app-route/app-location.js" async></script>
-    <script type="module" src="../node_modules/@polymer/font-roboto/roboto.js" async></script>
-    <!--<script type="module" src="../node_modules/@polymer/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.js" async></script>-->
-    <!-- PAPER ELEMENTS -->
-    <script type="module" src="../node_modules/@polymer/paper-card/paper-card.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-progress/paper-progress.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-icon-button/paper-icon-button.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-toggle-button/paper-toggle-button.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-item/paper-item.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-slider/paper-slider.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-checkbox/paper-checkbox.js" async></script>
-    <script type="module" src="../node_modules/@polymer/paper-button/paper-button.js" async></script>
-    <!-- IRON ELEMENTS -->
-    <script type="module" src="../node_modules/@polymer/iron-selector/iron-selector.js" async></script>
-    <script type="module" src="../node_modules/@polymer/iron-pages/iron-pages.js" async></script>
-    <script type="module" src="../node_modules/@polymer/iron-list/iron-list.js" async></script>
-    <script type="module" src="../node_modules/@polymer/iron-flex-layout/iron-flex-layout.js" async></script>
-    <script type="module" src="../node_modules/@polymer/iron-icons/iron-icons.js" async></script>
-    <script type="module" src="../node_modules/@polymer/iron-collapse/iron-collapse.js" async></script>
-    <!-- CONTRACT ELEMENTS -->
-    <script type="module" src="src/application-shell.js" async></script>
-    <script type="module" src="src/roofing-menu.js" async></script>
-    <script type="module" src="src/menu-topic.js" async></script>
-    <script type="module" src="src/result-item.js" async></script>
-    <script type="module" src="src/roofing-administration.js" async></script>
-    <script type="module" src="src/residential-roofing.js" async></script>
-    <script type="module" src="src/primary-contract.js" async></script>
-    <script type="module" src="src/send-feedback.js" async></script>
-    <script type="module" src="src/404.js" async></script>
-    
+    <script src='../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js' async></script>
+    <script type="module" src='../src/application-shell.js';></script>
     <!--
     <script>
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }

@@ -1,4 +1,4 @@
-import { Element as PolymerElement } from '../node_modules/@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 export class RoofingAdministration extends PolymerElement {
 
@@ -26,7 +26,7 @@ export class RoofingAdministration extends PolymerElement {
   }
 
   static get template() {
-    return `
+    return html`
     
         <style>
 

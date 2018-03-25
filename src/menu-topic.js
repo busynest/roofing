@@ -1,10 +1,5 @@
-/**
-<link rel="import" href="../../bower_components/polymer/polymer-element.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/paper-item/paper-item.html">
-**/
 
-import {Element as PolymerElement} from "../node_modules/@polymer/polymer/polymer-element.js"
+import { PolymerElement, html } from "@polymer/polymer/polymer-element.js"
 
 export class MenuTopic extends PolymerElement {
 
@@ -48,7 +43,7 @@ export class MenuTopic extends PolymerElement {
   }
 
   static get template() {
-    return `
+    return html`
 
     <style>
       :host {
@@ -57,12 +52,15 @@ export class MenuTopic extends PolymerElement {
 
       paper-item {
         cursor: pointer;
-        background-color: transparent;
+        background-color: #e8e8e8;
+        border: 1px solid grey;
+        border-radius: 5px;
+        margin: 5px;
       }
 
       h2 {
         font-size: 1em;
-        color: grey;
+        color: #303030;
       }
 
       iron-icon {
