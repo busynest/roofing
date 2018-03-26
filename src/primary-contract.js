@@ -20,7 +20,7 @@ export class PrimaryContract extends PolymerElement {
     super.connectedCallback();
     updateMetadata({
       title: 'Primary Contract',
-      description: 'This is my sample app',
+      description: 'Primary Roofing Contract for Residential Contractors and Customers.',
       url: document.location.href
     });
   }

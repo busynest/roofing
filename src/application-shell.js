@@ -1,3 +1,7 @@
+/**
+Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+*/
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 

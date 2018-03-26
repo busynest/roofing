@@ -278,8 +278,8 @@ export class PurchaseOrder extends PolymerElement {
   connectedCallback() {
     super.connectedCallback();
     updateMetadata({
-      title: 'Residential Contract',
-      description: 'This is my sample app',
+      title: 'Purchase Order',
+      description: 'A Purchase Order for Residential Roofing Contractors to help with supplies management.',
       url: document.location.href
     });
   }

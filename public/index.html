@@ -1,6 +1,5 @@
 <!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -13,7 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="UTF-8">
     <!-- VIEWPORT -->
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <!-- ANALYTICS -->
+    <!-- ANALYTICS
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -30,17 +29,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         enable_page_level_ads: true
       });
     </script>
-      <!-- LOAD & REGISTER PRE-CACHING SERVICE WORKER -->
-    <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js');
-      });
-    }
-    </script>
-
+  -->
     <!-- THEME COLOR -->
-    <meta name="theme-color" content="#4285f4">
+    <meta name="theme-color" content="#303030">
     <!-- TITILE -->
     <title>Roofing Contract</title>
     <!-- MANIFEST -->
@@ -50,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <!-- AUTHOR -->
     <meta name="author" content="Jack Markiewicz">
     <!-- TIME -->
-    <meta http-equiv="If-Modified-Since" content="Wed, 02 Aug 2017 14:30:59 GMT" />
+    <meta http-equiv="If-Modified-Since" content="Sun, 25 Mar 2018 14:30:59 GMT" />
     <!-- DESCRIPTION -->
     <meta name="description" content="Free Roofing Contract, Primary, Subcontract, Employment Contract, Warranty, Proposal, or calculate an estimate.">
     <!-- KEYWORDS -->
@@ -66,30 +57,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="apple-mobile-web-app-title" content="Roofing Contract">
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#4285f4">
+    <meta name="msapplication-TileColor" content="#303030">
     <meta name="msapplication-tap-highlight" content="no">
     <!--TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@veggieburgerguy">
-    <meta name="twitter:creator" content="@veggieburgerguy">
     <meta name="twitter:title" content="Roofing Contract">
     <meta name="twitter:description" content="Free Roofing Contract, Primary, Subcontract, Employment Contract, Warranty, Proposal, or also calculate an estimate.">
-    <meta name="twitter:image" content="https://pixabay.com/p-158268/?no_redirect">
+    <!-- Webcomponents-loader / check and load any polyfills your browser needs -->
+    <script src='./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js' async></script>
 
-    <!-- LOAD FIREBASE 
-    <script type="module" src="../node_modules/@polymer/polymerfire/polymerfire.js"></script>
-    <script defer src="../bower_components/firebase/firebase-app.js"></script>
-    <script defer src="../bower_components/firebase/firebase-auth.js"></script>
-    <script defer src="../bower_components/firebase/firebase-database.js"></script>
-    <script defer src="../bower_components/firebase/firebase-messaging.js"></script>
-    <script defer src="../bower_components/firebase/firebase-storage.js"></script>
-    -->
     <style>
-      /**
-      html {
-        font-size: calc(100% + 4 * (100vw - 600px) / 400);
-      }
-      **/
 
       body {
         color: black;
@@ -101,7 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       @media print { body { background-color: white; } }
-      
+
       .Loader {
         display: flex;
         justify-content: center;
@@ -114,7 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <!-- BODY -->
   <bod unresolved>
     <!-- APPLICATION SHELL -->
-    <div class="Loader">Loading...</div>
+    <div class="Loader"></div>
     <application-shell fullbleed>
       <span slot="search">
         <!-- Custom Search Engine -->
@@ -144,8 +121,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            </script>
         </span>
     </application-shell>
-    <!-- Webcomponents-loader / check and load any polyfills your browser needs -->
-    <script src='./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js' async></script>
     <script type="module" src='./src/application-shell.js';></script>
   </body>
 </html>
