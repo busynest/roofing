@@ -7,38 +7,22 @@ export class MenuTopic extends PolymerElement {
 
   static get properties() {
     return {
-            page: {
-              string: ''
-            },
-
-            icon: {
-              string: ''
-            },
-
-            click: {
-              string: ''
-            }
+      page: {
+        string: ''
+      }
     };
   }
 
-  //static get observers() {
-  //    return [ 'thingCountChanged' ];
-  //}
-
   constructor() {
     super();
-    //console.log('Menu-Topic Constructor!');
   }
 
   connectedCallback() {
     super.connectedCallback();
-    //console.log('Menu-Topic Connected!');
   }
 
   ready() {
     super.ready();
-    //this.addEventListener('keypress', e => this.handlePress(e));
-    //var sq = new OneSquare();
     console.log('Menu-Topic Ready!');
   }
 
@@ -50,6 +34,10 @@ export class MenuTopic extends PolymerElement {
         display: block;
       }
 
+      a {
+        text-decoration: none;
+      }
+
       paper-item {
         cursor: pointer;
         background-color: #e8e8e8;
@@ -59,7 +47,7 @@ export class MenuTopic extends PolymerElement {
       }
 
       h2 {
-        font-size: 1em;
+        font-size: 15px;
         color: #303030;
       }
 
@@ -111,11 +99,6 @@ export class MenuTopic extends PolymerElement {
       <!-- ITEM -->
       <paper-item>
 
-        <!-- ICON 
-        <iron-icon
-          id="actionIcon"
-          icon="icons:chevron-left"></iron-icon>
-        -->
 
         <!-- DIVIDER -->
         <span
@@ -130,12 +113,6 @@ export class MenuTopic extends PolymerElement {
           class="flex"
           style="flex:1;"></span>
 
-        <!-- ICON 
-        <iron-icon
-          id="ideaIcon"
-          icon="icons:{{icon}}"
-          onclick={{click}}"></iron-icon>
-        -->
       </paper-item>
       
     </a>

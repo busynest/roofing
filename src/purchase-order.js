@@ -1,10 +1,13 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/polymer/lib/utils/gestures.js';
+import { updateMetadata } from './metadata.js';
 
-export class ResidentialRoofing extends PolymerElement {
 
-  static get is() { return 'residential-roofing'; }
+
+export class PurchaseOrder extends PolymerElement {
+
+  static get is() { return 'purchase-order'; }
 
   static get properties() {
     return {
@@ -71,12 +74,6 @@ export class ResidentialRoofing extends PolymerElement {
         value: 24,
         noftify: true,
         observer: '_asphaltRoof'
-      },
-
-      fascia: {
-        type: Number,
-        value: 40,
-        noftify: true
       },
 
       gable: {
@@ -185,12 +182,6 @@ export class ResidentialRoofing extends PolymerElement {
 
       /* FLASHING */
 
-      skylightsResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
       headFlashing: {
         type: Number,
         noftify: true,
@@ -285,7 +276,12 @@ export class ResidentialRoofing extends PolymerElement {
   }
 
   connectedCallback() {
-    super.connectedCallback();Y
+    super.connectedCallback();
+    updateMetadata({
+      title: 'Residential Contract',
+      description: 'This is my sample app',
+      url: document.location.href
+    });
   }
 
   ready() {
@@ -318,8 +314,13 @@ export class ResidentialRoofing extends PolymerElement {
     ridge, cappingResult,
     box, boxVentResult,
     asphaltSealant, asphaltSealantResult,
-    fascia,
-    valley, gable, head, back, step, chimney, skylights, valleyResult, gableFlashing, headFlashing, backFlashing, stepFlashing)
+    valley, valleyResult,
+    gable, gableFlashing,
+    head, headFlashing,
+    back, backFlashing,
+    step, stepFlashing,
+    chimney, skylights
+       )
     {
       window.onerror = function(message, file, line, col, error){ console.log(arguments); }
       this.square           = this.squarefeet;
@@ -366,6 +367,7 @@ export class ResidentialRoofing extends PolymerElement {
         --paper-toggle-button-checked-button-color: #1abc9c;
         --paper-toggle-button-checked-bar-color: #1abc9c;
       }
+      @media print { .information { display: none; } }
       a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
       h1 { font-size: 22px; }
       .grid { border: 1px grey solid; border-radius: 5px; padding: 5px;}
@@ -375,64 +377,49 @@ export class ResidentialRoofing extends PolymerElement {
       .detailBox { margin-bottom: 18px; }
       .x { text-align: right ; }
       .calculator { max-width: 600px; margin: auto; }
+      .service { border: 50px; [elevation 5] }
       table { width: 100%; padding: 0px; }
       paper-item { cursor: pointer; }
-      paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px;  width: 100%; }
-      paper-button { margin: 0.5em 1em 0.5em 0; background: #1abc9c; color: black; text-shadow:none ; width: 100%; }
+      paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
+      paper-button { margin: 0.5em 1em 0.5em 0; background: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
       paper-button:focus { background: #e8e8e8; }
       paper-slider { width: 100% }
-      paper-toggle-button { margin: auto;}
+      paper-toggle-button { margin: auto; }
     </style>
 
-    <paper-card style="width="300px">
+    <paper-card class="service">
 
       <div>
         <!-- PAGE TITLE -->
-        <h3>Purchase Order</h3>
-        <paper-button raised onclick="print()">Print</paper-button>
+        <h3>Roofing Purchase Order</h3>
+        <paper-button raised  class="information" onclick="print()">Print</paper-button>
       </div>
 
       <!-- PURCHASE FORM -->
       <form>
         <table>
-
           <tr>
             <td colspan="2"><paper-input type="text" label="Business Name"></paper-input></td>
           </tr>
-
           <tr>
-
-            <!-- PROJECT NAME -->
             <td><paper-input type="text" label="Project"></paper-input></td>
-
-            <!-- PROJECT START DTAE -->
             <td><paper-input type="date" label="Departure Date"></paper-input></td>
-
           </tr>
           <tr>
-
-            <!-- PROJECT ESTIMATOR -->
             <td><paper-input type="text" label="Estimator"></paper-input></td>
-
-            <!-- SUPERVISOR'S PHONE NUMBER -->
             <td><paper-input type="number" label="Phone Number"></paper-input></td>
-
           </tr>
-
           <tr>
-            <!-- SHIPPING ADDRESS -->
             <td colspan="2"><paper-input type="text" label="Shipping Address"></paper-input></td>
           </tr>
-
           <tr>
-            <!-- EMAIL -->
             <td colspan="2"><paper-input type="text" label="E-mail:"></paper-input></td>
           </tr>
 
         </table>
       </form>
       
-      <div class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
+      <paper-card class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
       <div class="second">
 
         <result-item name="" product="Area:"              homework="{{square}}"             unit="Square" ></result-item>
@@ -447,112 +434,95 @@ export class ResidentialRoofing extends PolymerElement {
         <result-item name="" product="Plumbing Stack:"    homework="{{pStackResult}}"       unit="Units" ></result-item>
         <result-item name="" product="Gooseneck:"         homework="{{gooseneckResult}}"    unit="Units" ></result-item>
         <result-item name="" product="Starter Shingles:"  homework="{{startersResult}}"     unit="Bundles" ></result-item>
-        <result-item name="" product="Skylights:"         homework="{{skylightsResult}}"    unit="Units" ></result-item>
         <result-item name="" product="Ridge Ventilation:" homework="{{ridgeVentResult}}"    unit="Boxes" ></result-item>
         <result-item name="" product="Box Ventilation:"   homework="{{boxVentResult}}"      unit="Units" ></result-item>
         <result-item name="" product="Front Pan:"         homework="{{headFlashing}}"       unit="Units" ></result-item>
         <result-item name="" product="Back Pan:"          homework="{{backFlashing}}"       unit="Units" ></result-item>
         <result-item name="" product="Step Flashing:"     homework="{{stepFlashing}}"       unit="Bundles" ></result-item>
         <result-item name="" product="Gable Flashing:"    homework="{{gableFlashing}}"      unit="Units" ></result-item>
-        <result-item name="" product="Sealant:"           homework="{{asphaltSealant}}"     unit="Tubes" ></result-item>
+        <result-item name="" product="Caulking:"           homework="{{asphaltSealant}}"     unit="Tubes" ></result-item>
       </div>
-      </div>
+      </paper-card>
 
     </paper-card>
 
     <paper-card class="information">
       <div>
+
         <h3>Calculate Building Area</h3>
-
-
-
         <div class="detailBox" style="display: grid; grid-template-columns: 1fr 60px;">
 
-        <!-- CONVERSION -->
-        <div class="details"><i>Conversion</i></div>
-        <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
+          <!-- CONVERSION -->
+          <div class="details"><i>Conversion</i></div>
+          <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
 
-        <!-- 4 BUNDLE -->
-        <div class="details"><i>3 / 4 Bundles</i></div>
-        <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
+          <!-- 4 BUNDLE -->
+          <div class="details"><i>3 / 4 Bundles</i></div>
+          <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
 
-        <!-- BOX / RIDGE -->
-        <div class="details"><i>Box / Ridge Ventilation</i></div>
-        <paper-toggle-button checked="{{ventilation}}" on-click="_asphaltRoof"></paper-toggle-button>
+          <!-- BOX / RIDGE -->
+          <div class="details"><i>Box / Ridge Ventilation</i></div>
+          <paper-toggle-button checked="{{ventilation}}" on-click="_asphaltRoof"></paper-toggle-button>
 
         </div>
 
-
-
         <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr;">
 
-        <!-- TOTAL AREA -->
-        <div class="x">Area Squared:</div>
-        <paper-slider id="roofArea" value="{{squarefeet}}" max="40" on-change="_areaChange" editable></paper-slider>
+          <!-- TOTAL AREA -->
+          <div class="x">Area Squared:</div>
+          <paper-slider id="roofArea" value="{{squarefeet}}" max="40" on-change="_areaChange" editable></paper-slider>
 
+          <!-- STARTERS -->
+          <div class="x">Starter Rows:</div>
+          <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
 
+          <!-- CAPPING -->
+          <div class="x">Capping:</div>
+          <paper-slider id="ridge" value="{{ridge}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- STARTERS -->
-        <div class="x">Starter Rows:</div>
-        <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- BOX VENTS -->
+          <div class="x">Box Ventilation:</div>
+          <paper-slider id="bxv" value="{{box}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- CAPPING -->
-        <div class="x">Capping:</div>
-        <paper-slider id="ridge" value="{{ridge}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- VALLEY -->
+          <div class="x">Valley:</div>
+          <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- BOX VENTS -->
-        <div class="x">Box Ventilation:</div>
-        <paper-slider id="bxv" value="{{box}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- DECK -->
+          <div class="x">Deck Flashing:</div>
+          <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
 
+          <!-- HEAD FLASHING -->
+          <div class="x">Head Flashing:</div>
+          <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
 
+          <!-- BACK FLASHING -->
+          <div class="x">Back Flashing:</div>
+          <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- VALLEY -->
-        <div class="x">Valley:</div>
-        <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- STEP FLASHING -->
+          <div class="x">Step Flashing:</div>
+          <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- DECK -->
-        <div class="x">Deck Flashing:</div>
-        <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
+          <!-- CHIMNEY -->
+          <div class="x">Chimney:</div>
+          <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
 
-        <!-- HEAD FLASHING -->
-        <div class="x">Head Flashing:</div>
-        <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- SKYLIGHT -->
+          <div class="x">Skylights:</div>
+          <paper-slider id="skylight" value="{{skylights}}" max="20" on-change="_areaChange" editable></paper-slider>
 
-        <!-- BACK FLASHING -->
-        <div class="x">Back Flashing:</div>
-        <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- B VENT -->
+          <div class="x">B-Vent:</div>
+          <paper-slider id="bv" value="{{bVent}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- STEP FLASHING -->
-        <div class="x">Step Flashing:</div>
-        <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!--  STACK-->
+          <div class="x">Plumbing Stack:</div>
+          <paper-slider id="ps" value="{{pStack}}" max="100" on-change="_areaChange" editable></paper-slider>
 
-        <!-- CHIMNEY -->
-        <div class="x">Chimney:</div>
-        <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
-
-        <!-- SKYLIGHT -->
-        <div class="x">Skylights:</div>
-        <paper-slider id="skylight" value="{{skylights}}" max="20" on-change="_areaChange" editable></paper-slider>
-
-
-
-        <!-- B VENT -->
-        <div class="x">B-Vent:</div>
-        <paper-slider id="bv" value="{{bVent}}" max="100" on-change="_areaChange" editable></paper-slider>
-
-        <!--  STACK-->
-        <div class="x">Plumbing Stack:</div>
-        <paper-slider id="ps" value="{{pStack}}" max="100" on-change="_areaChange" editable></paper-slider>
-
-        <!-- GOOSENECK -->
-        <div class="x">Gooseneck:</div>
-        <paper-slider id="gn" value="{{gooseneck}}" max="100" on-change="_areaChange" editable></paper-slider>
-
-
-
-        <!-- FASCIA -->
-        <div class="x">Fascia:</div>
-        <paper-slider id="fascia" value="{{fascia}}" max="100" on-change="_areaChange" editable></paper-slider>
+          <!-- GOOSENECK -->
+          <div class="x">Gooseneck:</div>
+          <paper-slider id="gn" value="{{gooseneck}}" max="100" on-change="_areaChange" editable></paper-slider>
 
         </div>
       </div>
@@ -563,4 +533,4 @@ export class ResidentialRoofing extends PolymerElement {
 
 }
 
-customElements.define('residential-roofing', ResidentialRoofing);
+customElements.define('purchase-order', PurchaseOrder);

@@ -6,7 +6,7 @@
   "description": "Roofing contracts",
   "main": "index.html",
   "author": "Jack Markiewicz",
-  "license": "MIT",
+  "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
     "@polymer/app-layout": "^3.0.0-pre.12",
@@ -29,6 +29,33 @@
     "@polymer/polymer": "^3.0.0-pre.12",
     "@webcomponents/webcomponentsjs": "^1.1.1",
     "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.4"
+    "babel-loader": "^7.1.4",
+    "html-loader": "^0.5.5",
+    "webpack": "^4.2.0"
+  },
+  "resolutions": {
+    "source-map": "0.6.1",
+    "minimist": "1.2.0",
+    "ajv": "6.4.0",
+    "punycode": "2.1.0",
+    "inherits": "2.0.3",
+    "string_decoder": "1.1.0",
+    "define-property": "2.0.2",
+    "extend-shallow": "3.0.2",
+    "kind-of": "6.0.2",
+    "isobject": "3.0.1",
+    "is-descriptor": "1.0.2",
+    "is-accessor-descriptor": "1.0.0",
+    "is-data-descriptor": "1.0.0",
+    "is-extendable": "1.0.1",
+    "is-number": "4.0.0",
+    "has-value": "1.0.0",
+    "set-value": "2.0.0",
+    "has-values": "1.0.0",
+    "hash-base": "3.0.4",
+    "is-glob": "4.0.0",
+    "assert-plus": "1.0.0",
+    "extsprintf": "1.3.0",
+    "commander": "2.15.1"
   }
 }

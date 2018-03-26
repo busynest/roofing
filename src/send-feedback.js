@@ -1,5 +1,6 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { updateMetadata } from './metadata.js';
 
 export class SendFeedback extends PolymerElement {
 
@@ -11,38 +12,36 @@ export class SendFeedback extends PolymerElement {
     };
   }
 
-  //static get observers() {
-  //    return [ 'thingCountChanged' ];
-  //}
-
   constructor() {
     super();
-    //console.log('Feedback Constructor!');
   }
 
   connectedCallback() {
     super.connectedCallback();
-    //console.log('Feedback Connected!');
+    updateMetadata({
+      title: 'Roofing',
+      description: 'Roofing documentation to simply help roofing contractors to complete residential roofing contracts, roofing purchase orders and roofing warranties. Send roofing documents to suppliers and customers.',
+      url: document.location.href
+    });
   }
 
   ready() {
     super.ready();
-    //this.addEventListener('keypress', e => this.handlePress(e));
-    //var sq = new OneSquare();
-    console.log('Feedback Ready!');
   }
 
   static get template() {
     return html`
 
     <style>
+      paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
     </style>
 
-    <paper-card class="information">
-      <h3>Send Feedback</h3>
+    <paper-card>
+      <h3>About Roofing Contract</h3>
 
       <p>
-
+        A set of ducuments to help Roofing Contractors and Estimators with filling out Residential Contracts, Purchase Orders and Roofing Warranties.
+        Share these documents between Customers & Suppliers.
       </p>
     </paper-card>
 

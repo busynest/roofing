@@ -1,5 +1,6 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { updateMetadata } from './metadata.js';
 
 export class PrimaryContract extends PolymerElement {
 
@@ -17,6 +18,11 @@ export class PrimaryContract extends PolymerElement {
 
   connectedCallback() {
     super.connectedCallback();
+    updateMetadata({
+      title: 'Primary Contract',
+      description: 'This is my sample app',
+      url: document.location.href
+    });
   }
 
   ready() {
@@ -28,12 +34,8 @@ export class PrimaryContract extends PolymerElement {
     return html`
 
     <style>
-
-              .money {
-                border: 3px solid gold;
-                border-radius: 10px;
-                width: 40px;
-              }
+    paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
+    .money { border: 3px solid gold; border-radius: 10px; width: 40px; }
 
     </style>
         <paper-card>

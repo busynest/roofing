@@ -68,14 +68,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="msapplication-TileImage" content="/images/manifest/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4285f4">
     <meta name="msapplication-tap-highlight" content="no">
-    <!--TWITTER 
+    <!--TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@veggieburgerguy">
     <meta name="twitter:creator" content="@veggieburgerguy">
     <meta name="twitter:title" content="Roofing Contract">
     <meta name="twitter:description" content="Free Roofing Contract, Primary, Subcontract, Employment Contract, Warranty, Proposal, or also calculate an estimate.">
     <meta name="twitter:image" content="https://pixabay.com/p-158268/?no_redirect">
-    -->
 
     <!-- LOAD FIREBASE 
     <script type="module" src="../node_modules/@polymer/polymerfire/polymerfire.js"></script>
@@ -85,6 +84,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script defer src="../bower_components/firebase/firebase-messaging.js"></script>
     <script defer src="../bower_components/firebase/firebase-storage.js"></script>
     -->
+
+    <!-- Webcomponents-loader / check and load any polyfills your browser needs -->
+    <script src='./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js' async></script>
+
     <style>
       /**
       html {
@@ -100,6 +103,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         background-color: #303030; /* #536d79 */
         margin: 0px;
       }
+
+      @media print { body { background-color: white; } }
 
       .Loader {
         display: flex;
@@ -129,9 +134,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </script>
         <gcse:search></gcse:search>
     </application-shell>
-    <!-- Webcomponents-loader / check and load any polyfills your browser needs -->
-    <script src='../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js' async></script>
-    <script type="module" src='../src/application-shell.js';></script>
+    <script type="module" src='./src/application-shell.js';></script>
     <!--
     <script>
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
