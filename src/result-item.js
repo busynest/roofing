@@ -65,24 +65,21 @@ export class ResultItem extends PolymerElement {
         border-bottom: 1px solid grey;
       }
       .unit {
-        font-size: 10px;
+        font-size: 1em;
         text-align: left;
         border-bottom: 1px solid grey;
-      }
-      p {
-        margin-bottom: 0px;
-        margin-top: 3px;
-        vertical-align: bottom;
+        margin: auto 0px;
       }
       .product {
-        font-size: 16px;
+        font-size: 1em;
+        margin: auto 0px;
       }
     </style>
     
       <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 1fr 2.5em 4em">
         <div class="product">{{product}}</div>
         <div class="work"><strong><slot>{{homework}}</slot></strong></div>
-        <div class="unit"><p>{{unit}}</p></div>
+        <div class="unit"><i>{{unit}}</i></div>
       </div>
     `
       }

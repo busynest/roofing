@@ -23,7 +23,7 @@ require('./src/warranty-contract.js');
 
 */
 
-const config = {
+module.exports =  {
 
   mode: 'production',
   entry: './src/application-shell.js',
@@ -43,5 +43,3 @@ const config = {
   }
 
 };
-
-module.exports = config;

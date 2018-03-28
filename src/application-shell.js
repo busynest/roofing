@@ -114,7 +114,7 @@ export class ApplicationShell extends PolymerElement {
 
   _pageChanged(page) {
      //Load page import on demand. Show 404 page if fails
-    //var resolvedPageUrl = this.resolveUrl(page + '.js');
+    var resolvedPageUrl = this.resolveUrl(page + '.js');
     //Polymer.importHref(
      //   resolvedPageUrl,
      //   null,
@@ -122,9 +122,9 @@ export class ApplicationShell extends PolymerElement {
      //   true);
   }
 
-  _showPage404() {
-    this.page = '404';
-  }
+  //_showPage404() {
+  //  this.page = '404';
+  //}
 
   _toggleSearch() {
     this.$.collapse.toggle();
