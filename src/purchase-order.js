@@ -116,20 +116,56 @@ export class PurchaseOrder extends PolymerElement {
   }
   _conversion( conversion, plywoodResult ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.conversion == false )  { this.$.ply.setAttribute("style", "display:none;"); this.$.pny.setAttribute("style", "display:none;"); };
-    if ( this.conversion == true  )  { this.plywoodResult = parseInt(this.squarefeet / 32 * 100).toFixed(0); this.$.ply.setAttribute("style", "display:block;"); this.$.pny.setAttribute("style", "display:block;");};
+    if ( this.conversion == false )  {  this.$.ply.setAttribute("style", "display:none;");
+                                        this.$.pny.setAttribute("style", "display:none;");
+                                      };
+
+    if ( this.conversion == true  )  {  this.plywoodResult = parseInt(this.squarefeet / 32 * 100).toFixed(0);
+                                        this.$.ply.setAttribute("style", "display:block;");
+                                        this.$.pny.setAttribute("style", "display:block;");
+                                      };
   }
 
   _bundles( bundles, shingles3Result, shingles4Result ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.bundles == false )     { this.shingles3Result  = this.squarefeet * 3; this.$.s3.setAttribute("style", "display:block;"); this.$.s4.setAttribute("style", "display:none;"); };
-    if ( this.bundles == true )      { this.shingles4Result  = this.squarefeet * 4; this.$.s4.setAttribute("style", "display:block;"); this.$.s3.setAttribute("style", "display:none;"); };
+    if ( this.bundles == false )     {  this.shingles3Result  = this.squarefeet * 3;
+                                        this.$.s3.setAttribute("style", "display:block;");
+                                        this.$.s4.setAttribute("style", "display:none;");
+                                      };
+    if ( this.bundles == true )      {  this.shingles4Result  = this.squarefeet * 4;
+                                        this.$.s4.setAttribute("style", "display:block;");
+                                        this.$.s3.setAttribute("style", "display:none;");
+                                      };
   }
 
   _ventilation( ventilation, box, boxVentResult, ridge, ridgeVentResult ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.ventilation == false ) { this.boxVentResult   = this.box;    this.$.bx.setAttribute("style", "display:block;"); this.$.rx.setAttribute("style", "display:none;"); this.$.rxv.setAttribute("style", "display:none;"); this.$.aac.setAttribute("style", "display:none;"); this.$.aad.setAttribute("style", "display:none;");    this.$.bxv.setAttribute("style", "display:block;"); this.$.aaa.setAttribute("style", "display:block;"); this.$.aab.setAttribute("style", "display:block;"); };
-    if ( this.ventilation == true )  { this.ridgeVentResult = this.ridge;  this.$.rx.setAttribute("style", "display:block;"); this.$.bx.setAttribute("style", "display:none;"); this.$.bxv.setAttribute("style", "display:none;"); this.$.aaa.setAttribute("style", "display:none;"); this.$.aab.setAttribute("style", "display:none;");    this.$.rxv.setAttribute("style", "display:block;"); this.$.aac.setAttribute("style", "display:block;"); this.$.aad.setAttribute("style", "display:block;"); };
+    if ( this.ventilation == false ) {  this.boxVentResult   = this.box;
+                                        this.$.bx.setAttribute("style", "display:block;");
+                                        this.$.rx.setAttribute("style", "display:none;");
+
+                                        this.$.bxv.setAttribute("style", "display:block;");
+                                        this.$.aaa.setAttribute("style", "display:block;");
+                                        this.$.aab.setAttribute("style", "display:block;");
+
+                                        this.$.rxv.setAttribute("style", "display:none;");
+                                        this.$.aac.setAttribute("style", "display:none;");
+                                        this.$.aad.setAttribute("style", "display:none;");
+
+                                      };
+
+    if ( this.ventilation == true )  { this.ridgeVentResult = this.ridge;
+                                        this.$.rx.setAttribute("style", "display:block;");
+                                        this.$.bx.setAttribute("style", "display:none;");
+
+                                        this.$.bxv.setAttribute("style", "display:none;");
+                                        this.$.aaa.setAttribute("style", "display:none;");
+                                        this.$.aab.setAttribute("style", "display:none;");
+
+                                        this.$.rxv.setAttribute("style", "display:block;");
+                                        this.$.aac.setAttribute("style", "display:block;");
+                                        this.$.aad.setAttribute("style", "display:block;");
+                                      };
   }
 
   _flashing(
