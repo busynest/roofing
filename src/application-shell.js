@@ -29,10 +29,10 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-collapse/iron-collapse.js';
 import './menu-topic.js';
 import './result-item.js';
-import './roofing-administration.js';
 import './purchase-order.js';
 import './warranty-contract.js';
 import './primary-contract.js';
+import './sub-contract.js';
 import './send-feedback.js';
 import './404.js';
 
@@ -74,7 +74,7 @@ export class ApplicationShell extends PolymerElement {
         value: [
           {x:"About", y:"send-feedback"},
           {x:"Primary Contract", y:"primary-contract"},
-          {x:"Subcontract", y:"primary-contract"},
+          {x:"Subcontract", y:"sub-contract"},
           {x:"Purchase Order", y:"purchase-order"},
           {x:"Warranty", y:"warranty-contract"}
         ]
@@ -322,6 +322,10 @@ export class ApplicationShell extends PolymerElement {
           <!-- ROOFING CONTRACT -->
           <primary-contract
             name="primary-contract"></primary-contract>
+          
+          <!-- ROOFING SUBCONTRACT -->
+          <sub-contract
+            name="sub-contract"></sub-contract>
 
           <!-- RESIDENTIAL ROOFING ESTIMATE -->
           <purchase-order

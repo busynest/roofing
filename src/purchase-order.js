@@ -11,269 +11,76 @@ export class PurchaseOrder extends PolymerElement {
 
   static get properties() {
     return {
-
-      /* CONTROL CENTRE */
-
-      conversion: {
-        type: Boolean,
-        value: false,
-        noftify: true
-      },
-
-      bundles: {
-        type: Boolean,
-        value: false,
-        noftify: true
-      },
-
-      ventilation: {
-        type: Boolean,
-        value: false,
-        noftify: true
-      },
-
-      /* AREA INPUT */
-
-      squarefeet: {
-        type: Number,
-        value: 10,
-        noftify: true
-      },
-
-      /* AREA OUTPUT */
-
-      square: {
-        type: Number,
-        value: 21,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      garbage: {
-        type: Number,
-        value: 10,
-        noftify: true
-      },
       
-      /* INPUT */
-
-      starters: {
-        type: Number,
-        value: 24,
-        noftify: true
-      },
-
-      cap: {
-        type: Number,
-        value: 60,
-        noftify: true
-      },
-
-      ridge: {
-        type: Number,
-        value: 24,
-        noftify: true
-      },
-
-      valley: {
-        type: Number,
-        value: 24,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      gable: {
-        type: Number,
-        value: 14,
-        noftify: true
-      },
-
-      head: {
-        type: Number,
-        value: 10,
-        noftify: true
-      },
-
-      back: {
-        type: Number,
-        value: 10,
-        noftify: true
-      },
-
-      step: {
-        type: Number,
-        value: 10,
-        noftify: true
-      },
-
-      bVent: {
-        type: Number,
-        value: 1,
-        noftify: true
-      },
-
-      pStack: {
-        type: Number,
-        value: 4,
-        noftify: true
-      },
+      /* AREA */
       
-      gooseneck: {
-        type: Number,
-        value: 3,
-        noftify: true
-      },
+      squarefeet:           { type: Number, notify: true, observer: '_area', value: 21 },
+      square:               { type: Number, notify: true, observer: '_area'},
+     
+      /* CONVERSION */
+     
+      conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false},
+      plywoodResult:        { type: Number,  notify: true, observer: '_conversion' },
+      
+      /* ASPHALT */
+      
+      bundles:              { type: Boolean, notify: true, observer: '_bundles', value: false },
+      
+      shingles3Result:      { type: Number,  notify: true, observer: '_bundles' },
+      shingles4Result:      { type: Number,  notify: true, observer: '_bundles' },
+      
+      felt15Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
+      felt30Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
 
-      chimney: {
-        type: Number,
-        value: 2,
-        noftify: true
-      },
+      roofNailResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
+      
+      starters:             { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
+      startersResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
+      
+      asphaltSealant:       { type: Number,  notify: true, observer: '_asphaltRoof', value: 2 },
+      sealantResult:        { type: Number,  notify: true, observer: '_asphaltRoof' },
+      
+      /* VENTILATION */
+      
+      ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false, },
 
-      skylights: {
-        type: Number,
-        value: 2,
-        noftify: true
-      },
+      ridge:                { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+      ridgeVentResult:      { type: Number,  notify: true, observer: '_ventilation' },
 
-      box: {
-        type: Number,
-        value: 4,
-        noftify: true
-      },
+      box:                  { type: Number,  notify: true, observer: '_ventilation', value: 4 },
+      boxVentResult:        { type: Number,  notify: true, observer: '_ventilation' },
+      
+      /** CAPPING */
+      
+      cap:                  { type: Number, notify: true, value: 60 },
+      cappingResult:        { type: Number, notify: true, obeserver: "_asphaltRoof" },
 
-      /* OUTPUT */
+      bVent:                { type: Number, value: 1, notify: true },
+      bVentResult:          { type: Number, notify: true, observer: '_asphaltRoof' },
 
-      plywoodResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      pStack:               { type: Number, value: 4, notify: true },
+      pStackResult:         { type: Number, notify: true, observer: '_asphaltRoof' },
 
-      shingles3Result: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      gooseneck:            { type: Number, notify: true, value: 1 },
+      gooseneckResult:      { type: Number, notify: true, observer: '_asphaltRoof' },
 
-      shingles4Result: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      chimney:              { type: Number, notify: true, observer: '_flashing', value: 1 },
+      skylights:            { type: Number, notify: true, observer: '_flashing', value: 2 },
 
-      felt15Result: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      gable:                { type: Number, notify: true, observer: '_flashing', value: 0 },
+      gableFlashing:        { type: Number, notify: true, observer: '_flashing' },
 
-      felt30Result: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      head:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
+      headFlashing:         { type: Number, notify: true, observer: '_flashing' },
 
-      roofNailResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
+      back:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
+      backFlashing:         { type: Number, notify: true, observer: '_flashing' },
 
-      startersResult: {
-        type: Number,
-        noftify: true,
-        obeserver: '_asphaltRoof'
-      },
+      step:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
+      stepFlashing:         { type: Number, notify: true, observer: '_flashing' },
 
-      /* FLASHING */
-
-      headFlashing: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      backFlashing: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      gableFlashing: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      stepFlashing: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      valleyResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      /* MISC */
-
-      bVentResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      pStackResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      gooseneckResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      ridgeVentResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      boxVentResult: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      asphaltSealant: {
-        type: Number,
-        noftify: true,
-        observer: '_asphaltRoof'
-      },
-
-      asphaltSealantResult: {
-        type: Number,
-        notify: true,
-        observer: '_asphaltRoof'
-      },
-
-      startersResult: {
-        type: Number,
-        notify: true,
-        observer: '_asphaltRoof'
-      },
-
-      cappingResults: {
-        type: Number,
-        notify: true,
-        obeserver: "_asphaltRoof"
-      },
-
+      valley:               { type: Number, notify: true, observer: '_flashing', value: 24 },
+      valleyResult:         { type: Number, notify: true, observer: '_flashing' }
     };
   }
 
@@ -297,83 +104,71 @@ export class PurchaseOrder extends PolymerElement {
 
   _areaChange(event) {
     this._area(event);
+    this._conversion(event);
+    this._bundles(event);
     this._asphaltRoof(event);
     this._ventilation(event);
+    this._flashing(event);
   }
 
-  _area(square, squarefeet,) {
+  _area( square, squarefeet ) {
     this.square           = this.squarefeet;
   }
-
-  _ventilation( box, boxVentResult, ridge, ridgeVentResult ) {
-    if ( this.ventilation == false ) { this.boxVentResult = box; this.$.bx.setAttribute("style", "display:block;"); this.$.rx.setAttribute("style", "display:none;");};
-    if ( this.ventilation == true )  { this.ridgeVentResult = ridge; this.$.rx.setAttribute("style", "display:block;"); this.$.bx.setAttribute("style", "display:none;");};
-    this.boxVentResult    = this.box;
-    this.ridgeVentResult  = this.ridge;
+  _conversion( conversion, plywoodResult ) {
+    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+    if ( this.conversion == false )  { this.$.ply.setAttribute("style", "display:none;"); this.$.pny.setAttribute("style", "display:none;"); };
+    if ( this.conversion == true  )  { this.plywoodResult = parseInt(this.squarefeet / 32 * 100).toFixed(0); this.$.ply.setAttribute("style", "display:block;"); this.$.pny.setAttribute("style", "display:block;");};
   }
 
-  _asphaltRoof(
-    squarefeet,
-    conversion, plywoodResult,
-    shingles3, shingles4, shingles3Result, shingles4Result,
-    felt15, felt30, felt15Result, felt30Result,
-    roofNailResult,
-    bVent, bVentResult,
-    pStack, pStackResult,
-    gooseneck, gooseneckResult,
-    starters, startersResult,
-    cap, cappingResult,
-    asphaltSealant, asphaltSealantResult,
+  _bundles( bundles, shingles3Result, shingles4Result ) {
+    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+    if ( this.bundles == false )     { this.shingles3Result  = this.squarefeet * 3; this.$.s3.setAttribute("style", "display:block;"); this.$.s4.setAttribute("style", "display:none;"); };
+    if ( this.bundles == true )      { this.shingles4Result  = this.squarefeet * 4; this.$.s4.setAttribute("style", "display:block;"); this.$.s3.setAttribute("style", "display:none;"); };
+  }
+
+  _ventilation( ventilation, box, boxVentResult, ridge, ridgeVentResult ) {
+    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+    if ( this.ventilation == false ) { this.boxVentResult   = this.box;    this.$.bx.setAttribute("style", "display:block;"); this.$.rx.setAttribute("style", "display:none;"); this.$.rxv.setAttribute("style", "display:none;"); this.$.aac.setAttribute("style", "display:none;"); this.$.aad.setAttribute("style", "display:none;");    this.$.bxv.setAttribute("style", "display:block;"); this.$.aaa.setAttribute("style", "display:block;"); this.$.aab.setAttribute("style", "display:block;"); };
+    if ( this.ventilation == true )  { this.ridgeVentResult = this.ridge;  this.$.rx.setAttribute("style", "display:block;"); this.$.bx.setAttribute("style", "display:none;"); this.$.bxv.setAttribute("style", "display:none;"); this.$.aaa.setAttribute("style", "display:none;"); this.$.aab.setAttribute("style", "display:none;");    this.$.rxv.setAttribute("style", "display:block;"); this.$.aac.setAttribute("style", "display:block;"); this.$.aad.setAttribute("style", "display:block;"); };
+  }
+
+  _flashing(
     valley, valleyResult,
     gable, gableFlashing,
     head, headFlashing,
     back, backFlashing,
     step, stepFlashing,
     chimney, skylights
-       )
-    {
+  ) {
       window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+      this.valleyResult     = this.valley;
+      this.gableFlashing    = this.gable;
+      this.headFlashing     = this.head       + ( this.chimney  * .5 )      + ( this.skylights * .5 );
+      this.backFlashing     = this.back       + ( this.chimney  * .5 )      + ( this.skylights * .5 );
+      this.stepFlashing     = this.step       + ( this.chimney  * .3 )      + ( this.skylights * .5 );
+    }
 
-      if ( this.conversion == false )  { this.$.ply.setAttribute("style", "display:none;"); };
-
-      if ( this.conversion == true  )  { this.plywoodResult = this.squarefeet / 32 * 100; this.$.ply.setAttribute("style", "display:block;"); };
-
-      if ( this.bundles == false )     { this.shingles3Result  = this.squarefeet * 3; this.$.s3.setAttribute("style", "display:block;"); this.$.s4.setAttribute("style", "display:none;"); };
-
-      if ( this.bundles == true )      { this.shingles4Result  = this.squarefeet * 4; this.$.s4.setAttribute("style", "display:block;"); this.$.s3.setAttribute("style", "display:none;"); };
-
-      this.felt15Result     = parseInt(this.square / 400 * 100).toFixed(0);
-      this.felt30Result     = parseInt(this.square / 200 * 100).toFixed(0);
-      this.roofNailResult   = parseInt(this.square * 320 / 7200).toFixed(0); 
+  _asphaltRoof(
+    squarefeet,
+    roofNailResult,
+    bVent, bVentResult,
+    pStack, pStackResult,
+    gooseneck, gooseneckResult,
+    starters, startersResult,
+    cap, cappingResult,
+    asphaltSealant, sealantResult,
+    felt15Result, felt30Result 
+  ) {
+      window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+      this.roofNailResult   = Number(parseInt(this.squarefeet * 320 / 7200).toFixed(0)) + 1;
       this.bVentResult      = this.bVent;
       this.pStackResult     = this.pStack;
       this.gooseneckResult  = this.gooseneck;
       this.startersResult   = this.starters;
-      this.cappingResult    = this.ridge;
-      this.bocBentResult    = this.box;
-      var headNum           = .5,
-          backNum           = .5,
-          stepChimney       = .3,
-          stepSky           = .5;
-      this.valleyResult     = this.valley;
-      this.gableFlashing    = this.gable;
-      this.headFlashing     = this.head       + ( this.chimney  * headNum )      + ( this.skylights * headNum ) ;
-      this.backFlashing     = this.back       + ( this.chimney  * backNum )      + ( this.skylights * backNum ) ;
-      this.stepFlashing     = this.step       + ( this.chimney  * stepChimney )  + ( this.skylights * stepSky ) ;
-      this.asphaltSealant   = this.asphaltSealantResult;
-    }
-
-    _estimate() {
-      this.opened = !this.opened;
-    }
-  
-    show() {
-      this.opened = true;
-      console.log("hello");
-    }
-  
-    hide() {
-      this.opened = false;
+      this.cappingResult    = this.cap;
+      this.sealantResult    = this.asphaltSealant;
+      this.felt15Result     = parseInt(this.squarefeet / 400 * 100).toFixed(0);
+      this.felt30Result     = parseInt(this.squarefeet / 200 * 100).toFixed(0);
     }
 
   static get template() {
@@ -381,14 +176,12 @@ export class PurchaseOrder extends PolymerElement {
 
     <style>
       :host {
+        --secondary-text-color: blue;
         --paper-slider-knob-color: #1abc9c;
         --paper-slider-active-color: #1abc9c;
         --paper-slider-secondary-color: #1abc9c;
         --paper-input-container-color: black;
         --paper-input-container-focus-color: #1abc9c;
-        --paper-toggle-button-unchecked-bar-color: black;
-        --paper-toggle-button-checked-button-color: #1abc9c;
-        --paper-toggle-button-checked-bar-color: #1abc9c;
       }
       @media print { .information { display: none; } }
       a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
@@ -400,17 +193,23 @@ export class PurchaseOrder extends PolymerElement {
       .i { margin: auto; font-siz: .1em; font-style: italic; }
       .ii { border-left: 1px solid grey; border-right: 1px solid grey; }
       .iii {  margin-bottom: 15px; }
-      .x { text-align: right; margin: auto 0px; }
-      .y { text-align: right; margin: auto; }
-      .calculator { max-width: 600px; margin: auto; }
       .service { border: 50px; [elevation 5] }
       table { width: 100%; padding: 0px; }
-      paper-item { cursor: pointer; }
-      paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
+      paper-input { font-style: italic; }
+      paper-item { cursor: pointer;}
+      paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
       paper-button { margin: 0.5em 1em 0.5em 0; background: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
       paper-button:focus { background: #e8e8e8; }
       paper-slider { width: 100% }
-      paper-toggle-button { margin-left: 0px;}
+      paper-toggle-button { 
+        --paper-toggle-button-unchecked-bar-color:  #ee9d40;
+        --paper-toggle-button-unchecked-button-color: #ee9d40;
+        --paper-toggle-button-checked-button-color: #1abc9c;
+        --paper-toggle-button-checked-bar-color: #1abc9c;
+        margin-left: 0px;}
+      .x { text-align: right; margin: auto 0px; }
+      .y { text-align: right; margin: auto; }
+      .calculator { max-width: 600px; margin: auto; }
     </style>
 
     <paper-card class="service">
@@ -457,30 +256,31 @@ export class PurchaseOrder extends PolymerElement {
         </div>
         <div class="ii">
           <h4><i>Ventilation</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">ridge</div></div>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button><div class="i">ridge</div></div>
         </div>
       </div>
 
       <paper-card class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
       <div class="second">
+        <result-item id="ply" product="Plywood:"          homework="{{plywoodResult}}"      unit="sheets" ></result-item>
+        <result-item id="pny" product="Sheathing Nails:"  homework="{{plyNailResult}}"      unit="boxes" ></result-item>
         <result-item id="s3" product="Shingles 3\'s:"     homework="{{shingles3Result}}"    unit="bundles" ></result-item>
         <result-item id="s4" product="Shingles 4\'s:"     homework="{{shingles4Result}}"    unit="bundles" ></result-item>
+        <result-item product="Roofing Nails:"             homework="{{roofNailResult}}"     unit="boxes" ></result-item>
+        <result-item name="" product="Starters:"          homework="{{startersResult}}"     unit="bundles" ></result-item>
         <result-item id="f15" product="15 Pound Felt:"    homework="{{felt15Result}}"       unit="rolls" ></result-item>
         <result-item id="f30" product="30 Pound Felt:"    homework="{{felt30Result}}"       unit="rolls" ></result-item>
-        <result-item id="ply" product="Plywood:"          homework="{{plywoodResult}}"      unit="sheets" ></result-item>
-        <result-item name="" product="Roofing Nails:"     homework="{{roofNailResult}}"     unit="boxes" ></result-item>
-        <result-item name="" product="Valley Flashing:"   homework="{{valleyResult}}"       unit="units" ></result-item>
-        <result-item name="" product="B-Vent:"            homework="{{bVentResult}}"        unit="units" ></result-item>
-        <result-item name="" product="Plumbing Stack:"    homework="{{pStackResult}}"       unit="units" ></result-item>
-        <result-item name="" product="Gooseneck:"         homework="{{gooseneckResult}}"    unit="units" ></result-item>
-        <result-item name="" product="Starter Shingles:"  homework="{{startersResult}}"     unit="bundles" ></result-item>
         <result-item id="rx" product="Ridge Ventilation:" homework="{{ridgeVentResult}}"    unit="boxes" ></result-item>
-        <result-item id="bx" product="Box Ventilation:"   homework="{{boxVentResult}}"      unit="units" ></result-item>
-        <result-item name="" product="Front Pan:"         homework="{{headFlashing}}"       unit="units" ></result-item>
-        <result-item name="" product="Back Pan:"          homework="{{backFlashing}}"       unit="units" ></result-item>
+        <result-item id="bx" product="Box Ventilation:"   homework="{{boxVentResult}}"      unit="ea" ></result-item>
+        <result-item name="" product="Gas Vent type-B:"   homework="{{bVentResult}}"        unit="ea" ></result-item>
+        <result-item name="" product="Plumbing Vent:"     homework="{{pStackResult}}"       unit="ea" ></result-item>
+        <result-item name="" product="Gooseneck:"         homework="{{gooseneckResult}}"    unit="ea" ></result-item>
+        <result-item name="" product="Front Pan:"         homework="{{headFlashing}}"       unit="ea" ></result-item>
+        <result-item name="" product="Back Pan:"          homework="{{backFlashing}}"       unit="ea" ></result-item>
         <result-item name="" product="Step Flashing:"     homework="{{stepFlashing}}"       unit="bundles" ></result-item>
-        <result-item name="" product="Gable Flashing:"    homework="{{gableFlashing}}"      unit="units" ></result-item>
-        <result-item name="" product="Caulking:"          homework="{{asphaltSealant}}"     unit="tubes" ></result-item>
+        <result-item name="" product="Gable Flashing:"    homework="{{gableFlashing}}"      unit="ea" ></result-item>
+        <result-item name="" product="Valley Flashing:"   homework="{{valleyResult}}"       unit="ea" ></result-item>
+        <result-item name="" product="Caulking:"          homework="{{sealantResult}}"      unit="tubes" ></result-item>
       </div>
       </paper-card>
     </paper-card>
@@ -489,20 +289,54 @@ export class PurchaseOrder extends PolymerElement {
         <h3>Calculate Building Area</h3>
         <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
 
-          <!-- STARTERS -->
           <div class="x">Starter Rows:</div>
           <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
           <i class="y">ft</i>
 
           <!-- CAPPING -->
           <div class="x">Capping:</div>
-          <paper-slider id="ridge" value="{{cap}}" max="400" on-change="_areaChange" editable></paper-slider>
+          <paper-slider id="ridge" value="{{cap}}" max="800" on-change="_areaChange" editable></paper-slider>
           <i class="y">ft</i>
 
           <!-- RIDGE VENTILATION -->
-          <div class="x">Ridge Vent:</div>
-          <paper-slider id="bxv" value="{{ridge}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
+          <div id="aaa" class="x">Ridge Vent:</div>
+          <paper-slider class="rxv" value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
+          <i id="aab" class="y">ft</i>
+
+          <!-- BOX VENTS -->
+          <div id="aac" class="x">Box Ventilation:</div>
+          <paper-slider class="bxv" value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <i id="aad" class="y">ea</i>
+
+          <!-- B VENT -->
+          <div class="x">B-Vent:</div>
+          <paper-slider id="bv" value="{{bVent}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
+
+          <!-- STACK-->
+          <div class="x">Plumbing Stack:</div>
+          <paper-slider id="ps" value="{{pStack}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
+
+          <!-- GOOSENECK -->
+          <div class="x">Gooseneck:</div>
+          <paper-slider id="gn" value="{{gooseneck}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
+
+          <!-- SEALANT -->
+          <div class="x">Sealant:</div>
+          <paper-slider id="sl" value="{{asphaltSealant}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
+
+          <!-- SKYLIGHT -->
+          <div class="x">Skylights:</div>
+          <paper-slider id="skylight" value="{{skylights}}" max="10" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
+
+          <!-- CHIMNEY -->
+          <div class="x">Chimney:</div>
+          <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
+          <i class="y">ea</i>
 
           <!-- VALLEY -->
           <div class="x">Valley:</div>
@@ -510,7 +344,7 @@ export class PurchaseOrder extends PolymerElement {
           <i class="y">ft</i>
 
           <!-- GABLE -->
-          <div class="x">Deck Flashing:</div>
+          <div class="x">Gable Flashing:</div>
           <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
           <i class="y">ft</i>
 
@@ -528,36 +362,6 @@ export class PurchaseOrder extends PolymerElement {
           <div class="x">Step Flashing:</div>
           <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
           <i class="y">ft</i>
-
-          <!-- CHIMNEY -->
-          <div class="x">Chimney:</div>
-          <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
-          <!-- SKYLIGHT -->
-          <div class="x">Skylights:</div>
-          <paper-slider id="skylight" value="{{skylights}}" max="20" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
-          <!-- B VENT -->
-          <div class="x">B-Vent:</div>
-          <paper-slider id="bv" value="{{bVent}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
-          <!-- STACK-->
-          <div class="x">Plumbing Stack:</div>
-          <paper-slider id="ps" value="{{pStack}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
-          <!-- GOOSENECK -->
-          <div class="x">Gooseneck:</div>
-          <paper-slider id="gn" value="{{gooseneck}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
-          <!-- BOX VENTS -->
-          <div class="x">Box Ventilation:</div>
-          <paper-slider id="bxv" value="{{box}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
 
         </div>
     </paper-card>

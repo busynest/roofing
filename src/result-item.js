@@ -62,12 +62,12 @@ export class ResultItem extends PolymerElement {
       }
       .work {
         text-align: right;
-        border-bottom: 1px solid grey;
+        border-bottom: 1px dotted grey;
       }
       .unit {
-        font-size: 1em;
+        font-size: .8em;
+        color: grey;
         text-align: left;
-        border-bottom: 1px solid grey;
         margin: auto 0px;
       }
       .product {

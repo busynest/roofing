@@ -13,6 +13,7 @@
     "@polymer/app-route": "^3.0.0-pre.12",
     "@polymer/app-storage": "^3.0.0-pre.12",
     "@polymer/iron-ajax": "^3.0.0-pre.12",
+    "@polymer/iron-autogrow-textarea": "^3.0.0-pre.12",
     "@polymer/iron-collapse": "^3.0.0-pre.12",
     "@polymer/iron-icons": "^3.0.0-pre.12",
     "@polymer/iron-list": "^3.0.0-pre.12",
@@ -56,6 +57,7 @@
     "is-glob": "4.0.0",
     "assert-plus": "1.0.0",
     "extsprintf": "1.3.0",
-    "commander": "2.15.1"
+    "commander": "2.15.1",
+    "@polymer/iron-autogrow-textarea": "3.0.0-pre.12"
   }
 }

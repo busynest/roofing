@@ -47,7 +47,7 @@
   dependencies:
     "@polymer/polymer" "3.0.0-pre.12"
 
-"@polymer/iron-autogrow-textarea@3.0.0-pre.12":
+"@polymer/iron-autogrow-textarea@3.0.0-pre.12", "@polymer/iron-autogrow-textarea@^3.0.0-pre.12":
   version "3.0.0-pre.12"
   resolved "https://registry.yarnpkg.com/@polymer/iron-autogrow-textarea/-/iron-autogrow-textarea-3.0.0-pre.12.tgz#9104176232aea78284f07689bd59f7797550f08f"
   dependencies:
@@ -840,7 +840,7 @@ combined-stream@^1.0.5, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2.15.x, commander@~2.14.1, commander@~2.15.0:
+commander@2.15.1, commander@2.15.x, commander@~2.14.1, commander@~2.15.0:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
