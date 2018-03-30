@@ -5,12 +5,12 @@
     "moduleResolution": "node",
     "fragments": [
       "src/404.js",
-      "src/asphalt-roofing.js",
+      "src/purchase-order.js",
       "src/primary-contract.js",
       "src/roofing-styles.js",
       "src/send-feedback.js",
       "src/purchase-order.js",
-      "src/roofing-administration.js",
+      "src/sub-contract.js",
       "src/menu-topic.js",
       "src/result-item.js"
     ],
@@ -38,4 +38,3 @@
       "addServiceWorker": true
     }]
   }
-  

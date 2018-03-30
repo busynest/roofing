@@ -69,44 +69,42 @@ export class PrimaryContract extends PolymerElement {
     }
 
     </style>
-        <paper-card>
-            <h3>Primary Roofing Contract</h3>
-            <form>
-            <table>
-                <tr class="information">
-                  <td><h3 id="contractName">Contractor:</h3></td>
-                  <td  id="logoBox" class="tableLeft">
-                      <input hidden type="file" id="logoFile" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2"><paper-input id="bizName" type="text" label="Business Name:" placeholder="Super Roofing Company xyz." value="{{business}}"></paper-input></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><paper-input type="text" label="Business Address:" placeholder="Vancouver, BC" value="{{bizAddress}}"></paper-input></td>
-                </tr>
-                <tr>
-                    <td><paper-input type="text" label="Salesperson:" placeholder="Ke\$ha" value="{{bizSales}}"></paper-input></td>
-                    <td><paper-input type="number" label="Phone Number:" placeholder="555 555 5555" value="{{bizPhone}}"></paper-input></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><h3>Customer:</h3></td>
-                </tr>
-                <tr>
-                    <td><paper-input type="text" label="Customer:" placeholder="Best Customer" value=""></paper-input></td>
-                    <td><paper-input type="number" label="Phone Number:" placeholder="555 555 5555" value=""></paper-input></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><paper-input type="text" label="Customer Address:" placeholder="Calgary, AB" ></paper-input></td>
-                </tr>
-            </table>
+    <paper-card>
+      <h3>Primary Roofing Contract</h3>
+      <form>
+        <table>
+          <tr>
+            <td><h3 id="contractName">Contractor:</h3></td>
+            <td  id="logoBox" class="tableLeft"><input hidden type="file" id="logoFile" /></td>
+          </tr>
+          <tr>
+            <td colspan="2"><paper-input id="bizName" type="text" label="Business Name:" placeholder="Super Roofing Company xyz." value="{{business}}"></paper-input></td>
+          </tr>
+          <tr>
+            <td colspan="2"><paper-input type="text" label="Business Address:" placeholder="Vancouver, BC" value="{{bizAddress}}"></paper-input></td>
+          </tr>
+          <tr>
+            <td><paper-input type="text" label="Salesperson:" placeholder="Ke\$ha" value="{{bizSales}}"></paper-input></td>
+            <td><paper-input type="number" label="Phone Number:" placeholder="555 555 5555" value="{{bizPhone}}"></paper-input></td>
+          </tr>
+          <tr>
+            <td colspan="2"><h3>Customer:</h3></td>
+          </tr>
+          <tr>
+            <td><paper-input type="text" label="Customer:" placeholder="Best Customer" value=""></paper-input></td>
+            <td><paper-input type="number" label="Phone Number:" placeholder="555 555 5555" value=""></paper-input></td>
+          </tr>
+          <tr>
+            <td colspan="2"><paper-input type="text" label="Customer Address:" placeholder="Calgary, AB" ></paper-input></td>
+          </tr>
+        </table>
 
-            <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
-              <div class="heed">Total Square:</div>        <paper-slider editable max="250" on-change="_deal" value="{{square}}"></paper-slider>   <div class="tail">dollars</div>
-              <div class="heed">Contractor Rate:</div>     <paper-slider editable max="250" on-change="_deal" value="{{rate}}"></paper-slider>     <div class="tail">dollars</div>
-            </div>
+        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
+          <div class="heed">Total Square:</div>        <paper-slider editable max="250" on-change="_deal" value="{{square}}"></paper-slider>   <div class="tail">dollars</div>
+          <div class="heed">Contractor Rate:</div>     <paper-slider editable max="250" on-change="_deal" value="{{rate}}"></paper-slider>     <div class="tail">dollars</div>
+        </div>
 
-            <h1>\${{servicePrice}}</h1>
+        <h1>\${{servicePrice}}</h1>
 
           </form>
             <p>

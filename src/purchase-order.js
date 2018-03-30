@@ -144,13 +144,13 @@ export class PurchaseOrder extends PolymerElement {
                                         this.$.bx.setAttribute("style", "display:block;");
                                         this.$.rx.setAttribute("style", "display:none;");
 
-                                        this.$.bxv.setAttribute("style", "display:block;");
-                                        this.$.aaa.setAttribute("style", "display:block;");
-                                        this.$.aab.setAttribute("style", "display:block;");
+                                        this.$.bxv.setAttribute("style", "display:flex;");
+                                        this.$.aac.setAttribute("style", "display:block;");
+                                        this.$.aad.setAttribute("style", "display:block;");
 
                                         this.$.rxv.setAttribute("style", "display:none;");
-                                        this.$.aac.setAttribute("style", "display:none;");
-                                        this.$.aad.setAttribute("style", "display:none;");
+                                        this.$.aaa.setAttribute("style", "display:none;");
+                                        this.$.aab.setAttribute("style", "display:none;");
 
                                       };
 
@@ -159,12 +159,12 @@ export class PurchaseOrder extends PolymerElement {
                                         this.$.bx.setAttribute("style", "display:none;");
 
                                         this.$.bxv.setAttribute("style", "display:none;");
-                                        this.$.aaa.setAttribute("style", "display:none;");
-                                        this.$.aab.setAttribute("style", "display:none;");
+                                        this.$.aac.setAttribute("style", "display:none;");
+                                        this.$.aad.setAttribute("style", "display:none;");
 
-                                        this.$.rxv.setAttribute("style", "display:block;");
-                                        this.$.aac.setAttribute("style", "display:block;");
-                                        this.$.aad.setAttribute("style", "display:block;");
+                                        this.$.rxv.setAttribute("style", "display:flex;");
+                                        this.$.aaa.setAttribute("style", "display:block;");
+                                        this.$.aab.setAttribute("style", "display:block;");
                                       };
   }
 
@@ -223,19 +223,16 @@ export class PurchaseOrder extends PolymerElement {
       a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
       h1 { font-size: 22px; }
       h4 { font-size: 12px; text-align: center; margin: auto; margin-bottom: 15px;}
-      .grid { border: 1px grey solid; border-radius: 5px; padding: 5px;}
-      .second { margin: auto; }
       .info {margin: auto ;}
       .i { margin: auto; font-siz: .1em; font-style: italic; }
       .ii { border-left: 1px solid grey; border-right: 1px solid grey; }
-      .iii {  margin-bottom: 15px; }
-      .service { border: 50px; [elevation 5] }
+      .iii {  margin-bottom: 15px; max-width: 600px; margin: auto; }
+      .service { }
       table { width: 100%; padding: 0px; }
       paper-input { font-style: italic; }
       paper-item { cursor: pointer;}
       paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
       paper-button { margin: 0.5em 1em 0.5em 0; background: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
-      paper-button:focus { background: #e8e8e8; }
       paper-slider { width: 100% }
       paper-toggle-button { 
         --paper-toggle-button-unchecked-bar-color:  #ee9d40;
@@ -245,16 +242,16 @@ export class PurchaseOrder extends PolymerElement {
         margin-left: 0px;}
       .x { text-align: right; margin: auto 0px; }
       .y { text-align: right; margin: auto; }
-      .calculator { max-width: 600px; margin: auto; }
+      .calculator { border-radius: 5px; }
+      .grid { border-radius: 5px; padding: 5px; max-width: 600px; margin: auto; }
+      .second { margin: auto; }
+      .estimate { max-width: 600px; margin: auto; }
     </style>
 
     <paper-card class="service">
 
-      <div>
-        <!-- PAGE TITLE -->
-        <h3>Roofing Purchase Order</h3>
-        <paper-button raised  class="information" onclick="print()">Print</paper-button>
-      </div>
+      <!-- PAGE TITLE -->
+      <h3>Roofing Purchase Order</h3>
 
       <!-- PURCHASE FORM -->
       <form>
@@ -273,6 +270,9 @@ export class PurchaseOrder extends PolymerElement {
           <tr>
             <td colspan="2"><paper-input type="text" label="Shipping Address"></paper-input></td>
           </tr>
+          <tr>
+            <td colspan="2"><paper-button raised  class="information" onclick="print()">Print</paper-button></td>
+          </tr>
         </table>
       </form>
 
@@ -281,22 +281,7 @@ export class PurchaseOrder extends PolymerElement {
         <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
       </div>
 
-      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-        <div class="ii">
-          <h4><i>Conversion</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">N</div><paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">Y</div></div>
-        </div>
-        <div>
-          <h4><i>Bundles</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">3</div><paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">4</div></div>
-        </div>
-        <div class="ii">
-          <h4><i>Ventilation</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button><div class="i">ridge</div></div>
-        </div>
-      </div>
-
-      <paper-card class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
+      <div class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
       <div class="second">
         <result-item id="ply" product="Plywood:"          homework="{{plywoodResult}}"      unit="sheets" ></result-item>
         <result-item id="pny" product="Sheathing Nails:"  homework="{{plyNailResult}}"      unit="boxes" ></result-item>
@@ -318,12 +303,42 @@ export class PurchaseOrder extends PolymerElement {
         <result-item name="" product="Valley Flashing:"   homework="{{valleyResult}}"       unit="ea" ></result-item>
         <result-item name="" product="Caulking:"          homework="{{sealantResult}}"      unit="tubes" ></result-item>
       </div>
-      </paper-card>
-    </paper-card>
+      </div>
 
-    <paper-card class="information estimate">
-        <h3>Calculate Building Area</h3>
-        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
+      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+
+        <div>
+          <h4><i>Conversion</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+            <div class="i">N</div>
+            <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
+            <div class="i">Y</div>
+          </div>
+        </div>
+
+        <div class="ii">
+          <h4><i>Bundles</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+            <div class="i">3</div>
+            <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
+            <div class="i">4</div>
+          </div>
+        </div>
+
+        <div>
+          <h4><i>Ventilation</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+            <div class="i">box</div>
+            <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
+            <div class="i">ridge</div>
+          </div>
+        </div>
+        
+      </div>
+
+    <div class="information estimate">
+
+        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 2em;">
 
           <div class="x">Starter Rows:</div>
           <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
@@ -336,12 +351,12 @@ export class PurchaseOrder extends PolymerElement {
 
           <!-- RIDGE VENTILATION -->
           <div id="aaa" class="x">Ridge Vent:</div>
-          <paper-slider class="rxv" value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
+          <paper-slider id="rxv" value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
           <i id="aab" class="y">ft</i>
 
           <!-- BOX VENTS -->
           <div id="aac" class="x">Box Ventilation:</div>
-          <paper-slider class="bxv" value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
+          <paper-slider id="bxv" value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
           <i id="aad" class="y">ea</i>
 
           <!-- B VENT -->
@@ -400,6 +415,7 @@ export class PurchaseOrder extends PolymerElement {
           <i class="y">ft</i>
 
         </div>
+      </div>
     </paper-card>
 
   `
@@ -408,3 +424,25 @@ export class PurchaseOrder extends PolymerElement {
 }
 
 customElements.define('purchase-order', PurchaseOrder);
+
+/**
+ *       
+ * 
+      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
+        <div class="ii">
+          <h4><i>Conversion</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">N</div><paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">Y</div></div>
+        </div>
+        <div>
+          <h4><i>Bundles</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">3</div><paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">4</div></div>
+        </div>
+        <div class="ii">
+          <h4><i>Ventilation</i></h4>
+          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button><div class="i">ridge</div></div>
+        </div>
+      </div>
+ * 
+ * 
+ * 
+ */

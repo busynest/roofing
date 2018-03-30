@@ -64,9 +64,7 @@ export class ApplicationShell extends PolymerElement {
       },
 
       rootPattern: String,
-
       routeData: Object,
-
       subroute: String,
 
       boxes: {
@@ -112,18 +110,18 @@ export class ApplicationShell extends PolymerElement {
     }
   }
 
-  _pageChanged(page) {
+  //_pageChanged(page) {
      //Load page import on demand. Show 404 page if fails
-    var resolvedPageUrl = this.resolveUrl(page + '.js');
-    //Polymer.importHref(
-     //   resolvedPageUrl,
-     //   null,
-     //   this._showPage404.bind(this),
-     //   true);
-  }
+    //resolvedPageUrl = this.resolveUrl(page + '.js');
+   // Polymer.importHref(
+   //     resolvedPageUrl,
+   //     null,
+   //     this._showPage404.bind(this),
+  //      true);
+  //}
 
   //_showPage404() {
-  //  this.page = '404';
+   // this.page = '404';
   //}
 
   _toggleSearch() {
@@ -153,6 +151,12 @@ export class ApplicationShell extends PolymerElement {
         :host {--app-drawer-width: 0px; }
         app-drawer { display: none; }
         app-header { display: none; }
+      }
+
+      @media only screen and (min-width: 600px) {
+        .advert {
+          margin-right: 200px;
+        }
       }
 
       h1 {
@@ -298,12 +302,16 @@ export class ApplicationShell extends PolymerElement {
           horizontal="[[horizontal]]"
           no-animation="[[noAnimation]]"
           tabindex="0">
+
             <paper-card>
               <!-- GOOGLE CUSTOM SEARCH -->
               <slot name="search"></slot>
-            </paper-card></iron-collapse>
+            </paper-card>
+        
+        </iron-collapse>
             
             <paper-card>
+              <!-- GOOGLE ADVERTIZMENT -->
               <slot name="advert"></slot>
             </paper-card>
 
