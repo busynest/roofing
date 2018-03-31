@@ -4,6 +4,7 @@ This code may only be used under the BSD style license found at http://polymer.g
 */
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { installRouter }        from './router.js';
 
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -91,10 +92,12 @@ export class ApplicationShell extends PolymerElement {
   constructor() {
     super();
     this.rootPattern = (new URL(this.rootPath)).pathname;
+    
   }
 
   connectedCallback() {
     super.connectedCallback();
+    
   }
 
   ready() {
@@ -110,19 +113,20 @@ export class ApplicationShell extends PolymerElement {
     }
   }
 
-  //_pageChanged(page) {
+  _pageChanged(page) {
+    installRouter((location) => console.log(location));
      //Load page import on demand. Show 404 page if fails
     //resolvedPageUrl = this.resolveUrl(page + '.js');
-   // Polymer.importHref(
-   //     resolvedPageUrl,
-   //     null,
-   //     this._showPage404.bind(this),
-  //      true);
-  //}
+    //Polymer.importHref(
+     //   resolvedPageUrl,
+     //   null,
+     ///   this._showPage404.bind(this),
+     //   true);
+  }
 
-  //_showPage404() {
-   // this.page = '404';
-  //}
+  _showPage404() {
+    this.page = '404';
+  }
 
   _toggleSearch() {
     this.$.collapse.toggle();
@@ -147,62 +151,37 @@ export class ApplicationShell extends PolymerElement {
         display: block;
       }
 
-      @media print {
-        :host {--app-drawer-width: 0px; }
-        app-drawer { display: none; }
-        app-header { display: none; }
-      }
+      svg { animation: rotate 5s infinite ease-in-out alternate; }
 
-      @media only screen and (min-width: 600px) {
-        .advert {
-          margin-right: 200px;
+      @keyframes rotate {
+        0% {
+          transform: rotateZ(5deg);
+        }
+
+        100% {
+          transform: rotateZ(-5deg);
         }
       }
 
-      h1 {
-        //-webkit-flex: 1; /* Safari 6.1+ */
-        // -ms-flex: 1; /* IE 10 */ 
-        // flex:1;
-        
+      @media print {
+        :host {--app-drawer-width: 0px; }
+        app-drawer { display: none; }
+        app-toolbar { display: none; padding: 0px; }
+        app-header { display: none; padding: 0px; }
       }
 
-      app-toolbar {
-        margin: 5px;
-        height: 48px;
-      }
+      @media only screen and (min-width: 600px) { .advert { margin-right: 200px; } }
 
-      app-drawer {
-        margin: 0px;
-        color: black;
-        overflow: auto;
-      }
+      app-drawer-layout:not([narrow]) [drawer-toggle] { display: none; }
 
-      app-drawer-layout:not([narrow]) [drawer-toggle] {
-        display: none;
-      }
+      app-header      { background-color: #303030; color: white;" }
+      app-toolbar     { margin: 5px; height: 48px; }
+      app-drawer      { margin: 0px; color: black; overflow: auto; }
+      paper-progress  { width: 100%; }
+      iron-pages      { width: 100%; height: 100%; }
+      h1              { font-size: 22px; text-align: center; }
+      main            { margin: 5px; }
 
-      app-header {
-        background-color: #303030;
-        color: white;"
-      }
-
-      paper-progress {
-        width: 100%;
-      }
-
-      iron-pages {
-        width: 100%; height: 100%;
-      }
-
-      h1 {
-        font-size: 22px;
-        text-align: center;
-      }
-
-      main {
-        margin: 5px;
-      }
-    
     </style>
 
     <!-- ROUTE LOCATION -->

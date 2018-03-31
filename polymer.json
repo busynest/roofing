@@ -5,14 +5,14 @@
     "moduleResolution": "node",
     "fragments": [
       "src/404.js",
-      "src/purchase-order.js",
-      "src/primary-contract.js",
-      "src/roofing-styles.js",
-      "src/send-feedback.js",
-      "src/purchase-order.js",
-      "src/sub-contract.js",
       "src/menu-topic.js",
-      "src/result-item.js"
+      "src/metadata.js",
+      "src/primary-contract.js",
+      "src/purchase-order.js",
+      "src/result-item.js",
+      "src/send-feedback.js",
+      "src/sub-contract.js",
+      "src/warranty-contract.js"
     ],
   
     "sources": [
@@ -25,13 +25,9 @@
       "bower_components/webcomponentsjs/*.js"
     ],
   
-    "lint": {
-      "rules": ["polymer-2"]
-    },
-  
     "builds": [{
       "preset": "es6-unbundled",
-      "bundle": true,
+      "addServiceWorker": true,
       "js": {"compile": true, "minify": true},
       "css": {"minify": true},
       "html": {"minify": true},

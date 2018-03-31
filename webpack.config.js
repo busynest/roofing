@@ -2,6 +2,8 @@
 
 const webpack = require('webpack');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var Visualizer = require('webpack-visualizer-plugin');
 
 /*
 
@@ -12,6 +14,8 @@ import'./src/result-item.js';
 import'./src/roofing-administration.js';
 import'./src/send-feedback.js';
 import'./src/roofing-styles.js';
+
+require('./src/purchase-order.js');
 
 require('./src/menu-topic.js');
 require('./src/primary-contract.js');
@@ -36,10 +40,11 @@ module.exports =  {
       { test: /\.json$/,  use: 'json-loader' }
     ]
   },
+
   resolve: {
-    alias: {
-        Polymer: path.resolve(__dirname, './node_modules/@polymer')
-    }
-  }
+    modules: [ path.resolve(__dirname, 'node_modules') ]
+  },
+
+  plugins: [ new BundleAnalyzerPlugin(), new Visualizer() ],
 
 };

@@ -1,7 +1,7 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { updateMetadata }       from './metadata.js';
 import '@polymer/polymer/lib/utils/gestures.js';
-import { updateMetadata } from './metadata.js';
 
 
 
@@ -116,24 +116,24 @@ export class PurchaseOrder extends PolymerElement {
   }
   _conversion( conversion, plywoodResult ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.conversion == false )  {  this.$.ply.setAttribute("style", "display:none;");
-                                        this.$.pny.setAttribute("style", "display:none;");
+    if ( this.conversion == false )  {  this.$.ply.setAttribute("style", "display:none; animation-duration: 2s; animation-name: slideout; ");
+                                        this.$.pny.setAttribute("style", "display:none; animation-duration: 2s; animation-name: slideout; ");
                                       };
 
     if ( this.conversion == true  )  {  this.plywoodResult = parseInt(this.squarefeet / 32 * 100).toFixed(0);
-                                        this.$.ply.setAttribute("style", "display:block;");
-                                        this.$.pny.setAttribute("style", "display:block;");
+                                        this.$.ply.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein;");
+                                        this.$.pny.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein;");
                                       };
   }
 
   _bundles( bundles, shingles3Result, shingles4Result ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
     if ( this.bundles == false )     {  this.shingles3Result  = this.squarefeet * 3;
-                                        this.$.s3.setAttribute("style", "display:block;");
+                                        this.$.s3.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.s4.setAttribute("style", "display:none;");
                                       };
     if ( this.bundles == true )      {  this.shingles4Result  = this.squarefeet * 4;
-                                        this.$.s4.setAttribute("style", "display:block;");
+                                        this.$.s4.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.s3.setAttribute("style", "display:none;");
                                       };
   }
@@ -141,10 +141,10 @@ export class PurchaseOrder extends PolymerElement {
   _ventilation( ventilation, box, boxVentResult, ridge, ridgeVentResult ) {
     window.onerror = function(message, file, line, col, error){ console.log(arguments); }
     if ( this.ventilation == false ) {  this.boxVentResult   = this.box;
-                                        this.$.bx.setAttribute("style", "display:block;");
+                                        this.$.bx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.rx.setAttribute("style", "display:none;");
 
-                                        this.$.bxv.setAttribute("style", "display:flex;");
+                                        this.$.bxv.setAttribute("style", "display:flex; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.aac.setAttribute("style", "display:block;");
                                         this.$.aad.setAttribute("style", "display:block;");
 
@@ -155,14 +155,14 @@ export class PurchaseOrder extends PolymerElement {
                                       };
 
     if ( this.ventilation == true )  { this.ridgeVentResult = this.ridge;
-                                        this.$.rx.setAttribute("style", "display:block;");
+                                        this.$.rx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.bx.setAttribute("style", "display:none;");
 
                                         this.$.bxv.setAttribute("style", "display:none;");
                                         this.$.aac.setAttribute("style", "display:none;");
                                         this.$.aad.setAttribute("style", "display:none;");
 
-                                        this.$.rxv.setAttribute("style", "display:flex;");
+                                        this.$.rxv.setAttribute("style", "display:flex; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.aaa.setAttribute("style", "display:block;");
                                         this.$.aab.setAttribute("style", "display:block;");
                                       };
@@ -219,33 +219,45 @@ export class PurchaseOrder extends PolymerElement {
         --paper-input-container-color: black;
         --paper-input-container-focus-color: #1abc9c;
       }
-      @media print { .information { display: none; } }
+      @keyframes slidein {  from  { transform: scale( .2, .2 ); }
+                            to    { transform: scale( 1, 1 ); }
+                          }
+
+      @keyframes slideout { from  { transform: scale( 1, 1 ); }
+                            to    { transform: scale( .2, .2 ); }
+                          }
+
+      @media print { .information { display: none; } .iii { display: none; } }
+
+      @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } }
+
       a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
       h1 { font-size: 22px; }
       h4 { font-size: 12px; text-align: center; margin: auto; margin-bottom: 15px;}
-      .info {margin: auto ;}
+      .info { margin: auto ;}
       .i { margin: auto; font-siz: .1em; font-style: italic; }
       .ii { border-left: 1px solid grey; border-right: 1px solid grey; }
-      .iii {  margin-bottom: 15px; max-width: 600px; margin: auto; }
+      .iii {  margin-bottom: 15px; margin: auto; }
       .service { }
       table { width: 100%; padding: 0px; }
       paper-input { font-style: italic; }
       paper-item { cursor: pointer;}
       paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
-      paper-button { margin: 0.5em 1em 0.5em 0; background: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
-      paper-slider { width: 100% }
+      paper-button { margin: 5px 0px 5px 0px; background-color: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
+      paper-slider { width: 100%; height: 2em; }
       paper-toggle-button { 
-        --paper-toggle-button-unchecked-bar-color:  #ee9d40;
-        --paper-toggle-button-unchecked-button-color: #ee9d40;
+        --paper-toggle-button-unchecked-bar-color:  grey;
+        --paper-toggle-button-unchecked-button-color: #1abc9c;
+        --paper-toggle-button-checked-bar-color: grey;
         --paper-toggle-button-checked-button-color: #1abc9c;
-        --paper-toggle-button-checked-bar-color: #1abc9c;
         margin-left: 0px;}
       .x { text-align: right; margin: auto 0px; }
-      .y { text-align: right; margin: auto; }
+      .y { text-align: left; margin: auto 0px; }
       .calculator { border-radius: 5px; }
-      .grid { border-radius: 5px; padding: 5px; max-width: 600px; margin: auto; }
+      .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
       .second { margin: auto; }
-      .estimate { max-width: 600px; margin: auto; }
+      .estimate { max-width: 600px; }
+      paper-slider.input { background-color: black; }
     </style>
 
     <paper-card class="service">
@@ -276,6 +288,52 @@ export class PurchaseOrder extends PolymerElement {
         </table>
       </form>
 
+      
+
+      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+
+      <div>
+        <h4><i>Conversion</i></h4>
+        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+          <div class="i"></div>
+          <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
+          <div class="i"></div>
+        </div>
+      </div>
+
+      <div class="ii">
+        <h4><i>Bundles</i></h4>
+        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+          <div class="i"></div>
+          <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
+          <div class="i"></div>
+        </div>
+      </div>
+
+      <div class="ii">
+        <h4><i>Ventilation</i></h4>
+        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+          <div class="i"></div>
+          <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
+          <div class="i"></div>
+        </div>
+      </div>
+
+      <div>
+        <h4><i>Flashing</i></h4>
+        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
+          <div class="i"></div>
+          <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
+          <div class="i"></div>
+        </div>
+      </div>
+      
+    </div>
+
+      <div class="roofing">
+
+      <div>
+
       <div style="display: grid; grid-template-columns: 97px 1fr;">
         <div class="x">Total Square:</div>
         <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
@@ -304,41 +362,13 @@ export class PurchaseOrder extends PolymerElement {
         <result-item name="" product="Caulking:"          homework="{{sealantResult}}"      unit="tubes" ></result-item>
       </div>
       </div>
-
-      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-
-        <div>
-          <h4><i>Conversion</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-            <div class="i">N</div>
-            <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
-            <div class="i">Y</div>
-          </div>
-        </div>
-
-        <div class="ii">
-          <h4><i>Bundles</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-            <div class="i">3</div>
-            <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
-            <div class="i">4</div>
-          </div>
-        </div>
-
-        <div>
-          <h4><i>Ventilation</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-            <div class="i">box</div>
-            <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
-            <div class="i">ridge</div>
-          </div>
-        </div>
         
+
       </div>
 
     <div class="information estimate">
 
-        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 2em;">
+        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
 
           <div class="x">Starter Rows:</div>
           <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
@@ -415,6 +445,7 @@ export class PurchaseOrder extends PolymerElement {
           <i class="y">ft</i>
 
         </div>
+      </div>
       </div>
     </paper-card>
 
