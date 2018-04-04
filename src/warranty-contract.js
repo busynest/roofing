@@ -1,6 +1,6 @@
 
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js"
-import { updateMetadata }       from './metadata.js';
+import { updateMetadata }       from './app/metadata.js';
 
 export class WarrantyContract extends PolymerElement {
 
@@ -30,7 +30,7 @@ export class WarrantyContract extends PolymerElement {
     super.ready();
     //this.addEventListener('keypress', e => this.handlePress(e));
     //var sq = new OneSquare();
-    console.log('Warranty Ready!');
+    console.log(this.tagName);
   }
 
   static get template() {

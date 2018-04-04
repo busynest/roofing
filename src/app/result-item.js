@@ -48,7 +48,7 @@ export class ResultItem extends PolymerElement {
     super.ready();
     //this.addEventListener('keypress', e => this.handlePress(e));
     //var sq = new OneSquare();
-    console.log('Result-Item Ready!');
+    console.log(this.tagName);
   }
 
   static get template() {

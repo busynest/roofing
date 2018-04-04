@@ -4,12 +4,12 @@
     "npm": true,
     "moduleResolution": "node",
     "fragments": [
-      "src/404.js",
-      "src/menu-topic.js",
-      "src/metadata.js",
+      "src/app/metadata.js",
+      "src/app/result-item.js",
+      "src/app/router.js",
+      "src/page-404.js",
       "src/primary-contract.js",
       "src/purchase-order.js",
-      "src/result-item.js",
       "src/send-feedback.js",
       "src/sub-contract.js",
       "src/warranty-contract.js"
@@ -17,12 +17,13 @@
   
     "sources": [
       "src/**",
-      "images/**"
+      "images/**",
+      "package.json"
     ],
   
     "extraDependencies": [
       "manifest.json",
-      "bower_components/webcomponentsjs/*.js"
+      "node_modules/@webcomponents/webcomponentsjs/**"
     ],
   
     "builds": [{
@@ -30,7 +31,6 @@
       "addServiceWorker": true,
       "js": {"compile": true, "minify": true},
       "css": {"minify": true},
-      "html": {"minify": true},
-      "addServiceWorker": true
+      "html": {"minify": true}
     }]
   }

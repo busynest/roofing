@@ -1,6 +1,6 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './metadata.js';
+import { updateMetadata }       from './app/metadata.js';
 import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js'
 
 export class SubContract extends PolymerElement {
@@ -39,7 +39,7 @@ export class SubContract extends PolymerElement {
 
   ready() {
     super.ready();
-    console.log('Primary Contract is Ready!');
+    console.log(this.tagName);
   }
 
   _deal(square, rate, servicePrice) {

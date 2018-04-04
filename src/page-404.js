@@ -1,4 +1,5 @@
 import { PolymerElement } from "@polymer/polymer/polymer-element.js"
+import { updateMetadata } from './app/metadata.js';
 
 export class Page404 extends PolymerElement {
 
@@ -17,11 +18,16 @@ export class Page404 extends PolymerElement {
 
   connectedCallback() {
     super.connectedCallback();
+    updateMetadata({
+      title: 'Page 404',
+      description: 'Roofing Contractor Help',
+      url: document.location.href
+    });
   }
 
   ready() {
     super.ready();
-    console.log('Page 404 is Ready!');
+    console.log(this.tagName);
   }
 
   static get template() {

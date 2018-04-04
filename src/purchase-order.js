@@ -1,6 +1,6 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './metadata.js';
+import { updateMetadata }       from './app/metadata.js';
 import '@polymer/polymer/lib/utils/gestures.js';
 
 
@@ -19,7 +19,7 @@ export class PurchaseOrder extends PolymerElement {
      
       /* CONVERSION */
      
-      conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false},
+      conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false },
       plywoodResult:        { type: Number,  notify: true, observer: '_conversion' },
       
       /* ASPHALT */
@@ -42,7 +42,7 @@ export class PurchaseOrder extends PolymerElement {
       
       /* VENTILATION */
       
-      ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false, },
+      ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false },
 
       ridge:                { type: Number,  notify: true, observer: '_ventilation', value: 24 },
       ridgeVentResult:      { type: Number,  notify: true, observer: '_ventilation' },
@@ -66,7 +66,11 @@ export class PurchaseOrder extends PolymerElement {
 
       chimney:              { type: Number, notify: true, observer: '_flashing', value: 1 },
       skylights:            { type: Number, notify: true, observer: '_flashing', value: 2 },
+      
+      /* FLASHING */
 
+      flashing:             { type: Boolean, notify: true, observer: '_flashing', value: false },
+      
       gable:                { type: Number, notify: true, observer: '_flashing', value: 0 },
       gableFlashing:        { type: Number, notify: true, observer: '_flashing' },
 
@@ -99,7 +103,7 @@ export class PurchaseOrder extends PolymerElement {
 
   ready() {
     super.ready();
-    console.log('Residential Estimate Ready!');
+    console.log(this.tagName);
   }
 
   _areaChange(event) {
@@ -144,13 +148,8 @@ export class PurchaseOrder extends PolymerElement {
                                         this.$.bx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.rx.setAttribute("style", "display:none;");
 
-                                        this.$.bxv.setAttribute("style", "display:flex; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.aac.setAttribute("style", "display:block;");
-                                        this.$.aad.setAttribute("style", "display:block;");
-
+                                        this.$.bxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.rxv.setAttribute("style", "display:none;");
-                                        this.$.aaa.setAttribute("style", "display:none;");
-                                        this.$.aab.setAttribute("style", "display:none;");
 
                                       };
 
@@ -158,17 +157,13 @@ export class PurchaseOrder extends PolymerElement {
                                         this.$.rx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.bx.setAttribute("style", "display:none;");
 
+                                        this.$.rxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
                                         this.$.bxv.setAttribute("style", "display:none;");
-                                        this.$.aac.setAttribute("style", "display:none;");
-                                        this.$.aad.setAttribute("style", "display:none;");
-
-                                        this.$.rxv.setAttribute("style", "display:flex; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.aaa.setAttribute("style", "display:block;");
-                                        this.$.aab.setAttribute("style", "display:block;");
                                       };
   }
 
   _flashing(
+    flashing,
     valley, valleyResult,
     gable, gableFlashing,
     head, headFlashing,
@@ -177,6 +172,20 @@ export class PurchaseOrder extends PolymerElement {
     chimney, skylights
   ) {
       window.onerror = function(message, file, line, col, error){ console.log(arguments); }
+      
+      if ( this.flashing == false )  {
+        this.$.tin1.setAttribute("style", "display:none;");
+        this.$.tin2.setAttribute("style", "display:none;");
+        this.$.tin3.setAttribute("style", "display:none;");
+        this.$.tin4.setAttribute("style", "display:none;");
+      }
+      if ( this.flashing == true )  {
+        this.$.tin1.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
+        this.$.tin2.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
+        this.$.tin3.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
+        this.$.tin4.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
+      };
+
       this.valleyResult     = this.valley;
       this.gableFlashing    = this.gable;
       this.headFlashing     = this.head       + ( this.chimney  * .5 )      + ( this.skylights * .5 );
@@ -213,8 +222,8 @@ export class PurchaseOrder extends PolymerElement {
     <style>
       :host {
         --secondary-text-color: blue;
-        --paper-slider-knob-color: #1abc9c;
-        --paper-slider-active-color: #1abc9c;
+        --paper-slider-knob-color: #50e0d1; /* #1abc9c */
+        --paper-slider-active-color: #50e0d1; /* #1abc9c */
         --paper-slider-secondary-color: #1abc9c;
         --paper-input-container-color: black;
         --paper-input-container-focus-color: #1abc9c;
@@ -227,72 +236,60 @@ export class PurchaseOrder extends PolymerElement {
                             to    { transform: scale( .2, .2 ); }
                           }
 
-      @media print { .information { display: none; } .iii { display: none; } }
+      @media print {  .information { display: none; } }
 
       @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } }
 
       a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
       h1 { font-size: 22px; }
+      h3 { margin: 0px; }
       h4 { font-size: 12px; text-align: center; margin: auto; margin-bottom: 15px;}
       .info { margin: auto ;}
       .i { margin: auto; font-siz: .1em; font-style: italic; }
       .ii { border-left: 1px solid grey; border-right: 1px solid grey; }
-      .iii {  margin-bottom: 15px; margin: auto; }
+      .iii { margin-bottom: 15px; margin: auto; }
       .service { }
       table { width: 100%; padding: 0px; }
       paper-input { font-style: italic; }
       paper-item { cursor: pointer;}
       paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
-      paper-button { margin: 5px 0px 5px 0px; background-color: #1abc9c; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
+      paper-button { margin: 5px 0px 5px 0px; background-color: #50e0d1; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
       paper-slider { width: 100%; height: 2em; }
       paper-toggle-button { 
         --paper-toggle-button-unchecked-bar-color:  grey;
-        --paper-toggle-button-unchecked-button-color: #1abc9c;
+        --paper-toggle-button-unchecked-button-color: #e06f50;
         --paper-toggle-button-checked-bar-color: grey;
-        --paper-toggle-button-checked-button-color: #1abc9c;
+        --paper-toggle-button-checked-button-color: #57e050;
         margin-left: 0px;}
       .x { text-align: right; margin: auto 0px; }
       .y { text-align: left; margin: auto 0px; }
       .calculator { border-radius: 5px; }
       .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
       .second { margin: auto; }
-      .estimate { max-width: 600px; }
+      .estimate { max-width: 600px; margin-top: auto; margin-bottom: auto; }
       paper-slider.input { background-color: black; }
     </style>
 
     <paper-card class="service">
 
-      <!-- PAGE TITLE -->
-      <h3>Roofing Purchase Order</h3>
-
-      <!-- PURCHASE FORM -->
-      <form>
-        <table>
-          <tr>
-            <td colspan="2"><paper-input type="text" label="Contractor"></paper-input></td>
-          </tr>
-          <tr>
-            <td><paper-input type="text" label="Project"></paper-input></td>
-            <td><paper-input type="date" label="Departure Date"></paper-input></td>
-          </tr>
-          <tr>
-            <td><paper-input type="text" label="Estimator"></paper-input></td>
-            <td><paper-input type="number" label="Phone Number"></paper-input></td>
-          </tr>
-          <tr>
-            <td colspan="2"><paper-input type="text" label="Shipping Address"></paper-input></td>
-          </tr>
-          <tr>
-            <td colspan="2"><paper-button raised  class="information" onclick="print()">Print</paper-button></td>
-          </tr>
-        </table>
-      </form>
-
-      
-
-      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
-
-      <div>
+    <!-- PAGE TITLE -->
+    <h3>Roofing Purchase Order</h3>
+  
+    <!-- PURCHASE FORM -->
+    <form style="display: grid; grid-template-columns: 1fr 1fr;">
+      <paper-input type="text" label="Contractor"></paper-input>
+      <paper-input type="text" label="Project"></paper-input>
+      <paper-input type="text" label="Estimator"></paper-input>
+      <paper-input type="number" label="Phone Number"></paper-input>
+      <paper-input type="date" label="Departure Date"></paper-input>
+      <paper-input type="text" label="Shipping Address"></paper-input>
+    </form>
+  
+    <paper-button raised class="information" onclick="print()">Print</paper-button>
+  
+    <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
+  
+      <div class="information">
         <h4><i>Conversion</i></h4>
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
           <div class="i"></div>
@@ -300,8 +297,8 @@ export class PurchaseOrder extends PolymerElement {
           <div class="i"></div>
         </div>
       </div>
-
-      <div class="ii">
+  
+      <div class="information">
         <h4><i>Bundles</i></h4>
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
           <div class="i"></div>
@@ -309,8 +306,8 @@ export class PurchaseOrder extends PolymerElement {
           <div class="i"></div>
         </div>
       </div>
-
-      <div class="ii">
+  
+      <div class="information">
         <h4><i>Ventilation</i></h4>
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
           <div class="i"></div>
@@ -318,136 +315,166 @@ export class PurchaseOrder extends PolymerElement {
           <div class="i"></div>
         </div>
       </div>
-
-      <div>
+  
+      <div class="information">
         <h4><i>Flashing</i></h4>
         <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
           <div class="i"></div>
-          <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
+          <paper-toggle-button checked="{{flashing}}" on-click="_ventilation"></paper-toggle-button>
           <div class="i"></div>
         </div>
       </div>
-      
+  
     </div>
 
-      <div class="roofing">
-
+    <div style="display: grid; grid-template-columns: 97px 1fr 4em;;">
+    <div class="x">Total Square:</div>
+    <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
+    <i class="y">Square</i>
+  </div>
+  
+    <div class="roofing">
+  
       <div>
-
-      <div style="display: grid; grid-template-columns: 97px 1fr;">
-        <div class="x">Total Square:</div>
-        <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
+  
+        <div class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
+          <div class="second">
+            <result-item id="ply" product="Plywood:" homework="{{plywoodResult}}" unit="sheets"></result-item>
+            <result-item id="pny" product="Sheathing Nails:" homework="{{plyNailResult}}" unit="boxes"></result-item>
+            <result-item id="s3" product="Shingles 3\'s:" homework="{{shingles3Result}}" unit="bundles"></result-item>
+            <result-item id="s4" product="Shingles 4\'s:" homework="{{shingles4Result}}" unit="bundles"></result-item>
+            <result-item product="Roofing Nails:" homework="{{roofNailResult}}" unit="boxes"></result-item>
+            <result-item product="Starters:" homework="{{startersResult}}" unit="bundles"></result-item>
+            <result-item id="f15" product="15 Pound Felt:" homework="{{felt15Result}}" unit="rolls"></result-item>
+            <result-item id="f30" product="30 Pound Felt:" homework="{{felt30Result}}" unit="rolls"></result-item>
+            <result-item id="rx" product="Ridge Ventilation:" homework="{{ridgeVentResult}}" unit="boxes"></result-item>
+            <result-item id="bx" product="Box Ventilation:" homework="{{boxVentResult}}" unit="ea"></result-item>
+            <result-item product="Gas Vent type-B:" homework="{{bVentResult}}" unit="ea"></result-item>
+            <result-item product="Plumbing Vent:" homework="{{pStackResult}}" unit="ea"></result-item>
+            <result-item product="Gooseneck:" homework="{{gooseneckResult}}" unit="ea"></result-item>
+            <result-item id="gb" product="Gable Flashing:" homework="{{gableFlashing}}" unit="ea"></result-item>
+            <result-item product="Front Pan:" homework="{{headFlashing}}" unit="ea"></result-item>
+            <result-item product="Back Pan:" homework="{{backFlashing}}" unit="ea"></result-item>
+            <result-item product="Step Flashing:" homework="{{stepFlashing}}" unit="bundles"></result-item>
+            <result-item product="Valley Flashing:" homework="{{valleyResult}}" unit="ea"></result-item>
+            <result-item product="Caulking:" homework="{{sealantResult}}" unit="tubes"></result-item>
+          </div>
+        </div>
+  
       </div>
-
-      <div class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
-      <div class="second">
-        <result-item id="ply" product="Plywood:"          homework="{{plywoodResult}}"      unit="sheets" ></result-item>
-        <result-item id="pny" product="Sheathing Nails:"  homework="{{plyNailResult}}"      unit="boxes" ></result-item>
-        <result-item id="s3" product="Shingles 3\'s:"     homework="{{shingles3Result}}"    unit="bundles" ></result-item>
-        <result-item id="s4" product="Shingles 4\'s:"     homework="{{shingles4Result}}"    unit="bundles" ></result-item>
-        <result-item product="Roofing Nails:"             homework="{{roofNailResult}}"     unit="boxes" ></result-item>
-        <result-item name="" product="Starters:"          homework="{{startersResult}}"     unit="bundles" ></result-item>
-        <result-item id="f15" product="15 Pound Felt:"    homework="{{felt15Result}}"       unit="rolls" ></result-item>
-        <result-item id="f30" product="30 Pound Felt:"    homework="{{felt30Result}}"       unit="rolls" ></result-item>
-        <result-item id="rx" product="Ridge Ventilation:" homework="{{ridgeVentResult}}"    unit="boxes" ></result-item>
-        <result-item id="bx" product="Box Ventilation:"   homework="{{boxVentResult}}"      unit="ea" ></result-item>
-        <result-item name="" product="Gas Vent type-B:"   homework="{{bVentResult}}"        unit="ea" ></result-item>
-        <result-item name="" product="Plumbing Vent:"     homework="{{pStackResult}}"       unit="ea" ></result-item>
-        <result-item name="" product="Gooseneck:"         homework="{{gooseneckResult}}"    unit="ea" ></result-item>
-        <result-item name="" product="Front Pan:"         homework="{{headFlashing}}"       unit="ea" ></result-item>
-        <result-item name="" product="Back Pan:"          homework="{{backFlashing}}"       unit="ea" ></result-item>
-        <result-item name="" product="Step Flashing:"     homework="{{stepFlashing}}"       unit="bundles" ></result-item>
-        <result-item name="" product="Gable Flashing:"    homework="{{gableFlashing}}"      unit="ea" ></result-item>
-        <result-item name="" product="Valley Flashing:"   homework="{{valleyResult}}"       unit="ea" ></result-item>
-        <result-item name="" product="Caulking:"          homework="{{sealantResult}}"      unit="tubes" ></result-item>
-      </div>
-      </div>
-        
-
-      </div>
-
-    <div class="information estimate">
-
-        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-
-          <div class="x">Starter Rows:</div>
-          <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+  
+      <div class="information estimate">
+  
+        <div class="calculator" style="display: grid; grid-template-columns: 1fr;">
+  
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Starter Rows:</div>
+            <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- CAPPING -->
-          <div class="x">Capping:</div>
-          <paper-slider id="ridge" value="{{cap}}" max="800" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Capping:</div>
+            <paper-slider id="ridge" value="{{cap}}" max="800" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- RIDGE VENTILATION -->
-          <div id="aaa" class="x">Ridge Vent:</div>
-          <paper-slider id="rxv" value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
-          <i id="aab" class="y">ft</i>
-
+          <div id="rxv" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Ridge Vent:</div>
+            <paper-slider value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- BOX VENTS -->
-          <div id="aac" class="x">Box Ventilation:</div>
-          <paper-slider id="bxv" value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
-          <i id="aad" class="y">ea</i>
-
+          <div id="bxv" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Box Ventilation:</div>
+            <paper-slider value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- B VENT -->
-          <div class="x">B-Vent:</div>
-          <paper-slider id="bv" value="{{bVent}}" max="25" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">B-Vent:</div>
+            <paper-slider id="bv" value="{{bVent}}" max="25" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- STACK-->
-          <div class="x">Plumbing Stack:</div>
-          <paper-slider id="ps" value="{{pStack}}" max="25" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Plumbing Stack:</div>
+            <paper-slider id="ps" value="{{pStack}}" max="25" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- GOOSENECK -->
-          <div class="x">Gooseneck:</div>
-          <paper-slider id="gn" value="{{gooseneck}}" max="25" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Gooseneck:</div>
+            <paper-slider id="gn" value="{{gooseneck}}" max="25" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- SEALANT -->
-          <div class="x">Sealant:</div>
-          <paper-slider id="sl" value="{{asphaltSealant}}" max="25" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Sealant:</div>
+            <paper-slider id="sl" value="{{asphaltSealant}}" max="25" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- SKYLIGHT -->
-          <div class="x">Skylights:</div>
-          <paper-slider id="skylight" value="{{skylights}}" max="10" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Skylights:</div>
+            <paper-slider id="skylight" value="{{skylights}}" max="10" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- CHIMNEY -->
-          <div class="x">Chimney:</div>
-          <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ea</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Chimney:</div>
+            <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ea</i>
+          </div>
+  
           <!-- VALLEY -->
-          <div class="x">Valley:</div>
-          <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Valley:</div>
+            <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- GABLE -->
-          <div class="x">Gable Flashing:</div>
-          <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div id="tin1" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Gable Flashing:</div>
+            <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- HEAD FLASHING -->
-          <div class="x">Head Flashing:</div>
-          <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div id="tin2" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Head Flashing:</div>
+            <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- BACK FLASHING -->
-          <div class="x">Back Flashing:</div>
-          <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div id="tin3" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Back Flashing:</div>
+            <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
           <!-- STEP FLASHING -->
-          <div class="x">Step Flashing:</div>
-          <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
-          <i class="y">ft</i>
-
+          <div id="tin4" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
+            <div class="x">Step Flashing:</div>
+            <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
+            <i class="y">ft</i>
+          </div>
+  
         </div>
       </div>
-      </div>
-    </paper-card>
+    </div>
+  </paper-card>
 
   `
   }
@@ -473,6 +500,31 @@ customElements.define('purchase-order', PurchaseOrder);
           <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button><div class="i">ridge</div></div>
         </div>
       </div>
+
+
+
+
+            <form>
+        <table>
+          <tr>
+            <td colspan="2"><paper-input type="text" label="Contractor"></paper-input></td>
+          </tr>
+          <tr>
+            <td><paper-input type="text" label="Project"></paper-input></td>
+            <td><paper-input type="date" label="Departure Date"></paper-input></td>
+          </tr>
+          <tr>
+            <td><paper-input type="text" label="Estimator"></paper-input></td>
+            <td><paper-input type="number" label="Phone Number"></paper-input></td>
+          </tr>
+          <tr>
+            <td colspan="2"><paper-input type="text" label="Shipping Address"></paper-input></td>
+          </tr>
+          <tr>
+            <td colspan="2"><paper-button raised  class="information" onclick="print()">Print</paper-button></td>
+          </tr>
+        </table>
+      </form>
  * 
  * 
  * 
