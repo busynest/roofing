@@ -1,10 +1,8 @@
 
 import { PolymerElement, html } from "@polymer/polymer/polymer-element.js"
-import { updateMetadata }       from './app/metadata.js';
+import { updateMetadata }       from './metadata.js';
 
 export class WarrantyContract extends PolymerElement {
-
-  static get is() { return 'warranty-contract'; }
 
   static get properties() {
     return {

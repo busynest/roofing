@@ -1,10 +1,8 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './app/metadata.js';
+import { updateMetadata }       from './metadata.js';
 
 export class SendFeedback extends PolymerElement {
-
-  static get is() { return 'send-feedback'; }
 
   static get properties() {
     return {

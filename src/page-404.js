@@ -1,9 +1,7 @@
 import { PolymerElement } from "@polymer/polymer/polymer-element.js"
-import { updateMetadata } from './app/metadata.js';
+import { updateMetadata }       from './metadata.js';
 
 export class Page404 extends PolymerElement {
-
-  static get is() { return 'page-404'; }
 
   static get properties() {
     return {

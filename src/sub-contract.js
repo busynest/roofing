@@ -1,12 +1,9 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './app/metadata.js';
-import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js'
+import { updateMetadata }       from './metadata.js';
 
 export class SubContract extends PolymerElement {
-
-  static get is() { return 'sub-contract'; }
-
+  
   static get properties() {
     return {
 
@@ -48,6 +45,10 @@ export class SubContract extends PolymerElement {
 
   static get template() {
     return html`
+<!--
+
+
+import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
 
     <style>
     paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
@@ -235,7 +236,7 @@ export class SubContract extends PolymerElement {
             </ul>
             <paper-button raised class="information" onclick="printButton()"><iron-icon icon="icons:print"></iron-icon>Print</paper-button>
           </paper-card>
-
+-->
   `
   }
 

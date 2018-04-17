@@ -1,10 +1,9 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata } from './app/metadata.js';
+import { updateMetadata }       from './metadata.js';
+import * as gestures from '@polymer/polymer/lib/utils/gestures.js';
 
 export class PrimaryContract extends PolymerElement {
-
-  static get is() { return 'primary-contract'; }
 
   static get properties() {
     return {
@@ -68,7 +67,13 @@ export class PrimaryContract extends PolymerElement {
       border-radius: 10px;
     }
 
+    .tPrice{
+      margin-right: 1em ;
+      text-align: right;
+    }
+
     </style>
+
     <paper-card>
       <h3>Primary Roofing Contract</h3>
       <form>
@@ -98,15 +103,11 @@ export class PrimaryContract extends PolymerElement {
             <td colspan="2"><paper-input type="text" label="Customer Address:" placeholder="Calgary, AB" ></paper-input></td>
           </tr>
         </table>
+        </form>
+      </paper-card>
 
-        <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
-          <div class="heed">Total Square:</div>        <paper-slider editable max="250" on-change="_deal" value="{{square}}"></paper-slider>   <div class="tail">dollars</div>
-          <div class="heed">Contractor Rate:</div>     <paper-slider editable max="250" on-change="_deal" value="{{rate}}"></paper-slider>     <div class="tail">dollars</div>
-        </div>
-
-        <h1>\${{servicePrice}}</h1>
-
-          </form>
+      <paper-card>
+      <h2>Roofing Contract</h2>
             <p>
               The undersigned proposes to furnish all materials and labour necessary to complete all the described work.
               All of the above to be completed in a good manner and workmanlike manner for the sum of
@@ -118,14 +119,17 @@ export class PrimaryContract extends PolymerElement {
               A {{warrantyYears}} year warranty on all labour by {{businessName}} will be issused after full payment has been received.
             </p>
 
-            {{business}}
-            {{bizAddress}}
-            {{bizSales}}
-            {{bizPhone}}
+            <div style="display: grid; grid-template-columns: 1fr;"><h1 class="tPrice">\${{servicePrice}}</h1></div>
+            <div class="calculator" style="display: grid; grid-template-columns: 120px 1fr 1em;">
+              <div class="heed">Total Square:</div>        <paper-slider editable max="250" on-change="_deal" value="{{square}}"></paper-slider>   <div class="tail">dollars</div>
+              <div class="heed">Contractor Rate:</div>     <paper-slider editable max="250" on-change="_deal" value="{{rate}}"></paper-slider>     <div class="tail">dollars</div>
+            </div>
+  
+      </paper-card>
 
-            <ul>
-              <li>
-                Preliminary Negotiation: Ads before service, keep promise on advertising
+      <paper-card>
+        <h2>Preliminary Negotiation</h2>
+        Ads before service, keep promise on advertising
                 Legal Offer: Promise to, in Exchange, for Promise
 
                 Clear and defined to create power of acceptance
@@ -140,11 +144,12 @@ export class PrimaryContract extends PolymerElement {
                 Offers continue untill expiration of the time period specified by the offer
 
                 purchase an “option” to keep the offer open for a designated time
+                
+          </paper-card>
 
-              </li>
-
-              <li>
-                acceptance
+          <paper-card>
+                
+                <h2>Acceptance</h2>
 
                 if the offeree knows of the offer, the offeree manifests an intention to accept, and the acceptance is expressed as an unequivocal and unconditional agreement to the terms of the offer.
 
@@ -164,9 +169,11 @@ export class PrimaryContract extends PolymerElement {
 
                 Acceptance cannot generally be inferred from a party’s silence or inaction
 
-              </li>
-              <li>
-                consideration
+          </paper-card>
+
+          <paper-card>
+
+          <h2>consideration</h2>
 
                 exchange of values “consideration.”
 
@@ -178,9 +185,11 @@ export class PrimaryContract extends PolymerElement {
 
                 in performing the act requested by the offeror
               
-              <li>
+          </paper-card>
 
-                mutuality of obligation
+          <paper-card>
+
+          <h2>mutuality of obligation</h2>
 
                 both parties must be bound to perform their obligations
 
@@ -194,21 +203,23 @@ export class PrimaryContract extends PolymerElement {
 
                 right to terminate the service short of full performance simply by giving notice of his or her intention to cancel.
 
-              </li>
-              <li>
+      </paper-card>
 
-                competency and capacity
+      <paper-card>
+
+                <h2>competency and capacity</h2>
 
                 A natural person who enters a contract possesses complete legal capacity to be held liable for the duties he or she agrees to undertake, unless the person is a minor, mentally incapacitated, or intoxicated.
 
 
 
-              </li>
-              <li>
+                </paper-card>
+
+                <paper-card>
               
                 a written instrument
 
-              </li>
+                </paper-card>
               <li>Contract Documents</li>
               <li>Description of work</li>
               <li>Delays</li>

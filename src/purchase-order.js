@@ -1,7 +1,113 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './app/metadata.js';
-import '@polymer/polymer/lib/utils/gestures.js';
+import { updateMetadata }       from './metadata.js';
+import '@polymer/neon-animation/neon-animations.js';
+import '@polymer/neon-animation/animations/fade-in-animation.js';
+//import '@polymer/polymer/lib/utils/gestures.js';
+
+
+export class ResultItem extends PolymerElement {
+
+  static get properties() {
+    return {
+
+      name: {
+        string: ''
+      },
+
+      product: {
+        string: ''
+      },
+
+      identity: {
+        string: ''
+      },
+
+      unit: {
+        string: ''
+      },
+
+      homework:{
+        string:''
+      },
+
+      price:{
+        string:''
+      },
+
+      total:{
+        string:''
+      }
+
+    };
+  }
+
+  //static get observers() {
+  //    return [ 'thingCountChanged' ];
+  //}
+
+  constructor() {
+    super();
+    //console.log('Menu-Item Constructor!');
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    //console.log('Menu-Item Connected!');
+  }
+
+  ready() {
+    super.ready();
+    //this.addEventListener('keypress', e => this.handlePress(e));
+    //var sq = new OneSquare();
+    console.log(this.tagName);
+  }
+
+  static get template() {
+    return html`
+
+    <style>
+      .home {
+        text-align: right;
+        margin: 7px;
+        border-bottom: 1px dotted grey;
+      }
+      .product {
+        text-align: center;
+        font-size: .9em;
+      }
+      .price {
+        text-align: center;
+        font-size: .7em;
+      }
+      .work {
+        text-align: center;
+        font-size: .7em;
+        font-weight: bold;
+      }
+      .unit {
+        font-size: .6em;
+        color: grey;
+        text-align: left;
+      }
+      .money {
+        font-size: .6em;
+        color: #248746;
+        text-align: left;
+      }
+    </style>
+    
+      <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 122px 3em 2em 2.5em 1fr">
+        <div class="product">{{product}}</div>
+        <div class="price"><i>{{price}} <strong>x</strong></i></div>
+        <div class="work">{{homework}}</div>
+        <div class="unit"><i>{{unit}}</i></div>
+        <div class="money">\$ <i>{{total}}</i></div>
+      </div>
+    `
+      }
+    }
+customElements.define('result-item', ResultItem);
 
 
 
@@ -11,85 +117,21 @@ export class PurchaseOrder extends PolymerElement {
 
   static get properties() {
     return {
-      
-      /* AREA */
-      
-      squarefeet:           { type: Number, notify: true, observer: '_area', value: 21 },
-      square:               { type: Number, notify: true, observer: '_area'},
-     
-      /* CONVERSION */
-     
-      conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false },
-      plywoodResult:        { type: Number,  notify: true, observer: '_conversion' },
-      
-      /* ASPHALT */
-      
-      bundles:              { type: Boolean, notify: true, observer: '_bundles', value: false },
-      
-      shingles3Result:      { type: Number,  notify: true, observer: '_bundles' },
-      shingles4Result:      { type: Number,  notify: true, observer: '_bundles' },
-      
-      felt15Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
-      felt30Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
-
-      roofNailResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
-      
-      starters:             { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
-      startersResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
-      
-      asphaltSealant:       { type: Number,  notify: true, observer: '_asphaltRoof', value: 2 },
-      sealantResult:        { type: Number,  notify: true, observer: '_asphaltRoof' },
-      
-      /* VENTILATION */
-      
-      ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false },
-
-      ridge:                { type: Number,  notify: true, observer: '_ventilation', value: 24 },
-      ridgeVentResult:      { type: Number,  notify: true, observer: '_ventilation' },
-
-      box:                  { type: Number,  notify: true, observer: '_ventilation', value: 4 },
-      boxVentResult:        { type: Number,  notify: true, observer: '_ventilation' },
-      
-      /** CAPPING */
-      
-      cap:                  { type: Number, notify: true, value: 60 },
-      cappingResult:        { type: Number, notify: true, obeserver: "_asphaltRoof" },
-
-      bVent:                { type: Number, value: 1, notify: true },
-      bVentResult:          { type: Number, notify: true, observer: '_asphaltRoof' },
-
-      pStack:               { type: Number, value: 4, notify: true },
-      pStackResult:         { type: Number, notify: true, observer: '_asphaltRoof' },
-
-      gooseneck:            { type: Number, notify: true, value: 1 },
-      gooseneckResult:      { type: Number, notify: true, observer: '_asphaltRoof' },
-
-      chimney:              { type: Number, notify: true, observer: '_flashing', value: 1 },
-      skylights:            { type: Number, notify: true, observer: '_flashing', value: 2 },
-      
-      /* FLASHING */
-
-      flashing:             { type: Boolean, notify: true, observer: '_flashing', value: false },
-      
-      gable:                { type: Number, notify: true, observer: '_flashing', value: 0 },
-      gableFlashing:        { type: Number, notify: true, observer: '_flashing' },
-
-      head:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
-      headFlashing:         { type: Number, notify: true, observer: '_flashing' },
-
-      back:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
-      backFlashing:         { type: Number, notify: true, observer: '_flashing' },
-
-      step:                 { type: Number, notify: true, observer: '_flashing', value: 0 },
-      stepFlashing:         { type: Number, notify: true, observer: '_flashing' },
-
-      valley:               { type: Number, notify: true, observer: '_flashing', value: 24 },
-      valleyResult:         { type: Number, notify: true, observer: '_flashing' }
+      tSquare:        { type: String, notify: true },   
+      roofMoney:      { type: String, notify: true },
+      ventMoney:      { type: String, notify: true },
+      flashingMoney:  { type: String, notify: true }
     };
   }
 
   constructor() {
     super();
+    //let vertical = this.$.; 
+    //if (setTimeout() document.height == ListeningStateChangedEvent)
+    this.addEventListener('click', e => {
+        return console.log('Success')
+    });
+     //this.tSquare = this.$.square;
   }
 
   connectedCallback() {
@@ -106,426 +148,78 @@ export class PurchaseOrder extends PolymerElement {
     console.log(this.tagName);
   }
 
-  _areaChange(event) {
-    this._area(event);
-    this._conversion(event);
-    this._bundles(event);
-    this._asphaltRoof(event);
-    this._ventilation(event);
-    this._flashing(event);
-  }
-
-  _area( square, squarefeet ) {
-    this.square           = this.squarefeet;
-  }
-  _conversion( conversion, plywoodResult ) {
-    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.conversion == false )  {  this.$.ply.setAttribute("style", "display:none; animation-duration: 2s; animation-name: slideout; ");
-                                        this.$.pny.setAttribute("style", "display:none; animation-duration: 2s; animation-name: slideout; ");
-                                      };
-
-    if ( this.conversion == true  )  {  this.plywoodResult = parseInt(this.squarefeet / 32 * 100).toFixed(0);
-                                        this.$.ply.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein;");
-                                        this.$.pny.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein;");
-                                      };
-  }
-
-  _bundles( bundles, shingles3Result, shingles4Result ) {
-    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.bundles == false )     {  this.shingles3Result  = this.squarefeet * 3;
-                                        this.$.s3.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.s4.setAttribute("style", "display:none;");
-                                      };
-    if ( this.bundles == true )      {  this.shingles4Result  = this.squarefeet * 4;
-                                        this.$.s4.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.s3.setAttribute("style", "display:none;");
-                                      };
-  }
-
-  _ventilation( ventilation, box, boxVentResult, ridge, ridgeVentResult ) {
-    window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-    if ( this.ventilation == false ) {  this.boxVentResult   = this.box;
-                                        this.$.bx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.rx.setAttribute("style", "display:none;");
-
-                                        this.$.bxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.rxv.setAttribute("style", "display:none;");
-
-                                      };
-
-    if ( this.ventilation == true )  { this.ridgeVentResult = this.ridge;
-                                        this.$.rx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.bx.setAttribute("style", "display:none;");
-
-                                        this.$.rxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-                                        this.$.bxv.setAttribute("style", "display:none;");
-                                      };
-  }
-
-  _flashing(
-    flashing,
-    valley, valleyResult,
-    gable, gableFlashing,
-    head, headFlashing,
-    back, backFlashing,
-    step, stepFlashing,
-    chimney, skylights
-  ) {
-      window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-      
-      if ( this.flashing == false )  {
-        this.$.tin1.setAttribute("style", "display:none;");
-        this.$.tin2.setAttribute("style", "display:none;");
-        this.$.tin3.setAttribute("style", "display:none;");
-        this.$.tin4.setAttribute("style", "display:none;");
-      }
-      if ( this.flashing == true )  {
-        this.$.tin1.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-        this.$.tin2.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-        this.$.tin3.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-        this.$.tin4.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
-      };
-
-      this.valleyResult     = this.valley;
-      this.gableFlashing    = this.gable;
-      this.headFlashing     = this.head       + ( this.chimney  * .5 )      + ( this.skylights * .5 );
-      this.backFlashing     = this.back       + ( this.chimney  * .5 )      + ( this.skylights * .5 );
-      this.stepFlashing     = this.step       + ( this.chimney  * .3 )      + ( this.skylights * .5 );
-    }
-
-  _asphaltRoof(
-    squarefeet,
-    roofNailResult,
-    bVent, bVentResult,
-    pStack, pStackResult,
-    gooseneck, gooseneckResult,
-    starters, startersResult,
-    cap, cappingResult,
-    asphaltSealant, sealantResult,
-    felt15Result, felt30Result 
-  ) {
-      window.onerror = function(message, file, line, col, error){ console.log(arguments); }
-      this.roofNailResult   = Number(parseInt(this.squarefeet * 320 / 7200).toFixed(0)) + 1;
-      this.bVentResult      = this.bVent;
-      this.pStackResult     = this.pStack;
-      this.gooseneckResult  = this.gooseneck;
-      this.startersResult   = this.starters;
-      this.cappingResult    = this.cap;
-      this.sealantResult    = this.asphaltSealant;
-      this.felt15Result     = parseInt(this.squarefeet / 400 * 100).toFixed(0);
-      this.felt30Result     = parseInt(this.squarefeet / 200 * 100).toFixed(0);
-    }
-
   static get template() {
     return html`
 
     <style>
-      :host {
-        --secondary-text-color: blue;
-        --paper-slider-knob-color: #50e0d1; /* #1abc9c */
-        --paper-slider-active-color: #50e0d1; /* #1abc9c */
-        --paper-slider-secondary-color: #1abc9c;
-        --paper-input-container-color: black;
-        --paper-input-container-focus-color: #1abc9c;
-      }
-      @keyframes slidein {  from  { transform: scale( .2, .2 ); }
-                            to    { transform: scale( 1, 1 ); }
-                          }
+    :host {
+      --secondary-text-color: blue;
+      --paper-slider-knob-color: #50e0d1; /* #1abc9c */
+      --paper-slider-active-color: #50e0d1; /* #1abc9c */
+      --paper-slider-secondary-color: #1abc9c;
+      --paper-input-container-color: black;
+      --paper-input-container-focus-color: #1abc9c;
+    }
 
-      @keyframes slideout { from  { transform: scale( 1, 1 ); }
-                            to    { transform: scale( .2, .2 ); }
-                          }
 
-      @media print {  .information { display: none; } }
+    @media print { paper-card { display: none; } .result { display: block; } }
 
-      @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } }
+    @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } .appTitle { font-size: .9em; } }
 
-      a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
-      h1 { font-size: 22px; }
-      h3 { margin: 0px; }
-      h4 { font-size: 12px; text-align: center; margin: auto; margin-bottom: 15px;}
-      .info { margin: auto ;}
-      .i { margin: auto; font-siz: .1em; font-style: italic; }
-      .ii { border-left: 1px solid grey; border-right: 1px solid grey; }
-      .iii { margin-bottom: 15px; margin: auto; }
-      .service { }
-      table { width: 100%; padding: 0px; }
-      paper-input { font-style: italic; }
-      paper-item { cursor: pointer;}
-      paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
-      paper-button { margin: 5px 0px 5px 0px; background-color: #50e0d1; color: black; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
-      paper-slider { width: 100%; height: 2em; }
-      paper-toggle-button { 
-        --paper-toggle-button-unchecked-bar-color:  grey;
-        --paper-toggle-button-unchecked-button-color: #e06f50;
-        --paper-toggle-button-checked-bar-color: grey;
-        --paper-toggle-button-checked-button-color: #57e050;
-        margin-left: 0px;}
-      .x { text-align: right; margin: auto 0px; }
-      .y { text-align: left; margin: auto 0px; }
-      .calculator { border-radius: 5px; }
-      .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
-      .second { margin: auto; }
-      .estimate { max-width: 600px; margin-top: auto; margin-bottom: auto; }
-      paper-slider.input { background-color: black; }
-    </style>
+    a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
+    h1            { font-size: 22px; }
+    h3            { color: #e06f50; }
+    paper-input   { font-style: italic; }
+    paper-card    { background-color: #e8e8e8; padding: 12px; margin: 3px auto ; width: 100%; }
+    .max          { max-width: 450px; }
+    paper-button  { background-color: #50e0d2; color: black; margin: 10px 0px 10px 0px; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
+    .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
+    paper-slider.input { background-color: black; }
+    fieldset { border-radius: 3px; }
 
-    <paper-card class="service">
+    asphalt-roofing     { margin: auto; }
+    asphalt-ventilation { margin: auto; }
+    asphalt-flashing    { margin: auto; }
 
-    <!-- PAGE TITLE -->
-    <h3>Roofing Purchase Order</h3>
+  </style>
+  
+  <paper-card class="service">
   
     <!-- PURCHASE FORM -->
-    <form style="display: grid; grid-template-columns: 1fr 1fr;">
-      <paper-input type="text" label="Contractor"></paper-input>
-      <paper-input type="text" label="Project"></paper-input>
-      <paper-input type="text" label="Estimator"></paper-input>
-      <paper-input type="number" label="Phone Number"></paper-input>
-      <paper-input type="date" label="Departure Date"></paper-input>
-      <paper-input type="text" label="Shipping Address"></paper-input>
+    <form>
+      <h3>Roofing Purchase Order</h3>
+      <fieldset>
+        <div style="display: grid; grid-gap: 15px; grid-template-columns: 1fr 1fr;">
+          <paper-input type="text"    label="Contractor"></paper-input>
+          <paper-input type="text"    label="Project"></paper-input>
+          <paper-input type="text"    label="Estimator"></paper-input>
+          <paper-input type="number"  label="Phone Number"></paper-input>
+          <paper-input type="date"    label="Departure Date"></paper-input>
+          <paper-input type="text"    label="Shipping Address"></paper-input>
+        </div>
+        <paper-button raised onclick="print()">Print</paper-button>
+      </fieldset>
     </form>
-  
-    <paper-button raised class="information" onclick="print()">Print</paper-button>
-  
-    <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr;">
-  
-      <div class="information">
-        <h4><i>Conversion</i></h4>
-        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-          <div class="i"></div>
-          <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
-          <div class="i"></div>
-        </div>
-      </div>
-  
-      <div class="information">
-        <h4><i>Bundles</i></h4>
-        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-          <div class="i"></div>
-          <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
-          <div class="i"></div>
-        </div>
-      </div>
-  
-      <div class="information">
-        <h4><i>Ventilation</i></h4>
-        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-          <div class="i"></div>
-          <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
-          <div class="i"></div>
-        </div>
-      </div>
-  
-      <div class="information">
-        <h4><i>Flashing</i></h4>
-        <div style="display: grid; grid-template-columns: 1fr 40px 1fr;">
-          <div class="i"></div>
-          <paper-toggle-button checked="{{flashing}}" on-click="_ventilation"></paper-toggle-button>
-          <div class="i"></div>
-        </div>
-      </div>
-  
-    </div>
 
-    <div style="display: grid; grid-template-columns: 97px 1fr 4em;;">
-    <div class="x">Total Square:</div>
-    <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
-    <i class="y">Square</i>
-  </div>
-  
-    <div class="roofing">
-  
+    <div style="display: grid; grid-template-columns: 1fr 1fr ;">
       <div>
-  
-        <div class="grid" style="display:grid; grid-gap: 3px; grid-template-columns: 1fr;">
-          <div class="second">
-            <result-item id="ply" product="Plywood:" homework="{{plywoodResult}}" unit="sheets"></result-item>
-            <result-item id="pny" product="Sheathing Nails:" homework="{{plyNailResult}}" unit="boxes"></result-item>
-            <result-item id="s3" product="Shingles 3\'s:" homework="{{shingles3Result}}" unit="bundles"></result-item>
-            <result-item id="s4" product="Shingles 4\'s:" homework="{{shingles4Result}}" unit="bundles"></result-item>
-            <result-item product="Roofing Nails:" homework="{{roofNailResult}}" unit="boxes"></result-item>
-            <result-item product="Starters:" homework="{{startersResult}}" unit="bundles"></result-item>
-            <result-item id="f15" product="15 Pound Felt:" homework="{{felt15Result}}" unit="rolls"></result-item>
-            <result-item id="f30" product="30 Pound Felt:" homework="{{felt30Result}}" unit="rolls"></result-item>
-            <result-item id="rx" product="Ridge Ventilation:" homework="{{ridgeVentResult}}" unit="boxes"></result-item>
-            <result-item id="bx" product="Box Ventilation:" homework="{{boxVentResult}}" unit="ea"></result-item>
-            <result-item product="Gas Vent type-B:" homework="{{bVentResult}}" unit="ea"></result-item>
-            <result-item product="Plumbing Vent:" homework="{{pStackResult}}" unit="ea"></result-item>
-            <result-item product="Gooseneck:" homework="{{gooseneckResult}}" unit="ea"></result-item>
-            <result-item id="gb" product="Gable Flashing:" homework="{{gableFlashing}}" unit="ea"></result-item>
-            <result-item product="Front Pan:" homework="{{headFlashing}}" unit="ea"></result-item>
-            <result-item product="Back Pan:" homework="{{backFlashing}}" unit="ea"></result-item>
-            <result-item product="Step Flashing:" homework="{{stepFlashing}}" unit="bundles"></result-item>
-            <result-item product="Valley Flashing:" homework="{{valleyResult}}" unit="ea"></result-item>
-            <result-item product="Caulking:" homework="{{sealantResult}}" unit="tubes"></result-item>
-          </div>
-        </div>
-  
+        <h3>Estimated</h3><p>Cost per Square </p>{{tSquare}}<span id="cost" value="{{cost}}"></span>
       </div>
-  
-      <div class="information estimate">
-  
-        <div class="calculator" style="display: grid; grid-template-columns: 1fr;">
-  
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Starter Rows:</div>
-            <paper-slider id="ss" value="{{starters}}" max="100" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- CAPPING -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Capping:</div>
-            <paper-slider id="ridge" value="{{cap}}" max="800" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- RIDGE VENTILATION -->
-          <div id="rxv" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Ridge Vent:</div>
-            <paper-slider value="{{ridge}}" max="100" on-change="_ventilation" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- BOX VENTS -->
-          <div id="bxv" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Box Ventilation:</div>
-            <paper-slider value="{{box}}" max="25" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- B VENT -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">B-Vent:</div>
-            <paper-slider id="bv" value="{{bVent}}" max="25" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- STACK-->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Plumbing Stack:</div>
-            <paper-slider id="ps" value="{{pStack}}" max="25" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- GOOSENECK -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Gooseneck:</div>
-            <paper-slider id="gn" value="{{gooseneck}}" max="25" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- SEALANT -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Sealant:</div>
-            <paper-slider id="sl" value="{{asphaltSealant}}" max="25" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- SKYLIGHT -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Skylights:</div>
-            <paper-slider id="skylight" value="{{skylights}}" max="10" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- CHIMNEY -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Chimney:</div>
-            <paper-slider id="chimney" value="{{chimney}}" max="10" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ea</i>
-          </div>
-  
-          <!-- VALLEY -->
-          <div style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Valley:</div>
-            <paper-slider id="valley" value="{{valley}}" max="100" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- GABLE -->
-          <div id="tin1" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Gable Flashing:</div>
-            <paper-slider id="gableFlash" value="{{gable}}" max="150" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- HEAD FLASHING -->
-          <div id="tin2" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Head Flashing:</div>
-            <paper-slider id="headFlash" value="{{head}}" max="100" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- BACK FLASHING -->
-          <div id="tin3" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Back Flashing:</div>
-            <paper-slider id="backFlash" value="{{back}}" max="100" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-          <!-- STEP FLASHING -->
-          <div id="tin4" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
-            <div class="x">Step Flashing:</div>
-            <paper-slider id="stepFlash" value="{{step}}" max="100" on-change="_areaChange" editable></paper-slider>
-            <i class="y">ft</i>
-          </div>
-  
-        </div>
+      <div>
+        <h3>Color Scheme</h3>
       </div>
     </div>
+  
   </paper-card>
 
+  <div style="display: grid; grid-template-columns: 1fr ;">
+    <asphalt-roofing      mResult="{{roofMoney}}"   square="{{tSquare}}">      </asphalt-roofing>
+    <asphalt-ventilation  mResult="{{ventMoney}}">                      </asphalt-ventilation>
+    <asphalt-flashing     mResult="{{flashingMoney}}">                         </asphalt-flashing>
+  </div>
   `
   }
 
 }
 
 customElements.define('purchase-order', PurchaseOrder);
-
-/**
- *       
- * 
-      <div class="iii" style="display: grid; grid-template-columns: 1fr 1fr 1fr;">
-        <div class="ii">
-          <h4><i>Conversion</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">N</div><paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">Y</div></div>
-        </div>
-        <div>
-          <h4><i>Bundles</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">3</div><paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button><div class="i">4</div></div>
-        </div>
-        <div class="ii">
-          <h4><i>Ventilation</i></h4>
-          <div style="display: grid; grid-template-columns: 1fr 40px 1fr;"><div class="i">box</div><paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button><div class="i">ridge</div></div>
-        </div>
-      </div>
-
-
-
-
-            <form>
-        <table>
-          <tr>
-            <td colspan="2"><paper-input type="text" label="Contractor"></paper-input></td>
-          </tr>
-          <tr>
-            <td><paper-input type="text" label="Project"></paper-input></td>
-            <td><paper-input type="date" label="Departure Date"></paper-input></td>
-          </tr>
-          <tr>
-            <td><paper-input type="text" label="Estimator"></paper-input></td>
-            <td><paper-input type="number" label="Phone Number"></paper-input></td>
-          </tr>
-          <tr>
-            <td colspan="2"><paper-input type="text" label="Shipping Address"></paper-input></td>
-          </tr>
-          <tr>
-            <td colspan="2"><paper-button raised  class="information" onclick="print()">Print</paper-button></td>
-          </tr>
-        </table>
-      </form>
- * 
- * 
- * 
- */

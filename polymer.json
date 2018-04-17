@@ -4,9 +4,6 @@
     "npm": true,
     "moduleResolution": "node",
     "fragments": [
-      "src/app/metadata.js",
-      "src/app/result-item.js",
-      "src/app/router.js",
       "src/page-404.js",
       "src/primary-contract.js",
       "src/purchase-order.js",
@@ -16,21 +13,22 @@
     ],
   
     "sources": [
-      "src/**",
-      "images/**",
-      "package.json"
+      "src/**"
     ],
   
     "extraDependencies": [
       "manifest.json",
-      "node_modules/@webcomponents/webcomponentsjs/**"
+      "package.json",
+      "sitemap.xml",
+      "robots.txt",
+      "node_modules/@webcomponents/webcomponentsjs/*.js"
     ],
   
     "builds": [{
-      "preset": "es6-unbundled",
-      "addServiceWorker": true,
-      "js": {"compile": true, "minify": true},
-      "css": {"minify": true},
-      "html": {"minify": true}
+      "bundle": { "inlineScripts": false },
+      "js":     { "minify": true },
+      "css":    { "minify": true },
+      "html":   { "minify": true },
+      "addServiceWorker": true
     }]
   }
