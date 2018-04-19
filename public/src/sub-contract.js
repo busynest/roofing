@@ -1,8 +1,4 @@
-import{PolymerElement,html,updateMetadata}from"./application-shell.js";class SubContract extends PolymerElement{static get properties(){return{business:String,bizAddress:String,bizSales:String,bizPhone:Number,square:{type:Number,value:999,observer:"_deal"},rate:{type:Number,value:999,observer:"_deal"},servicePrice:{type:Number,observer:"_deal"},serviceTaxes:{type:Number,value:888},businessName:{type:String,value:"John"},warrantyYears:{type:Number,value:666}}}constructor(){super()}connectedCallback(){super.connectedCallback(),updateMetadata({title:"Primary Contract",description:"Primary Roofing Contract for Residential Contractors and Customers.",url:document.location.href})}ready(){super.ready(),console.log(this.tagName)}_deal(){this.servicePrice=this.square*this.rate}static get template(){return html`
-<!--
-
-
-import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
+define(["exports","./application-shell.js","./metadata.js"],function(a,b,c){"use strict";Object.defineProperty(a,"__esModule",{value:!0}),a.SubContract=a.$subContract=void 0;class d extends b.PolymerElement{static get is(){return"sub-contract"}static get properties(){return{business:String,bizAddress:String,bizSales:String,bizPhone:Number,square:{type:Number,value:999,observer:"_deal"},rate:{type:Number,value:999,observer:"_deal"},servicePrice:{type:Number,observer:"_deal"},serviceTaxes:{type:Number,value:888},businessName:{type:String,value:"John"},warrantyYears:{type:Number,value:666}}}constructor(){super()}connectedCallback(){super.connectedCallback(),(0,c.updateMetadata)({title:"Primary Contract",description:"Primary Roofing Contract for Residential Contractors and Customers.",url:document.location.href})}ready(){super.ready(),console.log(this.tagName)}_deal(){this.servicePrice=this.square*this.rate}static get template(){return`
 
     <style>
     paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
@@ -63,9 +59,6 @@ import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
             </div>
 
             <h1>\${{servicePrice}}</h1>
-
-            <iron-autogrow-textarea>
-            </iron-autogrow-textarea>
             
             <p>
 
@@ -190,5 +183,5 @@ import '@polymer/iron-autogrow-textarea/iron-autogrow-textarea.js';
             </ul>
             <paper-button raised class="information" onclick="printButton()"><iron-icon icon="icons:print"></iron-icon>Print</paper-button>
           </paper-card>
--->
-  `}}customElements.define("sub-contract",SubContract);var subContract={SubContract:SubContract};export{subContract as $subContract,SubContract};
+
+  `}}a.SubContract=d,customElements.define("sub-contract",d);a.$subContract={SubContract:d}});

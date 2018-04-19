@@ -1,8 +1,7 @@
-import{PolymerElement,html,updateMetadata}from"./application-shell.js";class SendFeedback extends PolymerElement{static get properties(){return{}}constructor(){super()}connectedCallback(){super.connectedCallback(),updateMetadata({title:"Roofing",description:"Roofing documentation to simply help roofing contractors to complete residential roofing contracts, roofing purchase orders and roofing warranties. Send roofing documents to suppliers and customers.",url:document.location.href})}ready(){super.ready()}static get template(){return html`
+define(["exports","./application-shell.js","./metadata.js"],function(a,b,c){"use strict";Object.defineProperty(a,"__esModule",{value:!0}),a.SendFeedback=a.$sendFeedback=void 0;class d extends b.PolymerElement{static get is(){return"send-feedback"}static get properties(){return{}}constructor(){super()}connectedCallback(){super.connectedCallback(),(0,c.updateMetadata)({title:"Roofing",description:"Roofing documentation to simply help roofing contractors to complete residential roofing contracts, roofing purchase orders and roofing warranties. Send roofing documents to suppliers and customers.",url:document.location.href})}ready(){super.ready()}static get template(){return`
 
     <style>
       paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
-
       b { margin-left: 1em; }
       p { margin-left: 2em; }
     </style>
@@ -86,4 +85,4 @@ import{PolymerElement,html,updateMetadata}from"./application-shell.js";class Sen
     </paper-card>
 
 
-  `}}customElements.define("send-feedback",SendFeedback);var sendFeedback={SendFeedback:SendFeedback};export{sendFeedback as $sendFeedback,SendFeedback};
+  `}}a.SendFeedback=d,customElements.define("send-feedback",d);a.$sendFeedback={SendFeedback:d}});

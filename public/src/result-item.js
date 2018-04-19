@@ -1,58 +1,4 @@
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-
-export class ResultItem extends PolymerElement {
-
-  static get is() { return 'result-item'; }
-
-    static get properties() {
-      return {
-  
-        name: {
-          string: ''
-        },
-  
-        product: {
-          string: ''
-        },
-  
-        identity: {
-          string: ''
-        },
-  
-        unit: {
-          string: ''
-        },
-  
-        homework:{
-          string:''
-        },
-  
-        price:{
-          string:''
-        },
-  
-        total:{
-          string:''
-        }
-  
-      };
-    }
-  
-    constructor() {
-      super();
-    }
-  
-    connectedCallback() {
-      super.connectedCallback();
-    }
-  
-    ready() {
-      super.ready();
-      console.log(this.tagName);
-    }
-  
-    static get template() {
-      return `
+define(["exports","./application-shell.js"],function(a,b){"use strict";Object.defineProperty(a,"__esModule",{value:!0}),a.ResultItem=a.$resultItem=void 0;class c extends b.PolymerElement{static get is(){return"result-item"}static get properties(){return{name:{string:""},product:{string:""},identity:{string:""},unit:{string:""},homework:{string:""},price:{string:""},total:{string:""}}}constructor(){super()}connectedCallback(){super.connectedCallback()}ready(){super.ready(),console.log(this.tagName)}static get template(){return`
   
       <style>
 
@@ -105,8 +51,4 @@ export class ResultItem extends PolymerElement {
           <strong>\=</strong>
           <div class="money">\$ <i>{{total}}</i></div>
         </div>
-      `
-        }
-      }
-  customElements.define('result-item', ResultItem);
-  
+      `}}a.ResultItem=c,customElements.define("result-item",c);a.$resultItem={ResultItem:c}});
