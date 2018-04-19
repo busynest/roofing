@@ -1,121 +1,60 @@
+
 /**
 Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 */
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { installRouter } from './router.js';
 
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/app-layout/app-header/app-header.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+
 import '@polymer/app-route/app-route.js';
 import '@polymer/app-route/app-location.js';
-import '@polymer/iron-pages/iron-pages.js';
 
+import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-collapse/iron-collapse.js';
+
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-progress/paper-progress.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/paper-toggle-button/paper-toggle-button.js';
-
-import '@polymer/iron-overlay-behavior/iron-overlay-behavior.js';
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu.js';
-import '@polymer/paper-listbox/paper-listbox.js';
-import '@polymer/neon-animation/neon-animations.js';
-
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-slider/paper-slider.js';
 import '@polymer/paper-button/paper-button.js';
 
-import { PurchaseOrder }    from './purchase-order.js';
-import { WarrantyContract } from './warranty-contract.js';
-import { PrimaryContract }  from './primary-contract.js';
-import { SubContract }      from './sub-contract.js';
-import { SendFeedback }     from './send-feedback.js';
-import { Page404 }          from './page-404.js';
+import * as PurchaseOrder     from './purchase-order.js';
+import { WarrantyContract }   from './warranty-contract.js';
+import { PrimaryContract }    from './primary-contract.js';
+import { SubContract }        from './sub-contract.js';
+import { SendFeedback }       from './send-feedback.js';
+import { Page404 }            from './page-404.js';
+import { ResultItem }         from './result-item.js';
 import { AsphaltVentilation } from './asphalt-ventilation.js'
-import { AsphaltRoofing } from './asphalt-roofing.js';
-import { AsphaltFlashing } from './asphalt-flashing.js'
-
-
-
-export const installRouter = (locationUpdatedCallback) => {
-  document.body.addEventListener('click', e => {
-    if (e.defaultPrevented || e.button !== 0 ||
-        e.metaKey || e.ctrlKey || e.shiftKey) return;
-
-    const anchor = e.composedPath().filter(n => n.tagName === 'A')[0];
-    if (!anchor || anchor.target ||
-        anchor.hasAttribute('download') ||
-        anchor.getAttribute('rel') === 'external') return;
-
-    const href = anchor.href;
-    if (!href || href.indexOf('mailto:') !== -1) return;
-
-    const location = window.location;
-    const origin = location.origin || location.protocol + '//' + location.host;
-    if (href.indexOf(origin) !== 0) return;
-
-    e.preventDefault();
-    if (href !== location.href) {
-      window.history.pushState({}, '', href);
-      locationUpdatedCallback(location, e);
-    }
-  });
-
-  window.addEventListener('popstate', e => locationUpdatedCallback(window.location, e));
-  locationUpdatedCallback(window.location, null /* event */);
-};
-
-
+import { AsphaltRoofing }     from './asphalt-roofing.js';
+import { AsphaltFlashing }    from './asphalt-flashing.js'
 
 export class ApplicationShell extends PolymerElement {
 
   static get is() { return 'application-shell'; }
 
   static get properties() {
-
     return {
-
-      horizontal: {
-        type: Boolean
-      },
-
-      opened: {
-        type: Boolean,
-        reflectToAttribute: true
-      },
-
-      noAnimation: {
-        type: Boolean
-      },
-
-      page: {
-        type: String,
-        reflectToAttribute: true,
-        observer: '_pageChanged',
-      },
-
-      rootPattern: String,
-      routeData: Object,
-      subroute: String
-/** 
-      A: {
-        type: Boolean,
-        value: false,
-        observer: '_toggleA'
-      },
-
-      loadComplete: {
-        type: Boolean,
-        value: false
-      }
-*/
+      page:         { type: String, reflectToAttribute: true, observer: '_pageChanged' },
+      rootPattern:  String,
+      routeData:    Object,
+      subroute:     String,
+      opened:       { type: Boolean, reflectToAttribute: true }
     };
-      
   }
 
   static get observers() {
@@ -127,7 +66,6 @@ export class ApplicationShell extends PolymerElement {
   constructor() {
     super();
     this.rootPattern = (new URL(this.rootPath)).pathname;
-    
   }
 
   connectedCallback() {
@@ -149,25 +87,13 @@ export class ApplicationShell extends PolymerElement {
 
   _pageChanged(page) {
     installRouter((location) => console.log(location));
-    //import(`./${page}/${PurchaseOrder}.component`).catch(this._showPage404.bind(this));
+    //var resolvedPageUrl = this.resolveUrl( page + '.js');
+    //this.importHref(resolvedPageUrl,
+    //null,
+    //this._importFailedCallback,
+    //true);
   }
 
-  //_showPage404() {
-  //  this.page = 'page-404';
-  //}
-/** 
-  _toggleA(){
-    if(this.pie && !this.loadComplete) {
-      // See https://developers.google.com/web/updates/2017/11/dynamic-import
-      import('./primary-contract.js').then((LazyElement) => {
-        console.log("LazyElement loaded");
-      }).catch((reason) => {
-        console.log("LazyElement failed to load", reason);
-      });
-      this.loadComplete = true;
-    }
-  }
-*/
   _toggleSearch() {
     this.$.collapse.toggle();
   }
@@ -177,7 +103,7 @@ export class ApplicationShell extends PolymerElement {
   }
 
   static get template() {
-    return html`
+    return `
 
     <style>
     :host {
@@ -214,7 +140,7 @@ export class ApplicationShell extends PolymerElement {
 
       app-drawer-layout:not([narrow]) [drawer-toggle] { display: none; }
 
-      a               { text-decoration: none; }
+      //a               { text-decoration: none; }
       app-header      { background-color: #303030; color: white;" }
       app-toolbar     { margin: 5px; height: 48px; }
       app-drawer      { margin: 0px; color: black; overflow: auto; }
@@ -407,3 +333,31 @@ customElements.define('application-shell', ApplicationShell);
 
 
 */
+
+
+
+  //_showPage404() {
+  //  this.page = 'page-404';
+  //}
+/** 
+  _toggleA(){
+    if(this.pie && !this.loadComplete) {
+      // See https://developers.google.com/web/updates/2017/11/dynamic-import
+      import('./primary-contract.js').then((LazyElement) => {
+        console.log("LazyElement loaded");
+      }).catch((reason) => {
+        console.log("LazyElement failed to load", reason);
+      });
+      this.loadComplete = true;
+    }
+  }
+*/
+
+/** 
+ *    horizontal:   { type: Boolean },
+ *    noAnimation:  { type: Boolean }
+      A:              { type: Boolean, value: false, observer: '_toggleA' },
+      loadComplete:   { type: Boolean, value: false }
+*/
+
+    //import(`./${page}/${PurchaseOrder}.component`).catch(this._showPage404.bind(this));

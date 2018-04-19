@@ -9,7 +9,13 @@
       "src/purchase-order.js",
       "src/send-feedback.js",
       "src/sub-contract.js",
-      "src/warranty-contract.js"
+      "src/warranty-contract.js",
+      "src/router.js",
+      "src/metadata.js",
+      "src/result-item.js",
+      "src/asphalt-roofing.js",
+      "src/asphalt-ventilation.js",
+      "src/asphalt-flashing.js"
     ],
   
     "sources": [
@@ -26,7 +32,7 @@
   
     "builds": [{
       "bundle": { "inlineScripts": false },
-      "js":     { "minify": true },
+      "js":     { "transformModulesToAmd": true, "minify": true },
       "css":    { "minify": true },
       "html":   { "minify": true },
       "addServiceWorker": true

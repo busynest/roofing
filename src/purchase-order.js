@@ -1,117 +1,8 @@
 
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { updateMetadata }       from './metadata.js';
-import '@polymer/neon-animation/neon-animations.js';
-import '@polymer/neon-animation/animations/fade-in-animation.js';
-//import '@polymer/polymer/lib/utils/gestures.js';
 
-
-export class ResultItem extends PolymerElement {
-
-  static get properties() {
-    return {
-
-      name: {
-        string: ''
-      },
-
-      product: {
-        string: ''
-      },
-
-      identity: {
-        string: ''
-      },
-
-      unit: {
-        string: ''
-      },
-
-      homework:{
-        string:''
-      },
-
-      price:{
-        string:''
-      },
-
-      total:{
-        string:''
-      }
-
-    };
-  }
-
-  //static get observers() {
-  //    return [ 'thingCountChanged' ];
-  //}
-
-  constructor() {
-    super();
-    //console.log('Menu-Item Constructor!');
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    //console.log('Menu-Item Connected!');
-  }
-
-  ready() {
-    super.ready();
-    //this.addEventListener('keypress', e => this.handlePress(e));
-    //var sq = new OneSquare();
-    console.log(this.tagName);
-  }
-
-  static get template() {
-    return html`
-
-    <style>
-      .home {
-        text-align: right;
-        margin: 7px;
-        border-bottom: 1px dotted grey;
-      }
-      .product {
-        text-align: center;
-        font-size: .9em;
-      }
-      .price {
-        text-align: center;
-        font-size: .7em;
-      }
-      .work {
-        text-align: center;
-        font-size: .7em;
-        font-weight: bold;
-      }
-      .unit {
-        font-size: .6em;
-        color: grey;
-        text-align: left;
-      }
-      .money {
-        font-size: .6em;
-        color: #248746;
-        text-align: left;
-      }
-    </style>
-    
-      <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 122px 3em 2em 2.5em 1fr">
-        <div class="product">{{product}}</div>
-        <div class="price"><i>{{price}} <strong>x</strong></i></div>
-        <div class="work">{{homework}}</div>
-        <div class="unit"><i>{{unit}}</i></div>
-        <div class="money">\$ <i>{{total}}</i></div>
-      </div>
-    `
-      }
-    }
-customElements.define('result-item', ResultItem);
-
-
-
-export class PurchaseOrder extends PolymerElement {
+export const PurchaseOrder = class PurchaseOrder extends PolymerElement {
 
   static get is() { return 'purchase-order'; }
 
@@ -128,9 +19,9 @@ export class PurchaseOrder extends PolymerElement {
     super();
     //let vertical = this.$.; 
     //if (setTimeout() document.height == ListeningStateChangedEvent)
-    this.addEventListener('click', e => {
-        return console.log('Success')
-    });
+    //this.addEventListener('click', e => {
+    //    return console.log('Success')
+    //});
      //this.tSquare = this.$.square;
   }
 
@@ -149,7 +40,7 @@ export class PurchaseOrder extends PolymerElement {
   }
 
   static get template() {
-    return html`
+    return `
 
     <style>
     :host {
@@ -161,25 +52,19 @@ export class PurchaseOrder extends PolymerElement {
       --paper-input-container-focus-color: #1abc9c;
     }
 
-
-    @media print { paper-card { display: none; } .result { display: block; } }
-
     @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } .appTitle { font-size: .9em; } }
 
     a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
     h1            { font-size: 22px; }
     h3            { color: #e06f50; }
     paper-input   { font-style: italic; }
-    paper-card    { background-color: #e8e8e8; padding: 12px; margin: 3px auto ; width: 100%; }
-    .max          { max-width: 450px; }
+    paper-card    { background-color: #e8e8e8; padding: 12px; margin: 3px auto ; width: 100%;}
     paper-button  { background-color: #50e0d2; color: black; margin: 10px 0px 10px 0px; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
     .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
-    paper-slider.input { background-color: black; }
-    fieldset { border-radius: 3px; }
-
-    asphalt-roofing     { margin: auto; }
-    asphalt-ventilation { margin: auto; }
-    asphalt-flashing    { margin: auto; }
+    .body { max-width: 600px; margin: auto;}
+    asphalt-roofing     { margin: auto; max-width: 450px; width: 100%;  }
+    asphalt-ventilation { margin: auto; max-width: 450px; width: 100%;  }
+    asphalt-flashing    { margin: auto; max-width: 450px; width: 100%;}
 
   </style>
   
@@ -209,14 +94,37 @@ export class PurchaseOrder extends PolymerElement {
         <h3>Color Scheme</h3>
       </div>
     </div>
+
+    <div class="body" style="display: grid; grid-template-columns: 1fr ;">
+
+      <div>
+        <h3>Ashpalt</h3>
+        <b>Shingles</b><p>Three bundles per square / Four bundles per square</p>
+        <b>Conversion</b><p>Retrofitting an existing roof from cedar shakes to asphalt shingles reqires an additional installation of 5/8 plywood.</p>
+        <b>Waste</b><p>Bin size, Drop zone, and walking distance.</p>
+        <b>Underlay</b><p>15 pound felt covers 400 square feet. 30 pound felt covers 200 square feet. Synthetic. Sticky waterproof.</p>
+      </div>
+
+      <asphalt-roofing      mResult="{{roofMoney}}"   square="{{tSquare}}"></asphalt-roofing>
+
+      <div>
+        <h3>Ventilation</h3>
+        <b>Ventilation</b><p>Box ventilation or Ridge Ventilation, Soffit ventilation.</p>
+      </div>
+
+      <asphalt-ventilation  mResult="{{ventMoney}}"></asphalt-ventilation>
+      
+      <div>
+        <h3>Flashing</h3>
+        <b>Skylights</b><p>Flashing</p>
+        <b>Chimney</b><p>Flashing</p>
+        <b>Flashing</b><p>Head Flashing. Back Flashing. Step Flashing. Gable Flashing. Valley Flashing.</p>
+      </div>
+
+      <asphalt-flashing     mResult="{{flashingMoney}}"></asphalt-flashing>
+    </div>
   
   </paper-card>
-
-  <div style="display: grid; grid-template-columns: 1fr ;">
-    <asphalt-roofing      mResult="{{roofMoney}}"   square="{{tSquare}}">      </asphalt-roofing>
-    <asphalt-ventilation  mResult="{{ventMoney}}">                      </asphalt-ventilation>
-    <asphalt-flashing     mResult="{{flashingMoney}}">                         </asphalt-flashing>
-  </div>
   `
   }
 

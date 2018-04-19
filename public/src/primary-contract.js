@@ -1,54 +1,4 @@
-
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './metadata.js';
-//import * as gestures from '@polymer/polymer/lib/utils/gestures.js';
-
-export class PrimaryContract extends PolymerElement {
-
-  static get is() { return 'primary-contract'; }
-
-  static get properties() {
-    return {
-
-      business:String,
-      bizAddress:String,
-      bizSales:String,
-      bizPhone:Number,
-      square:         { type:Number, value:999, observer: "_deal" },
-      rate:           { type:Number, value:999, observer: "_deal" },
-      servicePrice:   { type:Number, observer: "_deal" },
-      serviceTaxes:   { type:Number, value:888 },
-      serviceDeposit: { type:Number, value:777 },
-      businessName:   { type:String, value:"John" },
-      warrantyYears:  { type:Number, value:666 }
-
-    };
-  }
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    updateMetadata({
-      title: 'Primary Contract',
-      description: 'Primary Roofing Contract for Residential Contractors and Customers.',
-      url: document.location.href
-    });
-  }
-
-  ready() {
-    super.ready();
-    console.log(this.tagName);
-  }
-
-  _deal(square, rate, servicePrice) {
-     this.servicePrice = this.square * this.rate;
-  }
-
-  static get template() {
-    return `
+import{PolymerElement,html,updateMetadata}from"./application-shell.js";class PrimaryContract extends PolymerElement{static get properties(){return{business:String,bizAddress:String,bizSales:String,bizPhone:Number,square:{type:Number,value:999,observer:"_deal"},rate:{type:Number,value:999,observer:"_deal"},servicePrice:{type:Number,observer:"_deal"},serviceTaxes:{type:Number,value:888},serviceDeposit:{type:Number,value:777},businessName:{type:String,value:"John"},warrantyYears:{type:Number,value:666}}}constructor(){super()}connectedCallback(){super.connectedCallback(),updateMetadata({title:"Primary Contract",description:"Primary Roofing Contract for Residential Contractors and Customers.",url:document.location.href})}ready(){super.ready(),console.log(this.tagName)}_deal(){this.servicePrice=this.square*this.rate}static get template(){return html`
 
     <style>
     paper-card { background-color: #e8e8e8; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
@@ -249,9 +199,4 @@ export class PrimaryContract extends PolymerElement {
             <paper-button raised class="information" onclick="printButton()"><iron-icon icon="icons:print"></iron-icon>Print</paper-button>
           </paper-card>
 
-  `
-  }
-
-}
-
-customElements.define('primary-contract', PrimaryContract);
+  `}}customElements.define("primary-contract",PrimaryContract);var primaryContract={PrimaryContract:PrimaryContract};export{primaryContract as $primaryContract,PrimaryContract};

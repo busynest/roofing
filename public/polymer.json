@@ -1,0 +1,51 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src\\application-shell.js",
+  "fragments": [
+    "src\\page-404.js",
+    "src\\primary-contract.js",
+    "src\\purchase-order.js",
+    "src\\send-feedback.js",
+    "src\\sub-contract.js",
+    "src\\warranty-contract.js"
+  ],
+  "sources": [
+    "src\\**",
+    "index.html",
+    "src\\application-shell.js",
+    "src\\page-404.js",
+    "src\\primary-contract.js",
+    "src\\purchase-order.js",
+    "src\\send-feedback.js",
+    "src\\sub-contract.js",
+    "src\\warranty-contract.js"
+  ],
+  "extraDependencies": [
+    "bower_components\\webcomponentsjs\\*.js",
+    "manifest.json",
+    "package.json",
+    "sitemap.xml",
+    "robots.txt",
+    "node_modules\\@webcomponents\\webcomponentsjs\\*.js"
+  ],
+  "builds": [
+    {
+      "bundle": {
+        "inlineScripts": false
+      },
+      "js": {
+        "minify": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "addServiceWorker": true
+    }
+  ],
+  "npm": true,
+  "componentDir": "node_modules/",
+  "moduleResolution": "node"
+}

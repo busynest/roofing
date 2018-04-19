@@ -1,9 +1,11 @@
 'use strict';
 
 const webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const Visualizer = require('webpack-visualizer-plugin');
+
 
 
 module.exports =  {
@@ -29,6 +31,6 @@ module.exports =  {
       ]
     },
   
-    plugins: [ new BundleAnalyzerPlugin(), new Visualizer() ],
+    plugins: [ new BundleAnalyzerPlugin(), new Visualizer(), new HtmlWebpackPlugin() ],
   
   };

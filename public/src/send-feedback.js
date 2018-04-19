@@ -1,39 +1,8 @@
-
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { updateMetadata }       from './metadata.js';
-
-export class SendFeedback extends PolymerElement {
-
-  static get is() { return 'send-feedback'; }
-
-  static get properties() {
-    return {
-     
-    };
-  }
-
-  constructor() {
-    super();
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    updateMetadata({
-      title: 'Roofing',
-      description: 'Roofing documentation to simply help roofing contractors to complete residential roofing contracts, roofing purchase orders and roofing warranties. Send roofing documents to suppliers and customers.',
-      url: document.location.href
-    });
-  }
-
-  ready() {
-    super.ready();
-  }
-
-  static get template() {
-    return `
+import{PolymerElement,html,updateMetadata}from"./application-shell.js";class SendFeedback extends PolymerElement{static get properties(){return{}}constructor(){super()}connectedCallback(){super.connectedCallback(),updateMetadata({title:"Roofing",description:"Roofing documentation to simply help roofing contractors to complete residential roofing contracts, roofing purchase orders and roofing warranties. Send roofing documents to suppliers and customers.",url:document.location.href})}ready(){super.ready()}static get template(){return html`
 
     <style>
       paper-card { background-color: white; padding: 20px; margin: 0px 0px 5px 0px; width: 100%; }
+
       b { margin-left: 1em; }
       p { margin-left: 2em; }
     </style>
@@ -117,9 +86,4 @@ export class SendFeedback extends PolymerElement {
     </paper-card>
 
 
-  `
-  }
-
-}
-
-customElements.define('send-feedback', SendFeedback);
+  `}}customElements.define("send-feedback",SendFeedback);var sendFeedback={SendFeedback:SendFeedback};export{sendFeedback as $sendFeedback,SendFeedback};

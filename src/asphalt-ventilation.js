@@ -1,6 +1,9 @@
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { PolymerElement } from '@polymer/polymer/polymer-element.js';
+import { ResultItem } from './result-item.js';
 
 export class AsphaltVentilation extends PolymerElement {
+
+  static get is() { return 'asphalt-ventilation'; }
 
     static get properties() {
       return {
@@ -128,9 +131,8 @@ _ventilation(
     }
 
 static get template() {
-  return html`
+  return `
   <style>
-
   :host {
     --secondary-text-color: blue;
     --paper-slider-knob-color: #50e0d1; /* #1abc9c */
@@ -138,9 +140,7 @@ static get template() {
     --paper-slider-secondary-color: #1abc9c;
     --paper-input-container-color: black;
     --paper-input-container-focus-color: #1abc9c;
-    
   }
-  iron-input: {width:50px;}
   
   @keyframes slidein {
     from  { transform: scale( .2, .2 ); }
@@ -154,51 +154,43 @@ static get template() {
 
   @media print { paper-card { display: none; } .result { display: block; } }
 
-  @media only screen and (min-width: 840px) { .roofing { display: grid; grid-template-columns: 1fr 1fr; } .appTitle { font-size: .9em; } }
-
-
   a, a:link, a:hover, a:visited, a:active { text-decoration: none; color: black; }
   h1            { font-size: 22px; }
   h3            { color: #e06f50; }
-  .info         { margin: auto ;}
-  .i            { margin: auto; font-siz: .1em; font-style: italic; }
-  .ii           { border-left: 1px solid grey; border-right: 1px solid grey; }
+  h4            { font-size: .7em; text-align: center; margin: auto; margin-top: 0px;  }
+
   paper-input   { font-style: italic; }
-  paper-item    { cursor: pointer;}
-  paper-card    { background-color: #e8e8e8; padding: 12px; margin: 3px auto ; width: 100%; }
-  .max          { max-width: 450px; }
+  paper-item    { cursor: pointer; }
+  paper-card    { background-color: #e8e8e8; padding: 12px; margin: 3px auto; width: 100%;}
   paper-button  { background-color: #50e0d2; color: black; margin: 10px 0px 10px 0px; text-shadow: none; width: 100%; color: #303030; font-weight: bold; }
-  paper-slider  { width: 100%; height: 2em;
-                --paper-slider-input-container-input: { font-size: .9em; font-weight: bold; }
-                --paper-slider-input                  {  width: 600px; }
-                }
+  paper-slider  { width: 100%; height: 2em; --paper-slider-input-container-input: { font-size: .9em; font-weight: bold; } --paper-slider-input {  width: 600px; } }
+  paper-slider.input { background-color: black; }
   paper-toggle-button { 
     --paper-toggle-button-unchecked-bar-color:  grey;
     --paper-toggle-button-unchecked-button-color: #e06f50;
     --paper-toggle-button-checked-bar-color: grey;
     --paper-toggle-button-checked-button-color: #57e050;
-    margin-left: 0px;}
+    margin: auto;}
+
   .x { text-align: center; margin: auto 0px; font-size: .9em;}
   .y { text-align: left; margin: auto 0px; font-size: .8em;}
   .grid { border-radius: 5px; padding: 5px; max-width: 300px; margin: auto; }
-  paper-slider.input { background-color: black; }
   fieldset { border-radius: 3px; }
-  result-item { margin: auto; }
-  .boxed { border: solid grey 1px; border-radius: 3px; padding: 12px;}
+  result-item { margin: auto;  width: 100%; }
+  .boxed { border: solid grey 1px; border-radius: 3px; padding: 12px; }
   .result { display: none; }
+  .priced { text-align: left; font-size: .8em; margin-top: 0px; }
+  .money { font-size: .9em; color: #248746; text-align: left; }
+
 </style>
 
-  <paper-card class="boxForm max">
+  <paper-card>
 
-    <div style=" display:grid; grid-template-columns: 1fr 1fr ; ">
-      <div>    
-        <h3>Ventilation</h3>
-        <i class="priced"><p>Estimate:</p>{{ventilationPrice}}</i>
-      </div>
-      <div style="display: grid; grid-template-columns: 75% 1fr;">
-        <h4>(Ridge / Box)</h4>
-        <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
-      </div>
+    <div style="display:grid; grid-template-columns: 1fr 100px ;">
+      <h3>Ventilation</h3>
+      <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
+      <i><p class="priced">Estimate:<span class="money"> \$ {{ventilationPrice}}</span></p></i>
+      <h4>(Ridge / Box)</h4>
     </div>
 
     <div class="boxed">
