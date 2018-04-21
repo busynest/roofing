@@ -1,0 +1,64 @@
+{
+  "entrypoint": "index.html",
+  "shell": "src\\application-shell.js",
+  "fragments": [
+    "src\\asphalt-roofing.js",
+    "src\\asphalt-ventilation.js",
+    "src\\asphalt-flashing.js",
+    "src\\primary-contract.js",
+    "src\\sub-contract.js",
+    "src\\purchase-order.js",
+    "src\\result-item.js",
+    "src\\metadata.js",
+    "src\\router.js",
+    "src\\send-feedback.js",
+    "src\\warranty-contract.js",
+    "src\\wrong-page.js"
+  ],
+  "sources": [
+    "src\\**",
+    "node_modules\\@webcomponents\\webcomponentsjs\\*.js",
+    "index.html",
+    "src\\application-shell.js",
+    "src\\asphalt-roofing.js",
+    "src\\asphalt-ventilation.js",
+    "src\\asphalt-flashing.js",
+    "src\\primary-contract.js",
+    "src\\sub-contract.js",
+    "src\\purchase-order.js",
+    "src\\result-item.js",
+    "src\\metadata.js",
+    "src\\router.js",
+    "src\\send-feedback.js",
+    "src\\warranty-contract.js",
+    "src\\wrong-page.js"
+  ],
+  "extraDependencies": [
+    "bower_components\\webcomponentsjs\\*.js",
+    "manifest.json",
+    "package.json",
+    "sitemap.xml",
+    "robots.txt"
+  ],
+  "builds": [
+    {
+      "bundle": {
+        "inlineScripts": false
+      },
+      "js": {
+        "minify": true,
+        "transformModulesToAmd": true
+      },
+      "css": {
+        "minify": true
+      },
+      "html": {
+        "minify": true
+      },
+      "addServiceWorker": true
+    }
+  ],
+  "npm": true,
+  "componentDir": "node_modules/",
+  "moduleResolution": "node"
+}
