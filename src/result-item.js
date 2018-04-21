@@ -108,5 +108,5 @@ export class ResultItem extends PolymerElement {
       `
         }
       }
-  customElements.define('result-item', ResultItem);
+  customElements.define(ResultItem.is, ResultItem);
   

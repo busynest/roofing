@@ -254,4 +254,4 @@ export class PrimaryContract extends PolymerElement {
 
 }
 
-customElements.define('primary-contract', PrimaryContract);
+customElements.define(PrimaryContract.is, PrimaryContract);

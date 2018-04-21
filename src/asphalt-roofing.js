@@ -285,4 +285,4 @@ static get template() {
   `
     }
   }
-customElements.define('asphalt-roofing', AsphaltRoofing);
+customElements.define(AsphaltRoofing.is, AsphaltRoofing);

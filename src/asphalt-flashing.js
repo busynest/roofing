@@ -238,4 +238,4 @@ static get template() {
   `
     }
   }
-customElements.define('asphalt-flashing', AsphaltFlashing);
+customElements.define(AsphaltFlashing.is, AsphaltFlashing);

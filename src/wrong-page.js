@@ -1,7 +1,9 @@
 import { PolymerElement } from "@polymer/polymer/polymer-element.js"
 import { updateMetadata }       from './metadata.js';
 
-export class Page404 extends PolymerElement {
+export class WrongPage extends PolymerElement {
+
+  static get is() { return 'wrong-page'; }
 
   static get properties() {
     return {
@@ -17,7 +19,7 @@ export class Page404 extends PolymerElement {
   connectedCallback() {
     super.connectedCallback();
     updateMetadata({
-      title: 'Page 404',
+      title: 'Wrong Page',
       description: 'Roofing Contractor Help',
       url: document.location.href
     });
@@ -42,4 +44,4 @@ export class Page404 extends PolymerElement {
   }
 }
 
-customElements.define('page-404', Page404);
+customElements.define(WrongPage.is, WrongPage);

@@ -2,8 +2,9 @@
 
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { updateMetadata }       from './metadata.js';
+import { ResultItem }       from './result-item.js';
 
-export const PurchaseOrder = class PurchaseOrder extends PolymerElement {
+export class PurchaseOrder extends PolymerElement {
 
   static get is() { return 'purchase-order'; }
 
@@ -139,4 +140,4 @@ export const PurchaseOrder = class PurchaseOrder extends PolymerElement {
 
 }
 
-customElements.define('purchase-order', PurchaseOrder);
+customElements.define(PurchaseOrder.is, PurchaseOrder);

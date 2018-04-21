@@ -265,4 +265,4 @@ static get template() {
   `
     }
   }
-customElements.define('asphalt-ventilation', AsphaltVentilation);
+customElements.define(AsphaltVentilation.is, AsphaltVentilation);

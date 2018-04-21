@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { installRouter } from './router.js';
+import { installRouter }  from './router.js';
 
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -49,11 +49,11 @@ import { WarrantyContract }   from './warranty-contract.js';
 import { PrimaryContract }    from './primary-contract.js';
 import { SubContract }        from './sub-contract.js';
 import { SendFeedback }       from './send-feedback.js';
-import { Page404 }            from './page-404.js';
 import { ResultItem }         from './result-item.js';
-import { AsphaltVentilation } from './asphalt-ventilation.js'
+import { AsphaltVentilation } from './asphalt-ventilation.js';
 import { AsphaltRoofing }     from './asphalt-roofing.js';
-import { AsphaltFlashing }    from './asphalt-flashing.js'
+import { AsphaltFlashing }    from './asphalt-flashing.js';
+import { WrongPage }          from './wrong-page.js';
 
 export class ApplicationShell extends PolymerElement {
 
@@ -65,7 +65,9 @@ export class ApplicationShell extends PolymerElement {
       rootPattern:  String,
       routeData:    Object,
       subroute:     String,
-      opened:       { type: Boolean, reflectToAttribute: true }
+      opened:       { type: Boolean, reflectToAttribute: true },
+      horizontal:   { type: Boolean },
+      noAnimation:  { type: Boolean }
     };
   }
 
@@ -119,12 +121,12 @@ export class ApplicationShell extends PolymerElement {
 
     <style>
     :host {
-        --app-primary-color: #4285f4;
-        --app-secondary-color: black;
-        --app-drawer-width: 190px;
-        --paper-progress-container-color: #e06f50; /* #80001a */
+        --app-primary-color:                  #4285f4;
+        --app-secondary-color:                black;
+        --app-drawer-width:                   190px;
+        --paper-progress-container-color:     #e06f50; /* #80001a */
         --app-drawer-content-container:{
-          background-color: #303030 ; /* #3c8c30 */
+          background-color:                   #303030 ; /* #3c8c30 #4d3a4c */
         }
         display: block;
       }
@@ -284,7 +286,7 @@ export class ApplicationShell extends PolymerElement {
           role="main"
           selected="[[page]]"
           attr-for-selected="name"
-          fallback-selection="page-404">
+          fallback-selection="wrong-page">
 
           <!-- BUSINESS INTRODUCTION -->
           <send-feedback
@@ -307,8 +309,8 @@ export class ApplicationShell extends PolymerElement {
             name="warranty-contract"></warranty-contract>
 
           <!-- PAGE 404 -->
-          <page-404
-            name="page-404"></page-404>            
+          <wrong-page
+            name="wrong-page"></wrong-page>            
 
         </iron-pages>
       </main>
@@ -319,7 +321,7 @@ export class ApplicationShell extends PolymerElement {
 
 }
 
-customElements.define('application-shell', ApplicationShell);
+customElements.define(ApplicationShell.is, ApplicationShell);
 
 /**
 
@@ -366,8 +368,7 @@ customElements.define('application-shell', ApplicationShell);
 */
 
 /** 
- *    horizontal:   { type: Boolean },
- *    noAnimation:  { type: Boolean }
+ *   
       A:              { type: Boolean, value: false, observer: '_toggleA' },
       loadComplete:   { type: Boolean, value: false }
 */

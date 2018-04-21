@@ -4,35 +4,36 @@
     "npm": true,
     "moduleResolution": "node",
     "fragments": [
-      "src/page-404.js",
-      "src/primary-contract.js",
-      "src/purchase-order.js",
-      "src/send-feedback.js",
-      "src/sub-contract.js",
-      "src/warranty-contract.js",
-      "src/router.js",
-      "src/metadata.js",
-      "src/result-item.js",
       "src/asphalt-roofing.js",
       "src/asphalt-ventilation.js",
-      "src/asphalt-flashing.js"
+      "src/asphalt-flashing.js",
+      "src/primary-contract.js",
+      "src/sub-contract.js",
+      "src/purchase-order.js",
+      "src/result-item.js",
+      "src/metadata.js",
+      "src/router.js",
+      "src/send-feedback.js",
+      "src/warranty-contract.js",
+      "src/wrong-page.js"
     ],
   
     "sources": [
-      "src/**"
+      "src/**",
+      "node_modules/@webcomponents/webcomponentsjs/*.js"
     ],
   
     "extraDependencies": [
       "manifest.json",
       "package.json",
       "sitemap.xml",
-      "robots.txt",
-      "node_modules/@webcomponents/webcomponentsjs/*.js"
+      "robots.txt"
+      
     ],
   
     "builds": [{
       "bundle": { "inlineScripts": false },
-      "js":     { "transformModulesToAmd": true, "minify": true },
+      "js":     { "minify": true, "transformModulesToAmd": true },
       "css":    { "minify": true },
       "html":   { "minify": true },
       "addServiceWorker": true
