@@ -6,34 +6,14 @@ export class ResultItem extends PolymerElement {
 
     static get properties() {
       return {
-  
-        name: {
-          string: ''
-        },
-  
-        product: {
-          string: ''
-        },
-  
-        identity: {
-          string: ''
-        },
-  
-        unit: {
-          string: ''
-        },
-  
-        homework:{
-          string:''
-        },
-  
-        price:{
-          string:''
-        },
-  
-        total:{
-          string:''
-        }
+
+        name:       String,
+        product:    String,
+        identity:   String,
+        unit:       String,
+        homework:   Number,
+        price:      Number,
+        total:      Number
   
       };
     }
@@ -67,46 +47,58 @@ export class ResultItem extends PolymerElement {
         .home {
           text-align: right;
           margin: 7px;
-          border-bottom: 1px dotted grey;
         }
         .product {
           text-align: right;
+          margin: auto;
+          margin-right: 0px;
         }
         .price {
           text-align: center;
           font-size: .7em;
           text-align: right;
+          margin: auto;
         }
         .work {
           text-align: center;
           font-size: .7em;
           font-weight: bold;
           text-align: left;
+          margin: auto;
         }
         .unit {
           font-size: .6em;
           color: grey;
           text-align: left;
+          margin: auto;
+          margin-left: 0px;
         }
         .money {
           font-size: .6em;
           color: #248746;
           text-align: right;
+          margin: auto;
         }
-        strong { color: #e06f50; }
+        strong { color: #e06f50; margin: auto; }
+
       </style>
       
-        <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 30% 1fr .5em 1.2em 1fr .5em 1fr">
+        <div class="home" id="{{name}}" style="display: grid; grid-gap: 5px; grid-template-columns: 30% 1fr .5em 1.2em 2.2em .5em 1fr">
           <div class="product">{{product}}</div>
           <div class="price"><i>{{price}}</i></div>
           <strong>x</strong>
           <div class="work">{{homework}}</div>
           <i class="unit">{{unit}}</i>
-          <strong>\=</strong>
+          <strong class="equal">\=</strong>
           <div class="money">\$ <i>{{total}}</i></div>
         </div>
-      `
+      `;
         }
       }
-  customElements.define(ResultItem.is, ResultItem);
+  customElements.define("result-item", ResultItem);
+
+  /**
+   * 30% 1fr .5em 1.2em 1fr .5em 1fr
+   */
+
   

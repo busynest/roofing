@@ -7,47 +7,55 @@ export class AsphaltVentilation extends PolymerElement {
 
     static get properties() {
       return {
-ventilationPrices: {
+        
+        mResult:              { type: Number,   notify: true, observer: '_areaChange'},
+        ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false },
+        ventilationPrice:     { type: Number,  notify: true, observer: '_ventilation' },
+
+        ridge:                { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        ridgeVentResult:      { type: Number,  notify: true, observer: '_ventilation' },
+        ridgeVentPrice:       { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        ridgeVentTotal:       { type: Number,  notify: true, observer: '_ventilation' },
+
+        box:                  { type: Number,  notify: true, observer: '_ventilation', value: 6 },
+        boxVentResult:        { type: Number,  notify: true, observer: '_ventilation' },
+        boxVentPrice:         { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        boxVentTotal:         { type: Number,  notify: true, observer: '_ventilation' },
+
+        bVent:                { type: Number,  notify: true, observer: '_ventilation', value: 1 },
+        bVentResult:          { type: Number,  notify: true, observer: '_ventilation' },
+        bVentPrice:           { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        bVentTotal:           { type: Number,  notify: true, observer: '_ventilation' },
+
+        pStack:               { type: Number,  notify: true, observer: '_ventilation', value: 4 },
+        pStackResult:         { type: Number,  notify: true, observer: '_ventilation' },
+        pStackPrice:          { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        pStackTotal:          { type: Number,  notify: true, observer: '_ventilation' },
+
+        gooseneck:            { type: Number,  notify: true, observer: '_ventilation', value: 2 },
+        gooseneckResult:      { type: Number,  notify: true, observer: '_ventilation' },
+        gooseneckPrice:       { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        gooseneckTotal:       { type: Number,  notify: true, observer: '_ventilation' },
+
+        asphaltSealant:       { type: Number,  notify: true, observer: '_ventilation', value: 2 },
+        sealantResult:        { type: Number,  notify: true, observer: '_ventilation' },
+        sealantPrice:         { type: Number,  notify: true, observer: '_ventilation', value: 24 },
+        sealantTotal:         { type: Number,  notify: true, observer: '_ventilation' },
+
+price: {
   type: Array,
-  value: [
-    { x:'Ridge Ventilation', y:24 }, { x:'Box Ventilaion', y:24 }, { x:'Plumbing Stacks' , y:24 }
-  ]
-},
-
-/* VENTILATION */
-
-ventilation:          { type: Boolean, notify: true, observer: '_ventilation', value: false },
-ventilationPrice:     { type: Number,  notify: true, observer: '_ventilation' },
-
-ridge:                { type: Number,  notify: true, value: 24 },
-ridgeVentResult:      { type: Number,  notify: true, observer: '_ventilation' },
-ridgeVentPrice:       { type: Number,  notify: true, observer: '_ventilation', value: 24 },
-ridgeVentTotal:       { type: Number,  notify: true, observer: '_ventilation' },
-
-box:                  { type: Number,  notify: true, value: 6 },
-boxVentResult:        { type: Number,  notify: true, observer: '_ventilation' },
-boxVentPrice:         { type: Number,  notify: true, observer: '_ventilation', value: 24 },
-boxVentTotal:         { type: Number,  notify: true, observer: '_ventilation' },
-
-bVent:                { type: Number, notify: true, value: 1 },
-bVentResult:          { type: Number, notify: true, observer: '_ventilation' },
-bVentPrice:           { type: Number, notify: true, observer: '_ventilation', value: 24 },
-bVentTotal:           { type: Number, notify: true, observer: '_ventilation' },
-
-pStack:               { type: Number, notify: true, value: 4 },
-pStackResult:         { type: Number, notify: true, observer: '_ventilation' },
-pStackPrice:          { type: Number, notify: true, observer: '_ventilation', value: 24 },
-pStackTotal:          { type: Number, notify: true, observer: '_ventilation' },
-
-gooseneck:            { type: Number, notify: true, value: 2 },
-gooseneckResult:      { type: Number, notify: true, observer: '_ventilation' },
-gooseneckPrice:       { type: Number, notify: true, observer: '_ventilation', value: 24 },
-gooseneckTotal:       { type: Number, notify: true, observer: '_ventilation' },
-
-asphaltSealant:       { type: Number,  notify: true, value: 2 },
-sealantResult:        { type: Number,  notify: true, observer: '_ventilation' },
-sealantPrice:         { type: Number, notify: true,  observer: '_ventilation', value: 24 },
-sealantTotal:         { type: Number, notify: true,  observer: '_ventilation' }
+  notify: true,
+  observer: '_ventilation',
+  value:
+    {
+      gooseneck:          14.99,
+      sealant:            14.99,
+      pStack:             14.99,
+      bVent:              14.99,
+      boxVent:            14.99,
+      ridgeVent:          14.99
+    }
+  },
 
 };
 
@@ -79,6 +87,7 @@ _areaChange(event) {
 }
 
 _ventilation(
+    ventilationPrice, price,
     ventilation,    
     bVent,          bVentResult,      bVentPrice,       bVentTotal,
     pStack,         pStackResult,     pStackPrice,      pStackTotal,
@@ -89,7 +98,7 @@ _ventilation(
   ) {
       window.onerror = function(message, file, line, col, error){ console.log(arguments); }
 
-      if ( this.ventilation == false ) {  this.boxVentResult   = this.box;
+      if ( this.ventilation == false ) {
 
         this.$.bx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
         this.$.rx.setAttribute("style", "display:none;");
@@ -97,37 +106,35 @@ _ventilation(
         this.$.bxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
         this.$.rxv.setAttribute("style", "display:none;");
 
-        this.boxVentTotal      = this.boxVentPrice * boxVentResult;
+
 
       };
 
-      if ( this.ventilation == true )  {  this.ridgeVentResult = this.ridge;
-
+      if ( this.ventilation == true )  {
+        
         this.$.rx.setAttribute("style", "display:block; animation-duration: 2s; animation-name: slidein; ");
         this.$.bx.setAttribute("style", "display:none;");
 
         this.$.rxv.setAttribute("style", "display:grid; grid-template-columns: 120px 1fr 1.5em; animation-duration: 2s; animation-name: slidein; ");
         this.$.bxv.setAttribute("style", "display:none;");
 
-        this.ridgeVentTotal      = this.ridgeVentPrice * ridgeVentResult;
+        /** 10' or 12' */
 
       };
 
-      this.bVentResult     = this.bVent;
-      this.bVentTotal      = this.bVentPrice * bVentResult;
+      this.ridgeVentResult    = Number((this.ridge / 40).toFixed(0));
+      this.boxVentTotal       = Number((this.box                * this.price.boxVent).toFixed(0));
+      this.ridgeVentTotal     = Number((this.ridgeVentResult    * this.price.ridgeVent).toFixed(0));
 
-      this.pStackResult     = this.pStack;
-      this.pStackTotal      = this.pStackPrice * pStackResult;
-
-      this.gooseneckResult  = this.gooseneck;
-      this.gooseneckTotal   = this.gooseneckPrice * this.gooseneckResult; 
-
-      this.sealantResult    = this.asphaltSealant;
-      this.sealantTotal     = this.sealantPrice * this.sealantResult
+      this.bVentTotal         = Number((this.bVent              * this.price.bVent).toFixed(0));
+      this.pStackTotal        = Number((this.pStack             * this.price.pStack).toFixed(0));
+      this.gooseneckTotal     = Number((this.gooseneck          * this.price.gooseneck).toFixed(0)); 
+      this.sealantTotal       = Number((this.asphaltSealant     * this.price.sealant).toFixed(0));
       
-      this.asphaltPrice    = bVentTotal + pStackTotal + gooseneckTotal +
-                              ridgeVentTotal + boxVentPrice + sealantTotal;
+      this.ventilationPrice   = this.bVentTotal + this.pStackTotal + this.gooseneckTotal + this.ridgeVentTotal + this.boxVentTotal + this.sealantTotal;
     
+
+
     }
 
 static get template() {
@@ -180,25 +187,29 @@ static get template() {
   .x            { text-align: right;        margin: auto 0px;     font-size: .9em; }
   .y            { text-align: left;         margin: auto 0px;     font-size: .8em; }
   .grid         { border-radius: 5px;       padding: 5px;         max-width: 300px; margin: auto; }
-  result-item   { margin: auto;             width: 100%; }
+  result-item   { margin: auto;             width: 100%;          border-bottom: 1px dotted grey; }
   .boxed        { border: solid grey 1px;   border-radius: 3px;   padding: 12px;    background-color: #e8e8e8; }
   .result       { display: none; }
-  .priced       { text-align: left;         font-size: .8em;      margin-top: 0px; }
-  .money        { font-size: .9em;          color: #248746;       text-align: left; }
+
+  .money        { font-size: 1em;          color: #248746;       text-align: left; }
 
 </style>
 
-  <paper-card>
+<paper-card>
 
-    <div style="display:grid; grid-template-columns: 1fr 100px ;">
-      <h3>Ventilation</h3>
+  <h3>Ventilation</h3>
+
+  <div class="boxed">
+  
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr;">
+      <h1 class="money">\$ {{ventilationPrice}}</h1>  
+      <span></span>
       <paper-toggle-button checked="{{ventilation}}" on-click="_ventilation"></paper-toggle-button>
-      <i><p class="priced">Estimate:<span class="money"> \$ {{ventilationPrice}}</span></p></i>
+      <span></span>
+      <span></span>
       <h4>(Ridge / Box)</h4>
     </div>
 
-    <div class="boxed">
-  
       <!-- RIDGE VENTILATION -->
       <div id="rxv" style="display: grid; grid-template-columns: 120px 1fr 1.5em;">
         <div class="x">Ridge Vent:</div>
@@ -242,12 +253,12 @@ static get template() {
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr;">
-        <result-item id="rx"    product="Ridge Ventilation:"    homework="{{ridgeVentResult}}"    unit="boxes"    price="{{ridgVentPrice}}" ></result-item>
-        <result-item id="bx"    product="Box Ventilation:"      homework="{{boxVentResult}}"      unit="units"    price="{{boxVentPrice}}" ></result-item>
-        <result-item            product="Gas Vent type-B:"      homework="{{bVentResult}}"        unit="units"    price="{{bVentPrice}}" ></result-item>
-        <result-item            product="Plumbing Vent:"        homework="{{pStackResult}}"       unit="units"    price="{{pStackPrice}}" ></result-item>
-        <result-item            product="Gooseneck:"            homework="{{gooseneckResult}}"    unit="units"    price="{{gooseneckPrice}}" ></result-item>
-        <result-item            product="Caulking:"             homework="{{sealantResult}}"      unit="tubes"    price="{{sealantPrice}}" ></result-item>
+        <result-item id="rx"    product="Ridge Ventilation:"    homework="{{ridgeVentResult}}"      unit="boxes"    price="{{price.ridgeVent}}"        total="{{ridgeVentTotal}}"></result-item>
+        <result-item id="bx"    product="Box Ventilation:"      homework="{{box}}"                  unit="units"    price="{{price.boxVent}}"         total="{{boxVentTotal}}" ></result-item>
+        <result-item            product="Gas Vent type-B:"      homework="{{bVent}}"                unit="units"    price="{{price.bVent}}"           total="{{bVentTotal}}" ></result-item>
+        <result-item            product="Plumbing Vent:"        homework="{{pStack}}"               unit="units"    price="{{price.pStack}}"          total="{{pStackTotal}}" ></result-item>
+        <result-item            product="Gooseneck:"            homework="{{gooseneck}}"            unit="units"    price="{{price.gooseneck}}"       total="{{gooseneckTotal}}" ></result-item>
+        <result-item            product="Caulking:"             homework="{{asphaltSealant}}"       unit="tubes"    price="{{price.sealant}}"         total="{{sealantTotal}}" ></result-item>
       </div>
 
     </div>
@@ -255,14 +266,14 @@ static get template() {
   </paper-card>
 <!--
   <div class="result" style="display: grid; grid-template-columns: 1fr;">
-    <result-print class="result  "id="rx"    product="Ridge Ventilation:"    homework="{{ridgeVentResult}}"    unit="boxes"></result-print>
-    <result-print class="result  "id="bx"    product="Box Ventilation:"      homework="{{boxVentResult}}"      unit="units"></result-print>
-    <result-print class="result"           product="Gas Vent type-B:"      homework="{{bVentResult}}"        unit="units"></result-print>
-    <result-print class="result"           product="Plumbing Vent:"        homework="{{pStackResult}}"       unit="units"></result-print>
-    <result-print class="result"           product="Gooseneck:"            homework="{{gooseneckResult}}"    unit="units"></result-print>
+    <result-print class="result  "id="rx"    product="Ridge Ventilation:"     homework="{{ridgeVentResult}}"    unit="boxes"></result-print>
+    <result-print class="result  "id="bx"    product="Box Ventilation:"       homework="{{boxVentResult}}"      unit="units"></result-print>
+    <result-print class="result"           product="Gas Vent type-B:"         homework="{{bVentResult}}"        unit="units"></result-print>
+    <result-print class="result"           product="Plumbing Vent:"           homework="{{pStackResult}}"       unit="units"></result-print>
+    <result-print class="result"           product="Gooseneck:"               homework="{{gooseneckResult}}"    unit="units"></result-print>
   </div>
 -->
   `
     }
   }
-customElements.define(AsphaltVentilation.is, AsphaltVentilation);
+customElements.define("asphalt-ventilation", AsphaltVentilation);

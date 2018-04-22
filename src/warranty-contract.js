@@ -50,4 +50,4 @@ export class WarrantyContract extends PolymerElement {
 
 }
 
-customElements.define(WarrantyContract.is, WarrantyContract);
+customElements.define("warranty-contract", WarrantyContract);

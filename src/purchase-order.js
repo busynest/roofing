@@ -2,7 +2,6 @@
 
 import { PolymerElement } from '@polymer/polymer/polymer-element.js';
 import { updateMetadata }       from './metadata.js';
-import { ResultItem }       from './result-item.js';
 
 export class PurchaseOrder extends PolymerElement {
 
@@ -10,10 +9,10 @@ export class PurchaseOrder extends PolymerElement {
 
   static get properties() {
     return {
-      tSquare:        { type: String, notify: true },   
-      roofMoney:      { type: String, notify: true },
-      ventMoney:      { type: String, notify: true },
-      flashingMoney:  { type: String, notify: true }
+      tSquare:        { type: Number, notify: true },
+      roofMoney:      { type: Number, notify: true },
+      ventMoney:      { type: Number, notify: true },
+      flashingMoney:  { type: Number, notify: true }
     };
   }
 
@@ -39,6 +38,14 @@ export class PurchaseOrder extends PolymerElement {
   ready() {
     super.ready();
     console.log(this.tagName);
+  }
+
+  _areaChange(event) {
+    this._totalPurchase(event);
+  }
+
+  _totalPurchase( tSquare, roofMoney, ventMoney, flashingMoney ) {
+    this.tSquare    = this.roofMoney + this.ventMoney + this.flashingMoney;
   }
 
   static get template() {
@@ -74,6 +81,7 @@ export class PurchaseOrder extends PolymerElement {
     .scheme             { text-align: right; }
     fieldset            { background-color: #e8e8e8; }
     .head               { background-color: #303030; border-radius: 3px; padding: 12px;}
+    .boxed              { border: solid grey 1px;   border-radius: 3px;   padding: 12px;    background-color: #e8e8e8; }
 
   </style>
   
@@ -96,17 +104,27 @@ export class PurchaseOrder extends PolymerElement {
 
     </form>
 
-    <div class="head" style="display: grid; grid-template-columns: 1fr 1fr ;">
-      <div>
-        <h4>Estimated</h4><p>Cost per Square </p>{{tSquare}}<span id="cost" value="{{cost}}"></span>
-      </div>
-      <div>
+    <div class="head">
+      <div style="display: grid; grid-template-columns: 1fr 1fr ;">
+        <h4>Estimated</h4>
         <h4 class="scheme" >Color Scheme</h4>
+      </div>
+      <div class="boxed"  style="display: grid; grid-template-columns: 1fr 1fr ;">
+        <div>
+                        <h3>Roofing:</h3>{{roofMoney}}
+                        <h3>Ventilation:</h3>{{ventMoney}}
+                        <h3>Flashing:{{flashingMoney}}</h3>
+
+          <p>Cost per Square </p>{{tSquare}}<span id="cost" value="{{cost}}"></span>
+        </div>
+        <div>
+          Blue
+        </div>
       </div>
     </div>
 
     <div class="body" style="display: grid; grid-template-columns: 1fr ;">
-
+<!--
       <div>
         <h3>Ashpalt</h3>
         <h4>Shingles</h4><p>Three bundles per square / Four bundles per square</p>
@@ -114,24 +132,24 @@ export class PurchaseOrder extends PolymerElement {
         <h4>Waste</h4><p>Bin size, Drop zone, and walking distance.</p>
         <h4>Underlay</h4><p>15 pound felt covers 400 square feet. 30 pound felt covers 200 square feet. Synthetic. Sticky waterproof.</p>
       </div>
-
-      <asphalt-roofing      mResult="{{roofMoney}}"   square="{{tSquare}}"></asphalt-roofing>
-
+-->
+      <asphalt-roofing   mResult="{{roofMoney}}" square="{{tSquare}}" ></asphalt-roofing> <!--       -->
+<!--
       <div>
         <h3>Ventilation</h3>
         <h4>Ventilation</h4><p>Box ventilation or Ridge Ventilation, Soffit ventilation.</p>
       </div>
-
-      <asphalt-ventilation  mResult="{{ventMoney}}"></asphalt-ventilation>
-      
+-->
+      <asphalt-ventilation  ventilationPrice="{{ventMoney}}"></asphalt-ventilation>
+<!--
       <div>
         <h3>Flashing</h3>
         <h4>Skylights</h4><p>Flashing</p>
         <h4>Chimney</h4><p>Flashing</p>
         <h4>Flashing</h4><p>Head Flashing. Back Flashing. Step Flashing. Gable Flashing. Valley Flashing.</p>
       </div>
-
-      <asphalt-flashing     mResult="{{flashingMoney}}"></asphalt-flashing>
+-->
+      <asphalt-flashing     flashingPrice="{{flashingMoney}}"></asphalt-flashing>
     </div>
   
   </paper-card>
@@ -140,4 +158,4 @@ export class PurchaseOrder extends PolymerElement {
 
 }
 
-customElements.define(PurchaseOrder.is, PurchaseOrder);
+customElements.define("purchase-order", PurchaseOrder);

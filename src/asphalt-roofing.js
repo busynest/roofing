@@ -7,71 +7,92 @@ export class AsphaltRoofing extends PolymerElement {
 
     static get properties() {
       return {
-ventilationPrices: {
+
+        mResult:              { type: Number, notify: true, observer: '_area'},
+        asphaltPrice:         { type: Number, notify: true, observer: '_area'},
+
+        /* AREA */
+        squarefeet:           { type: Number, notify: true, observer: '_area', value: 21 },
+        square:               { type: Number, notify: true, observer: '_area'},
+
+        /* CONVERSION */
+        bundles:              { type: Boolean, notify: true, observer: '_bundles', value: false },
+        conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false },
+
+        plywoodResult:        { type: Number,  notify: true, observer: '_conversion' },
+        plywoodPrice:         { type: Number,  notify: true, observer: '_conversion', value: 24 },
+        plywoodTotal:         { type: Number,  notify: true, observer: '_conversion' },
+
+        sheathingNailResult:  { type: Number,  notify: true, observer: '_conversion' },
+        sheathingNailPrice:   { type: Number,  notify: true, observer: '_conversion', value: 24 },
+        sheathingNailTotal:   { type: Number,  notify: true, observer: '_conversion' },
+
+        /* SHINGLES */
+        shingles3Result:      { type: Number,  notify: true, observer: '_bundles' },
+        shingles3Price:       { type: Number,  notify: true, observer: '_bundles', value: 21 },
+        shingles3Total:       { type: Number,  notify: true, observer: '_bundles' },
+
+        shingles4Result:      { type: Number,  notify: true, observer: '_bundles' },
+        shingles4Price:       { type: Number,  notify: true, observer: '_bundles', value: 30 },
+        shingles4Total:       { type: Number,  notify: true, observer: '_bundles' } ,
+
+        starters:             { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
+        startersResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
+        startersPrice:        { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
+        startersTotal:        { type: Number,  notify: true, observer: '_asphaltRoof' },
+
+        cap:                  { type: Number,  notify: true, value: 60 },
+        cappingResult:        { type: Number,  notify: true, obeserver: "_asphaltRoof" },
+        cappingPrice:         { type: Number,  notify: true, observer: '_asphaltRoof', value: 35 },
+        cappingTotal:         { type: Number,  notify: true, observer: '_asphaltRoof' },
+
+        /* FELT */
+        felt15Result:         { type: Number,  notify: true, observer: '_asphaltRoof' },
+        felt15Price:          { type: Number,  notify: true, observer: '_asphaltRoof', value: 18 },
+        felt15Total:          { type: Number,  notify: true, observer: '_asphaltRoof' },
+
+        felt30Result:         { type: Number,  notify: true, observer: '_asphaltRoof' },
+        felt30Price:          { type: Number,  notify: true, observer: '_asphaltRoof', value: 36 },
+        felt30Total:          { type: Number,  notify: true, observer: '_asphaltRoof' },
+
+        /* NAILS */
+        roofNailResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
+        roofNailPrice:        { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
+        roofNailTotal:        { type: Number,  notify: true, observer: '_asphaltRoof' },
+
+price: {
   type: Array,
-  value: [
-    { x:'Ridge Ventilation', y:24 }, { x:'Box Ventilaion', y:24 }, { x:'Plumbing Stacks' , y:24 }
-  ]
-},
+  value:
+    {
+      plywood:          14.99,
+      sheathingNail:    14.99,
+      roofingNail:      14.99,
+      shingles3:        14.99,
+      shingles4:        14.99,
+      starters:         14.99,
+      capping:          14.99,
+      felt15:           14.99,
+      felt30:           14.99
+    }
+  },
 
-mResult:              { type: Number, notify: true, observer: '_areaChange'},
-asphaltPrice:         { type: Number, notify: true, observer: '_asphaltRoof'},
-
-/* AREA */
-      
-squarefeet:           { type: Number, notify: true, observer: '_area', value: 21 },
-square:               { type: Number, notify: true, observer: '_area'},
-
-/* CONVERSION */
-
-bundles:              { type: Boolean, notify: true, observer: '_bundles', value: false },
-conversion:           { type: Boolean, notify: true, observer: '_conversion', value: false },
-
-plywoodResult:        { type: Number,  notify: true, observer: '_conversion' },
-plywoodPrice:         { type: Number,  notify: true, observer: '_conversion', value: 24 },
-plywoodTotal:         { type: Number,  notify: true, observer: '_conversion' },
-
-sheathingNailResult:  { type: Number,  notify: true, observer: '_conversion' },
-sheathingNailPrice:   { type: Number,  notify: true, observer: '_conversion', value: 24 },
-sheathingNailTotal:   { type: Number,  notify: true, observer: '_conversion' },
-
-/* SHINGLES */
-
-shingles3Result:      { type: Number,  notify: true, observer: '_bundles' },
-shingles3Price:       { type: Number,  notify: true, observer: '_bundles', value: 21 },
-shingles3Total:       { type: Number,  notify: true, observer: '_bundles' },
-
-shingles4Result:      { type: Number,  notify: true, observer: '_bundles' },
-shingles4Price:       { type: Number,  notify: true, observer: '_bundles', value: 30 },
-shingles4Total:       { type: Number,  notify: true, observer: '_bundles' } ,
-
-starters:             { type: Number,  notify: true, observer: '_asphaltRoof', value: 24 },
-startersResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
-startersPrice:        { type: Number, notify: true, observer: '_asphaltRoof', value: 24 },
-startersTotal:        { type: Number, notify: true, observer: '_asphaltRoof' },
-
-cap:                  { type: Number, notify: true, value: 60 },
-cappingResult:        { type: Number, notify: true, obeserver: "_asphaltRoof" },
-cappingPrice:         { type: Number, notify: true, observer: '_asphaltRoof', value: 35 },
-cappingTotal:         { type: Number, notify: true, observer: '_asphaltRoof' },
-
-/* FELT */
-
-felt15Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
-felt15Price:          { type: Number, notify: true, observer: '_asphaltRoof', value: 18 },
-felt15Total:          { type: Number, notify: true, observer: '_asphaltRoof' },
-
-felt30Result:         { type: Number, notify: true, observer: '_asphaltRoof' },
-felt30Price:          { type: Number, notify: true, observer: '_asphaltRoof', value: 36 },
-felt30Total:          { type: Number, notify: true, observer: '_asphaltRoof' },
-
-/* NAILS */
-
-roofNailResult:       { type: Number,  notify: true, observer: '_asphaltRoof' },
-roofNailPrice:         { type: Number, notify: true, observer: '_asphaltRoof', value: 24 },
-roofNailTotal:        { type: Number, notify: true, observer: '_asphaltRoof' }
-};
-
+  IKO: {
+    type: Array,
+    value:
+      {
+        plywood:          14.99,
+        sheathingNail:    14.99,
+        roofingNail:      14.99,
+        shingles3:        14.99,
+        shingles4:        14.99,
+        starters:         14.99,
+        capping:          14.99,
+        felt15:           14.99,
+        felt30:           14.99
+      }
+    }
+  
+  };
 }
 
 //static get observers() {
@@ -80,7 +101,7 @@ roofNailTotal:        { type: Number, notify: true, observer: '_asphaltRoof' }
 
 constructor() {
   super();
-  //console.log('Menu-Item Constructor!');
+  if (typeof AsphaltRoofing !== 'undefined') { console.log(this.tagName + "undefined"); }
 }
 
 connectedCallback() {
@@ -103,8 +124,9 @@ _areaChange(event) {
   this._asphaltRoof(event)
 }
 
-_area( square, squarefeet ) {
+_area( square, squarefeet, mResult, asphaltPrice  ) {
     this.square           = this.squarefeet;
+    this.mResult          = this.asphaltPrice;
   }
 
   _conversion( conversion, plywoodResult, squarefeet, sheathingNailTotal, sheathingNailPrice, sheathingNailResult, plywoodTotal, plywoodPrice ) {
@@ -139,6 +161,8 @@ _area( square, squarefeet ) {
   }
 
   _asphaltRoof(
+    price,
+
     asphaltPrice,
     squarefeet,
     starters,         startersResult,   startersPrice,    startersTotal,
@@ -148,22 +172,22 @@ _area( square, squarefeet ) {
                       roofNailResult,   roofNailPrice,    roofNailTotal
   ) {
     // 1 STARTERS
-    this.startersResult   = this.starters;
-    this.startersTotal    = this.startersPrice  * this.startersResult;
+    this.startersResult   = Number(((this.starters / 120.33 ) * this.price.starters).toFixed(0));
+    this.startersTotal    = Number((this.startersPrice  * this.startersResult).toFixed(0));
     // 2 CAPPING
     this.cappingResult    = Number(parseInt(this.cap / 20.625).toFixed(0))  +  1;
-    this.cappingTotal     = this.cappingPrice   * this.cappingResult;
+    this.cappingTotal     = Number((this.cappingPrice   * this.cappingResult).toFixed(0));
     // 3 SHINGLE NAILS
     this.roofNailResult   = Number(parseInt(this.squarefeet * 320 / 7200).toFixed(0)) + 1;
-    this.roofNailTotal    = this.roofNailPrice  * this.roofNailResult;
+    this.roofNailTotal    = Number((this.roofNailPrice  * this.roofNailResult).toFixed(0));
     // 4 FELT 15
     this.felt15Result     = parseInt(this.squarefeet / 400 * 100).toFixed(0);
-    this.felt15Total      = this.felt15Price    * this.felt15Result;
+    this.felt15Total      = Number((this.felt15Price    * this.felt15Result).toFixed(0));
     // 5 FELT 30
     this.felt30Result     = parseInt(this.squarefeet / 200 * 100).toFixed(0);`  `
-    this.felt30Total      = this.felt30Price    * this.felt30Result;
+    this.felt30Total      = Number((this.felt30Price    * this.felt30Result).toFixed(0));
     // 6 TOTAL
-    this.asphaltPrice     = this.startersTotal + this.cappingTotal + this.felt15Total + this.felt30Total + this.roofNailTotal; 
+    this.asphaltPrice     = this.startersTotal + this.cappingTotal + this.felt15Total + this.felt30Total + this.roofNailTotal;
   }
 
 static get template() {
@@ -215,32 +239,30 @@ static get template() {
   .x            { text-align: right;        margin: auto 0px;     font-size: .9em; }
   .y            { text-align: left;         margin: auto 0px;     font-size: .8em; }
   .grid         { border-radius: 5px;       padding: 5px;         max-width: 300px; margin: auto; }
-  result-item   { margin: auto;             width: 100%; }
+  result-item   { margin: auto;             width: 100%;          border-bottom: 1px dotted grey; }
   .boxed        { border: solid grey 1px;   border-radius: 3px;   padding: 12px;    background-color: #e8e8e8; }
   .result       { display: none; }
-  .priced       { text-align: left;         font-size: .8em;      margin-top: 0px; }
-  .money        { font-size: .9em;          color: #248746;       text-align: left; }
+
+  .money        { font-size: 1em;          color: #248746;       text-align: left; }
 
 </style>
 
 <paper-card>
     
-  <div style=" display:grid; grid-template-columns: 1fr 100px 100px ;">
-    <h3>Roofing</h3>
+  <h3>Roofing</h3>
+
+  <div class="boxed">
+
+  <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; ">
+    <h1 class="money">\$ {{asphaltPrice}}</h1>
     <paper-toggle-button checked="{{bundles}}" on-click="_asphaltRoof"></paper-toggle-button>
     <paper-toggle-button checked="{{conversion}}" on-click="_asphaltRoof"></paper-toggle-button>
-    <i><p class="priced">Estimate:<span class="money"> \$ {{asphaltPrice}}</span></p></i>
+    <span>Total Square: {{square}}</span>
     <h4>(3/4)</h4>
     <h4>Conversion</H4>
   </div>
 
-  <div class="boxed">
-
-    <div style="display: grid; grid-template-columns: 1fr 1fr 1.5em;;">
-      <div class="x">Total Square:</div>
-      <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange" editable></paper-slider>
-      <i class="y">Sq</i>
-    </div>
+  <paper-slider id="roofArea" value="{{squarefeet}}" max="100" on-change="_areaChange"></paper-slider>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr 1.5em;">
       <div class="x">Starter Rows:</div>
@@ -256,15 +278,15 @@ static get template() {
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr;">
-      <result-item id="ply"   product="Plywood:"          homework="{{plywoodResult}}"          unit="sheets"       price="21.50"     total="{{plywoodTotal}}"></result-item>
-      <result-item id="pny"   product="Sheathing Nails:"  homework="{{sheathingNailResult}}"    unit="boxes"        price="103.00"    total="{{sheathingNailTotal}}"></result-item>
-      <result-item id="s3"    product="Shingles 3\'s:"    homework="{{shingles3Result}}"        unit="bundles"      price="23.00"     total="{{shingles3Total}}"></result-item>
-      <result-item id="s4"    product="Shingles 4\'s:"    homework="{{shingles4Result}}"        unit="bundles"      price="30.00"     total="{{shingles4Total}}"></result-item>
-      <result-item            product="Roofing Nails:"    homework="{{roofNailResult}}"         unit="boxes"        price="65.00"     total="{{roofNailTotal}}"></result-item>
-      <result-item            product="Starters:"         homework="{{startersResult}}"         unit="bundles"      price="22.00"     total="{{startersTotal}}"></result-item>
-      <result-item            product="Capping:"          homework="{{cappingResult}}"          unit="rolls"        price="36.00"     total="{{cappingTotal}}"></result-item>
-      <result-item id="f15"   product="15 Pound Felt:"    homework="{{felt15Result}}"           unit="rolls"        price="30.50"     total="{{felt15Total}}"></result-item>
-      <result-item id="f30"   product="30 Pound Felt:"    homework="{{felt30Result}}"           unit="rolls"        price="36.00"     total="{{felt30Total}}"></result-item>
+      <result-item id="ply"   product="Plywood:"          homework="{{plywoodResult}}"          unit="sheets"       price="{{price.plywood}}"     total="{{plywoodTotal}}"></result-item>
+      <result-item id="pny"   product="Sheathing Nails:"  homework="{{sheathingNailResult}}"    unit="boxes"        price="{{price.sheathingNail}}"    total="{{sheathingNailTotal}}"></result-item>
+      <result-item id="s3"    product="Shingles 3\'s:"    homework="{{shingles3Result}}"        unit="bundles"      price="{{price.shingles3}}"     total="{{shingles3Total}}"></result-item>
+      <result-item id="s4"    product="Shingles 4\'s:"    homework="{{shingles4Result}}"        unit="bundles"      price="{{price.shingles4}}"     total="{{shingles4Total}}"></result-item>
+      <result-item            product="Roofing Nails:"    homework="{{roofNailResult}}"         unit="boxes"        price="{{price.roofingNail}}"     total="{{roofNailTotal}}"></result-item>
+      <result-item            product="Starters:"         homework="{{startersResult}}"         unit="bundles"      price="{{price.starters}}"     total="{{startersTotal}}"></result-item>
+      <result-item            product="Capping:"          homework="{{cappingResult}}"          unit="rolls"        price="{{price.capping}}"     total="{{cappingTotal}}"></result-item>
+      <result-item id="f15"   product="15 Pound Felt:"    homework="{{felt15Result}}"           unit="rolls"        price="{{price.felt15}}"     total="{{felt15Total}}"></result-item>
+      <result-item id="f30"   product="30 Pound Felt:"    homework="{{felt30Result}}"           unit="rolls"        price="{{price.felt30}}"     total="{{felt30Total}}"></result-item>
     </div>
 
   </div>
@@ -285,4 +307,4 @@ static get template() {
   `
     }
   }
-customElements.define(AsphaltRoofing.is, AsphaltRoofing);
+customElements.define("asphalt-roofing", AsphaltRoofing);

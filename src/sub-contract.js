@@ -237,4 +237,4 @@ export class SubContract extends PolymerElement {
 
 }
 
-customElements.define(SubContract.is, SubContract);
+customElements.define("sub-contract", SubContract);

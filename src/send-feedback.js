@@ -122,4 +122,4 @@ export class SendFeedback extends PolymerElement {
 
 }
 
-customElements.define(SendFeedback.is, SendFeedback);
+customElements.define("send-feedback", SendFeedback);

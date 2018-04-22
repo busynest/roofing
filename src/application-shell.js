@@ -20,8 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import { PolymerElement } from '@polymer/polymer/polymer-element.js';
-import { installRouter }  from './router.js';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 
 import '@polymer/app-layout/app-header-layout/app-header-layout.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
@@ -33,8 +32,8 @@ import '@polymer/app-route/app-route.js';
 import '@polymer/app-route/app-location.js';
 
 import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/iron-collapse/iron-collapse.js';
+import '@polymer/iron-iconset-svg/iron-iconset-svg.js';
 
 import '@polymer/paper-card/paper-card.js';
 import '@polymer/paper-progress/paper-progress.js';
@@ -43,6 +42,8 @@ import '@polymer/paper-toggle-button/paper-toggle-button.js';
 import '@polymer/paper-item/paper-item.js';
 import '@polymer/paper-slider/paper-slider.js';
 import '@polymer/paper-button/paper-button.js';
+
+import './myicons.js';
 
 import { PurchaseOrder }      from './purchase-order.js';
 import { WarrantyContract }   from './warranty-contract.js';
@@ -100,7 +101,33 @@ export class ApplicationShell extends PolymerElement {
   }
 
   _pageChanged(page) {
-    installRouter((location) => console.log(location));
+/*
+    document.body.addEventListener('click', e => {
+      if (e.defaultPrevented || e.button !== 0 ||
+          e.metaKey || e.ctrlKey || e.shiftKey) return;
+  
+      const anchor = e.composedPath().filter(n => n.tagName === 'A')[0];
+      if (!anchor || anchor.target ||
+          anchor.hasAttribute('download') ||
+          anchor.getAttribute('rel') === 'external') return;
+  
+      const href = anchor.href;
+      if (!href || href.indexOf('mailto:') !== -1) return;
+  
+      const location = window.location;
+      const origin = location.origin || location.protocol + '//' + location.host;
+      if (href.indexOf(origin) !== 0) return;
+  
+      e.preventDefault();
+      if (href !== location.href) {
+        window.history.pushState({}, '', href);
+        locationUpdatedCallback(location, e);
+      }
+    });
+  
+    window.addEventListener('popstate', e => locationUpdatedCallback(window.location, e));
+    locationUpdatedCallback(window.location, null);
+*/
     //var resolvedPageUrl = this.resolveUrl( page + '.js');
     //this.importHref(resolvedPageUrl,
     //null,
@@ -117,7 +144,7 @@ export class ApplicationShell extends PolymerElement {
   }
 
   static get template() {
-    return `
+    return html`
 
     <style>
     :host {
@@ -199,7 +226,6 @@ export class ApplicationShell extends PolymerElement {
       <a name="sub-contract"        href="[[rootPath]]sub-contract">      <paper-item><h2>Subcontract</h2></paper-item></a>
       <a name="purchase-order"      href="[[rootPath]]purchase-order">    <paper-item><h2>Purchase Order</h2></paper-item></a>
       <a name="warranty-contract"   href="[[rootPath]]warranty-contract"> <paper-item><h2>Warranty</h2></paper-item></a>
-      <a name="log-in"              href="[[rootPath]]log-in">            <paper-item><h2>Log In</h2></paper-item></a>
 
     </app-drawer>
 
@@ -233,7 +259,7 @@ export class ApplicationShell extends PolymerElement {
           <paper-icon-button 
             id="trigger"
             role="button"
-            icon="search"
+            icon="myicons:search"
             on-click="_toggleSearch"
             aria-expanded$="[[opened]]"
             aria-controls="collapse">[[_getText(opened)]]
@@ -244,7 +270,7 @@ export class ApplicationShell extends PolymerElement {
             class="colored"
             role="button"
             onclick="window.print()"
-            icon="print"></paper-icon-button>
+            icon="myicons:print"></paper-icon-button>
 
           <!-- DRAWER TOGGLE -->
           <paper-icon-button
@@ -252,7 +278,7 @@ export class ApplicationShell extends PolymerElement {
             class="colored"
             role="button"
             id="printButton"
-            icon="icons:menu"></paper-icon-button>
+            icon="myicons:menu"></paper-icon-button>
 
         </app-toolbar>
       </app-header>
@@ -308,7 +334,7 @@ export class ApplicationShell extends PolymerElement {
           <warranty-contract
             name="warranty-contract"></warranty-contract>
 
-          <!-- PAGE 404 -->
+          <!-- WRONG PAGE -->
           <wrong-page
             name="wrong-page"></wrong-page>            
 
@@ -321,7 +347,7 @@ export class ApplicationShell extends PolymerElement {
 
 }
 
-customElements.define(ApplicationShell.is, ApplicationShell);
+customElements.define("application-shell", ApplicationShell);
 
 /**
 

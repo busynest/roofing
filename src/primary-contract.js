@@ -38,6 +38,10 @@ export class PrimaryContract extends PolymerElement {
     });
   }
 
+  //disconnectedCallback(){
+  //  super.disconnectedCallback();
+  //}
+
   ready() {
     super.ready();
     console.log(this.tagName);
@@ -254,4 +258,4 @@ export class PrimaryContract extends PolymerElement {
 
 }
 
-customElements.define(PrimaryContract.is, PrimaryContract);
+customElements.define("primary-contract", PrimaryContract);

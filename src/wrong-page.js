@@ -44,4 +44,4 @@ export class WrongPage extends PolymerElement {
   }
 }
 
-customElements.define(WrongPage.is, WrongPage);
+customElements.define("wrong-page", WrongPage);

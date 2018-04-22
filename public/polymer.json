@@ -10,14 +10,12 @@
     "src\\purchase-order.js",
     "src\\result-item.js",
     "src\\metadata.js",
-    "src\\router.js",
     "src\\send-feedback.js",
     "src\\warranty-contract.js",
     "src\\wrong-page.js"
   ],
   "sources": [
     "src\\**",
-    "node_modules\\@webcomponents\\webcomponentsjs\\*.js",
     "index.html",
     "src\\application-shell.js",
     "src\\asphalt-roofing.js",
@@ -28,13 +26,13 @@
     "src\\purchase-order.js",
     "src\\result-item.js",
     "src\\metadata.js",
-    "src\\router.js",
     "src\\send-feedback.js",
     "src\\warranty-contract.js",
     "src\\wrong-page.js"
   ],
   "extraDependencies": [
     "bower_components\\webcomponentsjs\\*.js",
+    "node_modules\\@webcomponents\\webcomponentsjs\\*.js",
     "manifest.json",
     "package.json",
     "sitemap.xml",
@@ -42,12 +40,13 @@
   ],
   "builds": [
     {
-      "bundle": {
-        "inlineScripts": false
-      },
+      "name": "es6-bundled",
+      "browserCapabilities": [
+        "es2015"
+      ],
       "js": {
         "minify": true,
-        "transformModulesToAmd": true
+        "compile": false
       },
       "css": {
         "minify": true
@@ -55,7 +54,11 @@
       "html": {
         "minify": true
       },
-      "addServiceWorker": true
+      "bundle": true,
+      "addServiceWorker": true,
+      "addPushManifest": false,
+      "preset": "es6-bundled",
+      "inlineScripts": false
     }
   ],
   "npm": true,
