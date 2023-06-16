@@ -32,15 +32,15 @@
     "build-config": "webpack --config webpack-config.js"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-beta.44",
-    "@babel/preset-env": "^7.0.0-beta.44",
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
     "@webcomponents/webcomponentsjs": "^2.8.0",
     "babel-loader": "^9.1.2",
     "html-loader": "^4.2.0",
-    "html-webpack-plugin": "^5.5.1",
-    "lit": "^2.7.4",
-    "webpack": "^5.84.1",
-    "webpack-bundle-analyzer": "^4.8.0",
+    "html-webpack-plugin": "^5.5.3",
+    "lit": "^2.7.5",
+    "webpack": "^5.87.0",
+    "webpack-bundle-analyzer": "^4.9.0",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "devDependencies": {
