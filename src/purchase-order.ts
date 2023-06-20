@@ -4,16 +4,19 @@ import { property, state } from 'lit/decorators.js';
 import './asphalt-ventilation.js';
 import './asphalt-roofing.js';
 import './asphalt-flashing.js';
+import { AsphaltRoofing } from './asphalt-roofing.js';
 
 export class PurchaseOrder extends LitElement {
 
-  @property({ type: Number }) roofingTotal:Number = 0;
+  @property({type:Number}) roofingTotal:Number = 0;
   @property({type:Number}) square:Number=0;
-  @state() roofMoney:Number=0;
+  @property({type:Number, reflect:true}) roofMoney:Number=0;
   @state() ventMoney:Number=0;
   @state() flashingMoney:Number=0;
+  @state() capping:Number=0;
   @property({type:Number}) labourRate:Number=0;
   @property({type:Number}) flashingRate:Number=0;
+  @property({type:Number}) flashingLength:Number=0;
   @property({type:Number}) cappingRate:Number=0;
 
   constructor() {
@@ -26,14 +29,29 @@ export class PurchaseOrder extends LitElement {
      //this.tSquare = this.$.square;
   }
 
-  protected updated(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
-    super.updated(_changedProperties);
+
+  protected update(_changedProperties: PropertyValueMap<any> | Map<PropertyKey, unknown>): void {
+    super.update(_changedProperties);
+    /*
     if (_changedProperties.has('roofMoney') || _changedProperties.has('ventMoney') || _changedProperties.has('flashingMoney')) {
+      this.roofingTotal = 0;
       this.roofingTotal = Number(this.roofMoney) + Number(this.ventMoney) + Number(this.flashingMoney);
+      console.log('roofingTotal level 2: ',this.roofingTotal);
+    }*/
+    if (_changedProperties.has('roofMoney')) {
+      console.log('update roofingTotal level 2: ',this.roofMoney);
+      this._totalPurchase();
     }
   }
 
-  rateChange() {
+private _totalPurchase() {
+  this.roofingTotal = 0;
+  this.roofingTotal = Number(this.roofMoney) + Number(this.ventMoney) + Number(this.flashingMoney);
+  console.log('roofingTotal level 2: ',this.roofingTotal);
+}
+
+/*
+  private rateChange() {
     this._totalPurchase();
   }
 
@@ -45,14 +63,15 @@ export class PurchaseOrder extends LitElement {
     this.flashingRate = e.target.value;
   }
 
-  cappingChange(e:any) {
+  private cappingChange(e:any) {
     this.cappingRate = e.target.value;
+    console.log('cappingRate: ',this.cappingRate);
   }
 
-  _totalPurchase( /*tSquare, roofMoney, ventMoney, flashingMoney*/ ) {
+  private _totalPurchase( /*tSquare, roofMoney, ventMoney, flashingMoney ) {
     // this.tSquare = this.roofMoney + this.ventMoney + this.flashingMoney;
   }
-  
+  */
 
   static styles = css`
     :host { display:none; }
@@ -70,6 +89,13 @@ export class PurchaseOrder extends LitElement {
 
   protected render(): TemplateResult {
     return html`
+
+<style>
+  @media print {
+    :host{grid-template-rows: auto auto 1fr;}
+  }
+</style>
+
     <!--
     <label>Labour Rate per Square:
       <input type="number" @input="\${this.labourChange}" placeholder="Labour Rate" .value="\${this.labourRate}" />
@@ -82,9 +108,29 @@ export class PurchaseOrder extends LitElement {
     <label>Capping Rate per Linear Foot:
       <input type="number" @input="\${this.cappingChange}" placeholder="Capping Rate" .value="\${this.cappingRate}" />
     </label>
+
+         .results="\${this.roofMoney}"
+      .labourCap="\${this.cappingRate}"
   -->
-    <asphalt-roofing .results="${this.roofMoney}" @input="${(e:any)=>{this.roofMoney = e.target.results, this.square = e.target.square}}" ></asphalt-roofing>
-    <asphalt-flashing .results="${this.flashingMoney}" @input="${(e:any)=>{this.flashingMoney = e.target.results}}" ></asphalt-flashing>
+    <asphalt-roofing
+      @input="${(e:any)=>{
+      this.roofMoney = e.target.results;
+      this.square = e.target.square;
+      this.capping = e.target.cap;
+      this.labourRate = e.target.labourRate,
+      this.cappingRate = e.target.labourCap;
+      // console.log('roofMoney level 2: ',this.roofMoney);
+      // console.log('square level 2: ',this.square);
+    }}"></asphalt-roofing>
+
+    <asphalt-flashing
+      .results="${this.flashingMoney}"
+      @input="${(e:any)=>{
+        this.flashingMoney = e.target.results,
+        this.flashingRate = e.target.flashingRate,
+        this.flashingLength = e.target.flashingLength
+      }}"></asphalt-flashing>
+
     <asphalt-ventilation .results="${this.ventMoney}" @input="${(e:any)=>{this.ventMoney = e.target.results}}" ></asphalt-ventilation>
   
   `

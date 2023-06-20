@@ -5,10 +5,10 @@ import { roofingStyles } from './styles';
 
 export class AsphaltFlashing extends LitElement {
 
-  @property() results:Number | any = 0;
+  @property({type:Number}) results:Number | any = 0;
 
-  @state() private flashingLength   :Number | any = 10;
-  @state() private flashingPrice    :Number | any = 0;
+  @property({type:Number}) flashingLength:Number | any = 10;
+  @property({type:Number}) flashingRate:Number | any = 1;
 
   @state() private gable            :Number | any = 0;
   @state() private gableResult      :Number | any = 0;
@@ -179,22 +179,82 @@ protected render():TemplateResult {
       to    { transform: scale( .2,  .2 ); }
     }
 
-    @media print  { 
-
+    @media print  {
+      .wrapper { display: none!important; }
+      h3, h4 { display: none!important; }
     }
 
-    input[type='range']::-webkit-slider-thumb {
-      background-color: purple;
-    }
   </style>
 
-  <h3>Flashing <span class="money">\$${this.results}</span></h3>
-    <!--
-    <fieldset class="length">
-      <legend>Select Flashing Length</legend>
+  <h3 class="title">Flashing <span class="money">\$${this.results}</span></h3>
 
-    </fieldset>
-    -->
+  <div class="wrapper">
+
+    <h4
+      style="
+        margin: 0;
+        font-size: small;
+        padding-left: 12px;
+        font-weight: 400;
+        font-style: italic;
+      ">Flashing Length: ${this.flashingLength} feet</h4>
+
+    <div class="length">
+      <label style="text-align:center;">8'
+        <input type="radio" name="FlashLength" value="8" @input="${this.lengthChange}" ?checked="${this.flashingLength === 8 }">
+      </label>
+
+      <label style="text-align:center;">10'
+        <input type="radio" name="FlashLength" value="10" @input="${this.lengthChange}" ?checked="${this.flashingLength === 10 }">
+      </label>
+
+      <label style="text-align:center;">12'
+        <input type="radio" name="FlashLength" value="12" @input="${this.lengthChange}" ?checked="${this.flashingLength === 12 }">
+      </label>
+    </div>
+
+    <label>
+      <input
+        class="rate"
+        type="number"
+        min=0
+        @input="${(e:any)=>{this.flashingRate = e.target.value; this.calculate(); this.handleClick(e.target.value);}}" />
+        Flashing Rate per Linear Foot
+    </label>
+
+    <!-- VALLEY -->
+    <label class="x">
+      <div>Valley: ${this.valley} <i class="y">ft</i></div>
+      <input type="range" id="valley" max="180" .value="${this.valley}" @input="${this.changeValley}">
+    </label>
+
+    <p style="font-size:x-small; padding: 0 8px;">* adding underlayment for valley</p>
+
+    <!-- GABLE -->
+    <label class="x">
+      <div>Gable Flashing: ${this.gable} <i class="y">ft</i></div>
+      <input type="range" id="gableFlash" max="180" .value="${this.gable}" @input="${this.changeGable}">
+    </label>
+
+    <!-- HEAD FLASHING -->
+    <label class="x">
+      <div>Head Flashing: ${this.head} <i class="y">ft</i></div>
+      <input type="range" id="headFlash" max="180" .value="${this.head}" @input="${this.changeHead}">
+    </label>
+
+    <!-- BACK FLASHING -->
+    <label class="x">
+      <div>Back Flashing: ${this.back} <i class="y">ft</i></div>
+      <input type="range" id="backFlash" max="180" .value="${this.back}" @input="${this.changeBack}">
+    </label>
+
+    <!-- STEP FLASHING -->
+    <label class="x">
+      <div>Step Flashing: ${this.step} <i class="y">ft</i></div>
+      <input type="range" id="stepFlash" max="180" .value="${this.step}" @input="${this.changeStep}">
+    </label>
+
+  </div>
 
     <!-- SKYLIGHT -->
     <div class="wrapper">
@@ -221,71 +281,6 @@ protected render():TemplateResult {
       </label>
       <p style="font-size:x-small; padding: 0 8px;">* adding flashing for chimney</p>
     </div>
-
-    <div class="wrapper">
-
-    <label>Flashing Rate per Linear Foot:
-      <input type="number" placeholder="Flashing Rate" />
-    </label>
-
-    <h4
-      style="
-        margin: 0;
-        font-size: small;
-        padding-left: 12px;
-        font-weight: 400;
-        font-style: italic;
-      ">Flashing Length: ${this.flashingLength} feet</h4>
-
-    <div class="length">
-      <label style="text-align:center;">8'
-        <input type="radio" name="FlashLength" value="8" @input="${this.lengthChange}" ?checked="${this.flashingLength === 8 }">
-      </label>
-
-      <label style="text-align:center;">10'
-        <input type="radio" name="FlashLength" value="10" @input="${this.lengthChange}" ?checked="${this.flashingLength === 10 }">
-      </label>
-
-      <label style="text-align:center;">12'
-        <input type="radio" name="FlashLength" value="12" @input="${this.lengthChange}" ?checked="${this.flashingLength === 12 }">
-      </label>
-    </div>
-    
-    <!-- VALLEY -->
-    <label class="x">
-      <div>Valley: ${this.valley} <i class="y">ft</i></div>
-      <input type="range" id="valley" max="180" .value="${this.valley}" @input="${this.changeValley}">
-    </label>
-
-    <p style="font-size:x-small; padding: 0 8px;">* adding underlayment for valley</p>
-
-    <!-- GABLE -->
-    <label class="x">
-      <div>Gable Flashing: ${this.gable} <i class="y">ft</i></div>
-      <input type="range" id="gableFlash" max="180" .value="${this.gable}" @input="${this.changeGable}">
-    </label>
-
-    <p style="font-size:x-small; padding: 0 8px;">* adding starter shingles for gable</p>
-
-    <!-- HEAD FLASHING -->
-    <label class="x">
-      <div>Head Flashing: ${this.head} <i class="y">ft</i></div>
-      <input type="range" id="headFlash" max="180" .value="${this.head}" @input="${this.changeHead}">
-    </label>
-
-    <!-- BACK FLASHING -->
-    <label class="x">
-      <div>Back Flashing: ${this.back} <i class="y">ft</i></div>
-      <input type="range" id="backFlash" max="180" .value="${this.back}" @input="${this.changeBack}">
-    </label>
-
-    <!-- STEP FLASHING -->
-    <label class="x">
-      <div>Step Flashing: ${this.step} <i class="y">ft</i></div>
-      <input type="range" id="stepFlash" max="180" .value="${this.step}" @input="${this.changeStep}">
-    </label>
-
-    </div>
     
     <h4>Flashing Material List</h4>
 
@@ -299,6 +294,15 @@ protected render():TemplateResult {
 
   `
     }
+
+  handleClick(num: number) {
+    const event = new CustomEvent('my-flashing', {
+      detail: { message: Number(this.flashingRate) },
+      bubbles: true,
+      composed: true,
+    });
+    this.dispatchEvent(event);
+  }
 
   private priceGable(e: any) {
     this.price.gable = e.target.price;

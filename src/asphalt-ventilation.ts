@@ -130,6 +130,11 @@ changeSealant(e: Event) {
 
   static get styles() : CSSResultArray { return [ roofingStyles, css`
 
+  :host {
+    display:grid;
+    grid-gap:12px;
+  }
+
   `
   ]};
 
@@ -148,15 +153,16 @@ changeSealant(e: Event) {
       to    { transform: scale( .2,  .2 ); }
     }
 
-    @media print  { 
-
+    @media print  {
+      .wrapper { display: none!important; }
+      h3, h4 { display: none!important; }
     }
 
   </style>
 
-  <h3>Ventilation <span class="money">\$${this.results}</h3>
+  <h3 class="title">Ventilation <span class="money">\$${this.results}</h3>
 
-  <div class="boxed">
+
   <!--
     <fieldset>
       <legend>Ridge Ventilation</legend>
@@ -218,7 +224,6 @@ changeSealant(e: Event) {
         <result-item active            product="Caulking:"             homework="${this.asphaltSealant}"       unit="tubes"    price="${this.price.sealant}"   @input="${this.priceSealant}" ></result-item>
       </div>
 
-    </div>
 <!--
   </section>
 -->

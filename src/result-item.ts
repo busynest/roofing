@@ -73,6 +73,13 @@ export class ResultItem extends LazyLoader {
         text-align: right;
         margin: auto;
       }
+
+      .price > i {
+        display: grid;
+        color:  black;
+        grid-template-columns: 0fr 1fr;
+      }
+
       .work {
         text-align: center;
         font-size: small;
@@ -82,7 +89,7 @@ export class ResultItem extends LazyLoader {
       }
       .unit {
         font-size: .6em;
-        color: grey;
+        color: black;
         text-align: left;
         margin: auto;
         margin-left: 0px;
@@ -96,14 +103,16 @@ export class ResultItem extends LazyLoader {
       strong { color: #e06f50; margin: auto; }
 
       input[type=number] {
-        width: 48px;
         background-color: transparent;
         border: 0;
+        width: 100%;
       }
 
-      .price > i {
+
+      .home {
         display: grid;
-        grid-template-columns: 0fr 1fr;
+        grid-gap: 5px;
+        grid-template-columns: 90px 32px 0fr 1fr 1fr 0fr 48px;
       }
       
       `
@@ -111,6 +120,15 @@ export class ResultItem extends LazyLoader {
   
     protected render(): TemplateResult {
       return html`
+
+  <style>
+    @media print  {
+      .price, .equal, .money, .multi { display: none!important; }
+      .home {
+        grid-template-columns: 90px 0fr 0fr!important;
+      }
+    }
+  </style>
   
       <style>
 /*
@@ -125,10 +143,10 @@ export class ResultItem extends LazyLoader {
  
       </style>
       
-        <div class="home" id="${this.name}" style="display: grid; grid-gap: 5px; grid-template-columns: 90px 1fr 0fr 1fr 1fr 0fr 48px"><!--  0fr 0fr .5em 1.2em 2.2em .5em 40px -->
+        <div class="home" id="${this.name}"><!--  0fr 0fr .5em 1.2em 2.2em .5em 40px -->
           <div class="product">${this.product}</div>
           <div class="price"><i>$<input type="number" value="${this.price}" @input="${this.counter}"></i></div>
-          <strong>x</strong>
+          <strong class="multi">x</strong>
           <div class="work">${this.homework}</div>
           <i class="unit">${this.unit}</i>
           <strong class="equal">\=</strong>

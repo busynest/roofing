@@ -7,45 +7,49 @@ import { ResultItem } from './result-item';
 
 export class AsphaltRoofing extends LitElement {
 
-  @property({type:Number})results: Number = 0;
+  @property({type:Number}) results : number           = 0;
+  @property({type:Number}) labour : number            = 90;
+  @property({type:Number}) labourCap : number         = 1;
 
   /* AREA */
-  @state() private squarefeet: Number | any  = 0;
-  @property({type:Number}) private square: Number | any  = 0;
+  @state() private squarefeet : number                = 0;
+  @property({type:Number}) square : number            = 0;
 
-  /* CONVERSION */
-  @state() private conversion: Boolean= false;
-  @state() private plywoodResult: Number | any  = 0;
-  @state() private plywoodTotal: Number | any  = 0;
-  @state() private sheathingNailResult: Number | any  = 0;
-  @state() private sheathingNailTotal: Number | any  = 0;
+  /* CONVERSION */ // z = squarefeet, x = price, y = result
+  @state() private conversion: Boolean                = false;
+  @state() private plywoodResult: number | any        = (z:number) =>            { return Math.ceil(z / 32); };
+  @state() private plywoodTotal: number | any         = (x:number, y:number) =>  { return Math.round(x * y); };
+  @state() private sheathingNailResult: number | any  = (z:number) =>            { return Math.ceil(z / 400); };
+  @state() private sheathingNailTotal: number | any   = (x:number, y:number) =>  { return Math.round(x * y); };
 
   /* SHINGLES */
-  @state() private bundles: Boolean= false;
-  @state() private shingles3Result: Number | any  = 0;
-  @state() private shingles3Total: Number | any  = 0;
-  @state() private shingles4Result: Number | any  = 0;
-  @state() private shingles4Total: Number | any  = 0;
-  @state() private roofNailResult: Number | any  = 0;
-  @state() private roofNailTotal: Number | any  = 0;
+  @state() private bundles: Boolean                   = false;
+  @state() private shingles3Result: number | any      = (z:number) =>            { return Math.ceil(z / 32); };
+  @state() private shingles3Total: number | any       = (x:number, y:number) =>  { return Math.round(x * y); };
+  @state() private shingles4Result: number | any      = (z:number) =>            { return Math.ceil(z / 25); };
+  @state() private shingles4Total: number | any       = (x:number, y:number) =>  { return Math.round(x * y); };
+  @state() private roofNailResult: number | any       = (z:number) =>            { return Math.ceil(z / 400); };
+  @state() private roofNailTotal: number | any        = (x:number, y:number,) => { return Math.round(x * y); };
 
-  @state() private starters: Number | any  = 0;
-  @state() private startersResult: Number | any  = 0;
-  @state() private startersTotal: Number | any  = 0;
+  @state() private starters: number                   = 0;
+  @state() private startersResult: number | any       = (w:number) =>            { return Math.ceil(w / 105); };
+  @state() private startersTotal: number | any        = (x:number, y:number) =>  { return Math.round(x * y); };
 
   /* CAPPING */
-  @state() private cap: Number | any  = 0;
-  @state() private cappingResult: Number | any  = 0;
-  @state() private cappingTotal: Number | any  = 0;
+  @property({type:Number}) cap: number                = 0;
+  @state() private cappingResult: number | any        = (w:number) =>            { return Math.ceil(w / 20); };
+  @state() private cappingTotal: number | any         = (x:number, y:number) =>  { return Math.round(x * y); };
 
   /* FELT */
-  @state() private felt15Result: Number | any  = 0;
-  @state() private felt15Total: Number | any  = 0;
+  @state() private felt15Result: number | any         = (z:number) =>            { return Math.ceil(z / 400); };
+  @state() private felt15Total: number | any          = (x:number, y:number) =>  { return Math.round(x * y); };
 
-  @state() private felt30Result: Number | any  = 0;
-  @state() private felt30Total: Number | any  = 0;
+  @state() private felt30Result: number | any         = (z:number) =>            { return Math.ceil(z / 200); };
+  @state() private felt30Total: number | any          = (x:number, y:number) =>  { return Math.round(x * y); };
 
-  @state() private convert :Boolean | any = false;
+  @state() private waste :Boolean | any = false;
+
+  @state() private answers: Object | any  = {};
 
   @state() private price: Object | any  = {
     plywood:          34,
@@ -62,101 +66,125 @@ export class AsphaltRoofing extends LitElement {
   constructor() {
     super();
   }
-
+/*
   private actions() {
     this._asphaltRoof();
   }
-
+*/
   protected updated(changedProps:any) {
     if (changedProps.has('price')) {
       console.log('price changed');
-      this.actions();
+      this._asphaltRoof();
+     }
+
+     if (changedProps.has('results')) {
+      // console.log(this.results);
      }
   }
 
   protected firstUpdated(): void {
-    this.actions();
+    this._asphaltRoof();
   }
 
   private changeConversion(e: Event) {
     const value = e.target as HTMLInputElement;
     this.conversion = value.checked;
-    this.actions();
+    this._asphaltRoof();
+  }
+
+  private changeWaste(e: Event) {
+    const value = e.target as HTMLInputElement;
+    this.waste = value.checked;
+    this._asphaltRoof();
   }
 
   private changeBundles(e: Event) {
     const value = e.target as HTMLInputElement;
     this.bundles = value.checked;
-    this.actions();
+    this._asphaltRoof();
   }
 
   private changeSquare(e: Event) {
     const value = e.target as HTMLInputElement;
-    this.square = value.value;
+    this.square = parseInt(value.value);
     this.squarefeet = this.square * 100;
-    this.actions();
+    console.log('input square:',this.square);
+    this._asphaltRoof();
   }
 
   private changeStarters(e: Event) {
     const value = e.target as HTMLInputElement;
-    this.starters = value.value;
-    this.actions();
+    this.starters = parseInt(value.value);
+    this._asphaltRoof();
   }
 
   private changeCapping(e: Event) {
-    console.log('change cap: ',this.cap);
     const value = e.target as HTMLInputElement;
-    this.cap = value.value;
-    console.log('change cap: ',this.cap);
-    this.actions();
+    this.cap = parseInt(value.value);
+    this._asphaltRoof();
   }
 
   private _asphaltRoof() {
+    console.log('calc square:',this.square);
 
-    // 1 STARTERS - 1 Bundle PER 105 LINEAR FEET - Starter Strip Plus Shingles 
-    this.startersResult   = Math.ceil(this.starters / 105);
-    this.startersTotal    = Math.round(this.price.starters * this.startersResult);
+    // 1 STARTERS - 1 Bundle PER 105 LINEAR FEET - Starter Strip Plus Shingles
+    let start:number =  this.startersResult(this.squarefeet); 
+    let starters:number =  this.startersTotal(this.price.starters, start );
 
     // 2 CAPPING - 1 BUNDLE PER 20 LINEAR FEET - Hip and Ridge Shingles
-    this.cappingResult    = Math.ceil(this.cap / 20); //.625;// +  1;
-    this.cappingTotal     = Math.round(this.price.capping * this.cappingResult);
+    let cap:number = this.cappingResult(this.cap);
+    let capping:number = this.cappingTotal(this.price.capping, cap);
 
     // 3 SHINGLE NAILS - 1 BOX PER 4 SQUARES
-    this.roofNailResult   = Math.ceil(this.squarefeet / 400);//  * 320) / 8800;// 100 + 1;// 7200
-    this.roofNailTotal    = Math.round(this.price.roofingNail * this.roofNailResult);
+    let rNails = this.roofNailResult(this.squarefeet);
+    let roofNail:number = this.roofNailTotal(this.price.roofingNail, rNails);
 
     // 4 FELT 15 - 1 ROLL PER 4 SQUARES
-    this.felt15Result     = Math.ceil(this.squarefeet / 400);
-    this.felt15Total      = Math.round(this.price.felt15 * this.felt15Result);
+    let feltA = this.felt15Result(this.squarefeet);
+    let felt15:number = this.felt15Total(this.price.felt15, feltA);
 
     // 5 FELT 30 - 1 ROLL PER 2 SQUARES
-    this.felt30Result     = Math.ceil(this.starters / 200);
-    this.felt30Total      = Math.round(this.price.felt30 * this.felt30Result);
+    let feltB = this.felt30Result(this.squarefeet);
+    let felt30:number = this.felt30Total(this.price.felt30, feltB);
+
+    let shingle3 = 0;
+    let shingle4 = 0;
+    let ply = 0;
+    let sheathNails = 0;
+    let plywood = 0;
+    let sheathingNail = 0;
+    let shingles3 = 0;
+    let shingles4 = 0;
 
     // Plywood Conversion
     if ( this.conversion === true  )  { 
       // 3 Plywood per Square
-      this.plywoodResult          = Math.ceil(this.squarefeet / 32);
-      this.plywoodTotal           = Math.round(this.price.plywood * this.plywoodResult);
+      ply = this.plywoodResult(this.squarefeet);
+      plywood = this.plywoodTotal(this.price.plywood, ply);
       // Sheathing Nails per Square
-      this.sheathingNailResult    = Math.ceil(this.squarefeet / 400); // * 320) / 7200; //+ 1;
-      this.sheathingNailTotal     = Math.round(this.price.sheathingNail * this.sheathingNailResult);
+      sheathNails = this.sheathingNailResult(this.squarefeet);
+      sheathingNail = this.sheathingNailTotal(this.price.sheathingNail, sheathNails);
     };
 
     // 3 Pack Shingles per Square
     if ( this.bundles === false )     {
-      this.shingles3Result   = Math.ceil(this.squarefeet / 32);
-      this.shingles3Total    = Math.round(this.price.shingles3 * this.shingles3Result);
+      shingle3 = this.shingles3Result(this.squarefeet);
+      shingles3 = this.shingles3Total(this.price.shingles3, shingle3);
     };
 
     // 4 Pack Shingles per Square
     if ( this.bundles === true )      {
-      this.shingles4Result   = Math.ceil(this.squarefeet / 25);
-      this.shingles4Total    = Math.round(this.price.shingles4 * this.shingles4Result);
+      shingle4 = this.shingles4Result(this.squarefeet);
+      shingles4 = this.shingles4Total(this.price.shingles4, shingle4);
     };
 
+    this.answers = { start, cap, rNails, feltA, feltB, shingle3, shingle4, ply, sheathNails} 
+
     this.results = 0
-    this.results = this.totals(this.startersTotal, this.cappingTotal, this.roofNailTotal, this.felt15Total, this.felt30Total, this.shingles3Total, this.shingles4Total, this.plywoodTotal, this.sheathingNailTotal, this.bundles, this.conversion);
+    //let all:Number =  0;
+    this.results = this.totals(starters, capping, roofNail, felt15, felt30, shingles3, shingles4, plywood, sheathingNail, this.bundles, this.conversion);
+    // return Number(all);
+    console.log('results:',this.results);
     // this.dispatchEvent(new CustomEvent('asphalt-roof', { detail: this.results }));
   }
 
@@ -183,6 +211,7 @@ private totals(startersTotal:any, cappingTotal:any, roofNailTotal:any,felt15Tota
       results = results + plywoodTotal + sheathingNailTotal;
     }
 
+    console.log("results:",results);
     return results;
 }
 
@@ -195,10 +224,6 @@ private totals(startersTotal:any, cappingTotal:any, roofNailTotal:any,felt15Tota
 
     .ridge { display:none; }
     .ridge[data-active] {display: grid;}
-
-    h3{
-      margin-bottom: 0;
-    }
 
 `
   ]};
@@ -218,27 +243,29 @@ protected render(): TemplateResult {
     }
 
     @media print  {
-
+      .wrapper { display: none!important; }
+      h3, h4 { display: none!important; }
     }
   </style>
 
-  <h3>Roofing <span class="money">\$${this.results}</span></h3>
+  <h3 class="title">Roofing <span class="money">\$${this.results}</span></h3>
 
   <div class="wrapper">
 
-    <label>Labour Rate per Square:
-      <input type="number"  placeholder="Labour Rate"  />
-    </label>
-    
-
-    <!-- Square Feet -->
-    <label style="display:grid;">
-      <div>Roof Area: ${this.square} <i class="y">Square</i></div>
+    <!-- Square Feet  @change="\${this._asphaltRoof}" -->
+    <label style="display:grid; grid-template-columns: auto auto 1fr; grid-gap: 12px; margin: 12px;">
+      <div style="margin: auto;">Roof Area:</div>
       <input
-        type="range"
-        value="${this.squarefeet}"
+        type="number"
+        .value="${this.square}"
         max="60"
-        @input="${this.changeSquare}">
+        @input="${this.changeSquare}"
+        style="
+        width: 80px;
+        padding: 10px;
+        line-height: 20px;
+        "
+       ><i class="y">Square</i>
     </label>
 
     <p style="font-size:x-small; padding: 0 8px;">* adding Flet-15, and Roofing Shingles, Roofing Nails</p>
@@ -252,9 +279,16 @@ protected render(): TemplateResult {
   
     <!-- Waste -->
     <label class="checkUnder">
-      <input type="checkbox">
-      add 10% for Waste?
-      <i class="y">${this.conversion ? 'Yes' : 'No'}</i>
+      <input type="checkbox" ?checked="${this.waste}" @input="${this.changeWaste}">
+      add 5% for Waste?
+      <i class="y">${this.waste ? 'Yes' : 'No'}</i>
+    </label>
+
+    <!-- Waste -->
+    <label class="checkUnder">
+      <input type="checkbox" ?checked="${this.waste}" @input="${this.changeWaste}">
+      include Waste Disposal Bin?
+      <i class="y">${this.waste ? 'Yes' : 'No'}</i>
     </label>
 
     <!-- Conversion -->
@@ -263,13 +297,25 @@ protected render(): TemplateResult {
       Plywood Conversion?
       <i class="y">${this.conversion ? 'Yes' : 'No'}</i>
     </label>
-    <p style="font-size:x-small; padding: 0 8px;">* Plwood conversion adds 3/8 Plywood, and Sheathing Nails</p>
+    <p style="font-size:x-small; padding: 0 8px;">* conversion adds 3/8 Plywood, and Sheathing Nails</p>
   
+    <!-- Labour Rate -->
+    <label style="display: grid; grid-template-columns: auto 1fr; grid-gap: 12px; margin: 12px; line-height: 42px;">
+      <input
+        class="rate"
+        type="number"
+        .value="${this.labour}"
+        min=0
+        @input="${(e:any)=>{this.labour = e.target.value; this._asphaltRoof(); this.handleClick(e.target.value);}}"
+      />
+      Installation Rate per Square
+    </label>
+
   </div>
 
     <!-- Starters -->
     <label class="x wrapper">
-      <div>Eaves / Starter Rows: ${this.starters} <i class="y">ft</i></div>
+      <div>Eaves / Starter Rows: ${this.starters} <i class="y">ft</i> \$${this.answers.feltB + this.answers.start}</div>
       <input
         type="range"
         .value="${this.starters}"
@@ -279,19 +325,29 @@ protected render(): TemplateResult {
     </label>
 
     <!-- Capping -->
-    <label class="x wrapper">
+    <div class="wrapper">
 
-    <label>Capping Rate per Linear Foot:
-      <input type="number" placeholder="Capping Rate" />
-    </label>
+      <label class="x ">
+        <div>Hip & Ridge Capping: ${this.cap}<i class="y">ft</i> \$${this.answers.cap}</div>
+        <input
+          type="range"
+          .value="${this.cap}"
+          max="800"
+          @input="${(e:any)=>{this.cap = e.target.value; this._asphaltRoof();}}">
+      </label>
 
-      <div>Hip & Ridge Capping: ${this.cap} <i class="y">ft</i></div>
-      <input
-        type="range"
-        .value="${this.cap}"
-        max="800"
-        @input="${(e:any)=>{this.cap = e.target.value; this._asphaltRoof();}}">
-    </label>
+      <label>
+        <input
+          type="number"
+          class="rate"
+          min=0
+          .value="${this.labourCap}"
+          @input="${(e:any)=>{this.labourCap = e.target.value; this._asphaltRoof(); this.handleClick2(e.target.value);}}"
+          />
+        Capping Rate per Linear Foot:
+      </label>
+
+    </div>
 <!--
     <p style="font-size:x-small; padding: 0 8px;">* 20 Leanear Feet per </p>
 -->
@@ -299,19 +355,37 @@ protected render(): TemplateResult {
 
     <!-- Result List -->
     <div style="display: grid; grid-template-columns: 1fr;">
-      <result-item ?active="${this.conversion === true}"            product="Plywood:"          homework="${this.plywoodResult}"          unit="sheets"       .price="${this.price.plywood}"         @input="${this.pricePly}"></result-item>
-      <result-item ?active="${this.conversion === true}"            product="Sheathing Nails:"  homework="${this.sheathingNailResult}"    unit="boxes"        .price="${this.price.sheathingNail}"   @input="${this.priceSeath}"></result-item>
-      <result-item ?active="${this.bundles === false}"              product="Shingles 3 per SQ:"    homework="${this.shingles3Result}"        unit="bundles"      .price="${this.price.shingles3}"       @input="${this.price3s}"></result-item>
-      <result-item ?active="${this.bundles === true}"               product="Shingles 4 per SQ:"    homework="${this.shingles4Result}"        unit="bundles"      .price="${this.price.shingles4}"       @input="${this.price4s}"></result-item>
-      <result-item active                                           product="Roofing Nails:"    homework="${this.roofNailResult}"         unit="boxes"        .price="${this.price.roofingNail}"     @input="${this.priceNail}"></result-item>
-      <result-item active                                           product="Starters:"         homework="${this.startersResult}"         unit="bundles"      .price="${this.price.starters}"        @input="${this.priceStarter}"></result-item>
-      <result-item active                                           product="Capping:"          homework="${this.cappingResult}"          unit="bundles"      .price="${this.price.capping}"         @input="${this.priceCap}"></result-item>
-      <result-item active                                           product="15 Pound Felt:"    homework="${this.felt15Result}"           unit="rolls"        .price="${this.price.felt15}"          @input="${this.pricefelt15}"></result-item>
-      <result-item active                                           product="30 Pound Felt:"    homework="${this.felt30Result}"           unit="rolls"        .price="${this.price.felt30}"          @input="${this.pricefelt30}"></result-item>
+      <result-item ?active="${this.conversion === true}"            product="Plywood:"          homework="${this.answers.ply}"          unit="sheets"       .price="${this.price.plywood}"         @input="${this.pricePly}"></result-item>
+      <result-item ?active="${this.conversion === true}"            product="Sheathing Nails:"  homework="${this.answers.sheathNails}"    unit="boxes"        .price="${this.price.sheathingNail}"   @input="${this.priceSeath}"></result-item>
+      <result-item ?active="${this.bundles === false}"              product="Shingles 3 per SQ:"    homework="${this.answers.shingle3}"        unit="bundles"      .price="${this.price.shingles3}"       @input="${this.price3s}"></result-item>
+      <result-item ?active="${this.bundles === true}"               product="Shingles 4 per SQ:"    homework="${this.answers.shingle4}"        unit="bundles"      .price="${this.price.shingles4}"       @input="${this.price4s}"></result-item>
+      <result-item active                                           product="Roofing Nails:"    homework="${this.answers.rNails}"         unit="boxes"        .price="${this.price.roofingNail}"     @input="${this.priceNail}"></result-item>
+      <result-item active                                           product="Starters:"         homework="${this.answers.start}"         unit="bundles"      .price="${this.price.starters}"        @input="${this.priceStarter}"></result-item>
+      <result-item active                                           product="Capping:"          homework="${this.answers.cap}"          unit="bundles"      .price="${this.price.capping}"         @input="${this.priceCap}"></result-item>
+      <result-item active                                           product="15 Pound Felt:"    homework="${this.answers.feltA}"           unit="rolls"        .price="${this.price.felt15}"          @input="${this.pricefelt15}"></result-item>
+      <result-item active                                           product="30 Pound Felt:"    homework="${this.answers.feltB}"           unit="rolls"        .price="${this.price.felt30}"          @input="${this.pricefelt30}"></result-item>
     </div>
 
   `
 
+    }
+
+    handleClick(num: number) {
+      const event = new CustomEvent('my-labour', {
+        detail: { message: Number(this.labour) },
+        bubbles: true,
+        composed: true,
+      });
+      this.dispatchEvent(event);
+    }
+
+    handleClick2(num: number) {
+      const event = new CustomEvent('my-labourCap', {
+        detail: { message: Number(this.labourCap) },
+        bubbles: true,
+        composed: true,
+      });
+      this.dispatchEvent(event);
     }
 
     private updateObject(e:Event) {
@@ -402,7 +476,36 @@ declare global {
     }
 
 
+@state() private conversion: Boolean                = false;
+  @state() private plywoodResult: number | any        = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 32); };
+  @state() private plywoodTotal: number | any         = (plywoodPrice:number, plywoodResult:number) =>              { return Math.round(plywoodPrice * plywoodResult); };
+  @state() private sheathingNailResult: number | any  = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 400); };
+  @state() private sheathingNailTotal: number | any   = (sheathingNailPrice:number, sheathingNailResult:number) =>  { return Math.round(sheathingNailPrice * sheathingNailResult); };
 
+  /* SHINGLES 
+  @state() private bundles: Boolean                   = false;
+  @state() private shingles3Result: number | any      = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 32); };
+  @state() private shingles3Total: number | any       = (shingles3Price:number, shingles3Result:number) =>          { return Math.round(shingles3Price * shingles3Result); };
+  @state() private shingles4Result: number | any      = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 25); };
+  @state() private shingles4Total: number | any       = (shingles4Price:number, shingles4Result:number) =>          { return Math.round(shingles4Price * shingles4Result); };
+  @state() private roofNailResult: number | any       = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 400); };
+  @state() private roofNailTotal: number | any        = (roofingNailPrice:number, roofingNailResult:number,) =>     { return Math.round(roofingNailPrice * roofingNailResult); };
+
+  @state() private starters: number                   = 0;
+  @state() private startersResult: number | any       = (starters:number) =>                                        { return Math.ceil(starters / 105); };
+  @state() private startersTotal: number | any        = (cappingPrice:number, cappingResult:number) =>              { return Math.round(cappingPrice * cappingResult); };
+
+  /* CAPPING 
+  @property({type:Number}) cap: number                = 0;
+  @state() private cappingResult: number | any        = (cap:number) =>                                             { return Math.ceil(cap / 20); };
+  @state() private cappingTotal: number | any         = (starterPrice:number, starterResult:number) =>              { return Math.round(starterPrice * starterResult); };
+
+  /* FELT 
+  @state() private felt15Result: number | any         = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 400); };
+  @state() private felt15Total: number | any          = (felt15Price:number, felt15Result:number) =>                { return Math.round(felt15Price * felt15Result); };
+
+  @state() private felt30Result: number | any         = (squareFeet:number) =>                                      { return Math.ceil(squareFeet / 200); };
+  @state() private felt30Total: number | any          = (felt30Price:number, felt30Result:number) =>                { return Math.round(felt30Price * felt30Result); };
 
 
     */

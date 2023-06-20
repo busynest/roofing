@@ -19,7 +19,11 @@ export class RoofingShell extends connect(store)(LazyLoader) {
 
   @state() page = '';
   @property({type:Number}) roofingTotal = 0;
-  @state() rate = 120;
+  @state() rate = 90;
+  @state() labourCap = 1;
+  @state() flashRate = 0;
+  @state() flashLength = 0;
+  @state() capping = 0;
   @state() square = 0;
 
   constructor() {
@@ -29,6 +33,36 @@ export class RoofingShell extends connect(store)(LazyLoader) {
   stateChanged(state: RootState): void {
     this.page = state.roofing!.page;
   }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('my-labour', this.handleEvent);
+    this.addEventListener('my-labourCap', this.handleEvent2);
+    this.addEventListener('my-flashing', this.handleEvent3);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('my-labour', this.handleEvent);
+    this.removeEventListener('my-labourCap', this.handleEvent2);
+    this.removeEventListener('my-flashing', this.handleEvent3);
+  }
+
+  handleEvent(event: CustomEvent) {
+    this.rate = Number(event.detail.message);
+    console.log('labourRate: ',this.rate);
+  }
+
+  handleEvent2(event: CustomEvent) {
+    this.labourCap = Number(event.detail.message);
+    console.log('labourCap: ',this.labourCap);
+  }
+
+  handleEvent3(event: CustomEvent) {
+    this.flashRate = Number(event.detail.message);
+    console.log('flashRate: ',this.flashRate);
+  }
+
 
   static styles:CSSResult = css`
 
@@ -45,51 +79,74 @@ export class RoofingShell extends connect(store)(LazyLoader) {
     header {
       display: grid;
       grid-template-columns: 1fr;
-      grid-gap: 12px;
     }
   
     a { text-decoration: none; }
     nav {
-      padding:            20px 0;
-      display:            grid;
+      display: grid;
       grid-template-columns: 1fr 1fr 1fr;
-      grid-gap: 12px;
+      background-color: #0a2840;
+      height: 40px;
+      border-radius: 4px 4px 0 0;
     }
 
     .appTitle {
-      margin:0;
       font-size: x-large;
+      margin-top: 4px;
     }
 
     nav > button {
       background-color: transparent;
       border: 0;
-      border-bottom: 1px solid transparent;
       appearance: none;
-      color: black;
+      cursor: pointer;
+      text-transform: uppercase;
+      color: grey;
+      margin: auto 0;
+      line-height: 38px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: small;
+      width: 100%;
+      text-align: center;
     }
 
     nav > button[data-active] {
-      border-bottom: 1px solid black;
+      color: white;
     }
 
     .colored {
-      height: 36px;
-      width: 84px;
-      margin: auto;
+      grid-row: 1/5;
+      height: 60px;
+      width: 60px;
+      background-color: rgba(0,0,0,0.1);
+      border: 1px solid grey;
+      border-radius: 4px;
+      appearance: none;
+      color: black;
+      cursor: pointer;
+      text-transform: uppercase;
+      margin: auto 0;
+      line-height: 38px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: small;
+      text-align: center;
     }
 
-    .results {
+    .results {/*
       position: fixed;
       bottom: 0;
-      right: 0;
+      right: 0;*/
       padding: 12px;
       background-color: white;
-      border-radius: 4px 0 0 0;
+      border-radius: 0 0 4px 4px;
       border: 1px solid black;
       display: grid;
-      grid-template-columns: 1fr 0fr;
+      grid-template-columns: 1fr 2fr 0fr;
     }
+
+    .results > .a { text-align: right; font-size: smaller; } 
 
   `;
 
@@ -101,13 +158,12 @@ export class RoofingShell extends connect(store)(LazyLoader) {
   
     return html`
 
+    <style>
+      @media print  {
+        .results, header { display: none!important; }
+      }
+    </style>
       
-    <div class="results" onclick="window.print()">
-      <div>Material Estimate: </div><div>\$${this.roofingTotal}</div>
-      <div>Labour Estimate: </div><div>\$${this.square * this.rate}</div>
-      <div>Total Estimate: </div><div>\$${this.roofingTotal + (this.square * this.rate)}</div>
-    </div>
-
     <!-- HEADER -->
     <header>
 
@@ -118,17 +174,23 @@ export class RoofingShell extends connect(store)(LazyLoader) {
 
       <nav>
         <button value="primary-contract" ?data-active="${this.page === 'primary-contract' }" @click="${this.handle}"  >Contract</button>
-      <!-- <button value="sub-contract"      @click=\${this.handle}  >Subcontract</button> -->
-        <button value="purchase-order"   ?data-active="${this.page === 'purchase-order' }" @click="${this.handle}"  >Material</button>
+        <!-- <button value="sub-contract"      @click=\${this.handle}  >Subcontract</button> -->
+        <button value="purchase-order"   ?data-active="${this.page === 'purchase-order' }" @click="${this.handle}"  >Estimate</button>
         <button value="warranty-contract" ?data-active="${this.page === 'warranty-contract' }" @click="${this.handle}"  >Warranty</button>
+        <p style="font-size:x-small; padding: 0 8px;">* sign-in to save Material Price adjustments</p>
       </nav>
 
-      <!-- PRINT-->
-      <button 
-        class="colored"
-        onclick="window.print()"
-      >Print</button>
-    
+      <div class="results">
+        <!-- PRINT onclick="window.print()" -->
+        <button 
+          class="colored"
+          onclick="window.print()"
+        >Print</button>
+        <div class="a">Roofing Material: </div><div>\$${this.roofingTotal}</div>
+        <div class="a">Installation: </div><div>\$${console.log('square level 3:', this.square),(this.square * this.rate) + (this.capping * this.labourCap)}</div>
+        <div class="a">Flash: </div><div>\$${(this.flashLength * this.flashRate)}</div>
+        <div class="a">Total: </div><div>\$${this.roofingTotal + (this.square * this.rate)}</div>
+      </div>
 
     </header>
 
@@ -137,14 +199,31 @@ export class RoofingShell extends connect(store)(LazyLoader) {
     
     <!-- ROOFING SUBCONTRACT
     <sub-contract ?active="\${this.page === 'sub-contract' }"></sub-contract>
+          .roofingTotal="\${this.roofingTotal}"
+      .labourRate="\${this.rate}"
+
+      .roofingTotal="\${this.roofingTotal}"
+      .square="\${this.square}"
+      .capping="\${this.capping}"
+      .flashingRate="\${this.flashRate}"
+      .flashingLength="\${this.flashLength}"
+      .cappingRate="\${this.labourCap}"
+
     -->
 
     <!-- RESIDENTIAL ROOFING ESTIMATE -->
     <purchase-order
-      ?active="${this.page === 'purchase-order' }"
-      .roofingTotal="${this.roofingTotal}"
-      .labourRate="${this.rate}"
-      @input="${(e:any) => {this.roofingTotal = e.target.roofingTotal, this.square = e.target.square, console.log(e.target.roofingTotal)} }"
+      ?active="${this.page === 'purchase-order' }"      
+      @input="${(e:any) => {
+        this.roofingTotal = e.target.roofingTotal,
+        this.square = e.target.square,
+        this.capping = e.target.capping,
+        this.flashRate = e.target.flashingRate,
+        this.flashLength = e.target.flashingLength,
+        // this.rate = e.target.labourRate,
+        // this.labourCap = e.target.cappingRate
+        console.log('roofing total: ',this.roofingTotal)
+      }}"
     ></purchase-order>
 
     <!-- WARRANTY CONTACT -->
